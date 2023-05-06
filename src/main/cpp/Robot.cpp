@@ -23,7 +23,7 @@ static code_gen_model simulinkModel; //initalizes the object for simulink code
 static constexpr int positiveAxisIndex = 3; //right trigger controller axis input
 static constexpr int negitiveAxisIndex = 2; //left trigger controller axis input
 
-static frc::GenericHID controller(0); //controller object
+static frc::XboxController controller(0); //controller object
 
 static rev::CANSparkMax motor(21, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
 
