@@ -25,7 +25,7 @@ static constexpr int negitiveAxisIndex = 2; //left trigger controller axis input
 
 static frc::XboxController controller(0); //controller object
 
-static rev::CANSparkMax motor(21, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
+static rev::CANSparkMax motor(30, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
 
 static code_gen_model::ExtU_code_gen_model_T in; //input struct for code_gen_model
 
