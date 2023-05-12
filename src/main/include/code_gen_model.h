@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'code_gen_model'.
 //
-// Model version                  : 1.20
+// Model version                  : 1.36
 // Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
-// C/C++ source code generated on : Thu May  4 19:45:40 2023
+// C/C++ source code generated on : Thu May 11 19:28:51 2023
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -20,6 +20,20 @@
 #define RTW_HEADER_code_gen_model_h_
 #include "rtwtypes.h"
 #include "code_gen_model_types.h"
+
+extern "C"
+{
+
+#include "rtGetNaN.h"
+
+}
+
+extern "C"
+{
+
+#include "rt_nonfinite.h"
+
+}
 
 // Macros for accessing real-time model data structure
 #ifndef rtmGetErrorStatus
@@ -37,15 +51,22 @@ class code_gen_model final
  public:
   // Block signals (default storage)
   struct B_code_gen_model_T {
-    real_T Net_input;                  // '<S2>/Add'
-    real_T Motor_Speed;                // '<S1>/Chart'
+    real_T Motor_Speed;                // '<Root>/Merge'
+    real_T Net_input;                  // '<S3>/Add'
+    real_T Motor_Speed_g;              // '<S1>/Chart'
   };
 
   // Block states (default storage) for system '<Root>'
   struct DW_code_gen_model_T {
+    real_T UnitDelay_DSTATE;           // '<Root>/Unit Delay'
     real_T time;                       // '<S1>/Chart'
     uint8_T is_active_c3_code_gen_model;// '<S1>/Chart'
     uint8_T is_c3_code_gen_model;      // '<S1>/Chart'
+  };
+
+  // Invariant block signals (default storage)
+  struct ConstB_code_gen_model_T {
+    real_T Gain;                       // '<S2>/Gain'
   };
 
   // External inputs (root inport signals with default storage)
@@ -58,6 +79,7 @@ class code_gen_model final
   // External outputs (root outports fed by signals with default storage)
   struct ExtY_code_gen_model_T {
     real_T Motor_speed;                // '<Root>/Motor_speed'
+    uint32_T LED_Array[75];            // '<Root>/LED_Array'
   };
 
   // Real-time Model Data Structure
@@ -93,7 +115,7 @@ class code_gen_model final
   }
 
   // model initialize function
-  static void initialize();
+  void initialize();
 
   // model step function
   void step();
@@ -125,6 +147,8 @@ class code_gen_model final
   RT_MODEL_code_gen_model_T code_gen_model_M;
 };
 
+extern const code_gen_model::ConstB_code_gen_model_T code_gen_model_ConstB;// constant block i/o 
+
 //-
 //  The generated code includes comments that allow you to trace directly
 //  back to the appropriate location in the model.  The basic format
@@ -141,8 +165,10 @@ class code_gen_model final
 //
 //  '<Root>' : 'code_gen_model'
 //  '<S1>'   : 'code_gen_model/Auto'
-//  '<S2>'   : 'code_gen_model/Teleop'
-//  '<S3>'   : 'code_gen_model/Auto/Chart'
+//  '<S2>'   : 'code_gen_model/Disabled'
+//  '<S3>'   : 'code_gen_model/Teleop'
+//  '<S4>'   : 'code_gen_model/Auto/Chart'
+//  '<S5>'   : 'code_gen_model/Disabled/Array Triangle Gen Fill'
 
 #endif                                 // RTW_HEADER_code_gen_model_h_
 

@@ -3,7 +3,7 @@
 // sponsored by MathWorks.  Not for government, commercial or other
 // non-sponsored organizational use.
 //
-// File: code_gen_model_types.h
+// File: code_gen_model_data.cpp
 //
 // Code generated for Simulink model 'code_gen_model'.
 //
@@ -16,9 +16,13 @@
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#ifndef RTW_HEADER_code_gen_model_types_h_
-#define RTW_HEADER_code_gen_model_types_h_
-#endif                                 // RTW_HEADER_code_gen_model_types_h_
+#include "code_gen_model.h"
+
+// Invariant block signals (default storage)
+const code_gen_model::ConstB_code_gen_model_T code_gen_model_ConstB{
+  20.0
+  // '<S2>/Gain'
+};
 
 //
 // File trailer for generated code.

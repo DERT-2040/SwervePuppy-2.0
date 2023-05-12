@@ -8,6 +8,9 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc/AddressableLED.h>
+
+#include <frc/PWM.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -30,4 +33,13 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+
+  //led test
+    static constexpr int kLength = 75;
+    frc::AddressableLED m_led{1};
+    std::array<frc::AddressableLED::LEDData, kLength>
+      m_ledBuffer;
+    const double a = 180;
+    static constexpr int kCompleateLEDCycleTime = 5000; //in ms
+    int kCurrentTime;
 };

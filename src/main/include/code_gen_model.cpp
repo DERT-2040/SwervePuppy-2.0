@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'code_gen_model'.
 //
-// Model version                  : 1.36
+// Model version                  : 1.35
 // Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
-// C/C++ source code generated on : Thu May 11 19:28:51 2023
+// C/C++ source code generated on : Thu May 11 18:20:31 2023
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -19,7 +19,6 @@
 #include "code_gen_model.h"
 #include "rtwtypes.h"
 #include "code_gen_model_private.h"
-#include <cstring>
 #include <cmath>
 #include <cfloat>
 
@@ -76,6 +75,7 @@ void code_gen_model::step()
 {
   real_T tmp;
   int32_T Index;
+  int32_T i;
 
   // If: '<Root>/If' incorporates:
   //   Inport: '<Root>/Game_State'
@@ -147,11 +147,13 @@ void code_gen_model::step()
     // Outputs for Iterator SubSystem: '<S2>/Array Triangle Gen Fill' incorporates:
     //   ForIterator: '<S5>/For Iterator'
 
-    for (Index = 0; Index < 75; Index++) {
+    for (Index = 0; Index < 8; Index++) {
       // Assignment: '<S5>/Assignment'
       if (Index == 0) {
         // Outport: '<Root>/LED_Array'
-        std::memset(&code_gen_model_Y.LED_Array[0], 0, 75U * sizeof(uint32_T));
+        for (i = 0; i < 8; i++) {
+          code_gen_model_Y.LED_Array[i] = 0U;
+        }
       }
 
       // Product: '<S5>/Product' incorporates:

@@ -25,7 +25,7 @@ static constexpr int negitiveAxisIndex = 2; //left trigger controller axis input
 
 static frc::XboxController controller(0); //controller object
 
-static rev::CANSparkMax motor(30, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
+//static rev::CANSparkMax motor(30, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
 
 static code_gen_model::ExtU_code_gen_model_T in; //input struct for code_gen_model
 
@@ -36,6 +36,16 @@ void Robot::RobotInit() {
   Game_State = -1; //disabled game state
   simulinkModel.initialize();
 
+//init led
+  m_led.SetLength(kLength);
+  m_led.SetData(m_ledBuffer);
+  m_led.Start();
+//fill led
+  
+  kCurrentTime = 0;
+  //std::cout << m_ledBrighnessController.GetRaw();
+
+//chooser
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
@@ -49,7 +59,24 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  /*
+  int V = 0;
+  for(int i = 0; i < kLength; i++) {
+    V = round(((2*a)/kCompleateLEDCycleTime)*fabs((kCurrentTime-(kCompleateLEDCycleTime/2)-(10*i))%kCompleateLEDCycleTime-(kCompleateLEDCycleTime/2)));
+    m_ledBuffer[i].SetHSV(V, 255, 127);
+    
+  }
+  kCurrentTime += 20;
+  kCurrentTime %= kCompleateLEDCycleTime; 
+  */
+  UniversalStep();
+  std::cout << "working" << std::endl;
+  for(int i = 0; i < kLength; i++)
+    m_ledBuffer[i].SetHSV(simulinkModel.getExternalOutputs().LED_Array[i], 255, 127);
+  std::cout << "working" << std::endl;
+  m_led.SetData(m_ledBuffer);
+}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -105,12 +132,11 @@ void Robot::UniversalStep() {
   in.Game_State = Game_State;
   in.Trigger_val_p = controller.GetRawAxis(positiveAxisIndex);
   in.Trigger_val_n = controller.GetRawAxis(negitiveAxisIndex);
-  
   simulinkModel.setExternalInputs(&in);
   //step
   simulinkModel.step();
   //outputs
-  motor.Set(simulinkModel.getExternalOutputs().Motor_speed);
+  //motor.Set(simulinkModel.getExternalOutputs().Motor_speed);
 }
 #ifndef RUNNING_FRC_TESTS
 int main() {
