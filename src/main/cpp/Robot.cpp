@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "Robot.h"
+#include "include/Robot.h"
 
 #include <rev/CANSparkMax.h>
 
@@ -10,7 +10,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 //simulink include
-#include <code_gen_model.h>
+#include <code_gen_model_ert_rtw/code_gen_model.h>
 
 #include <frc/GenericHID.h>
 #include <frc/XboxController.h>
@@ -40,11 +40,6 @@ void Robot::RobotInit() {
   m_led.SetLength(kLength);
   m_led.SetData(m_ledBuffer);
   m_led.Start();
-//fill led
-  
-  kCurrentTime = 0;
-  //std::cout << m_ledBrighnessController.GetRaw();
-
 //chooser
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
@@ -60,22 +55,7 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-  /*
-  int V = 0;
-  for(int i = 0; i < kLength; i++) {
-    V = round(((2*a)/kCompleateLEDCycleTime)*fabs((kCurrentTime-(kCompleateLEDCycleTime/2)-(10*i))%kCompleateLEDCycleTime-(kCompleateLEDCycleTime/2)));
-    m_ledBuffer[i].SetHSV(V, 255, 127);
-    
-  }
-  kCurrentTime += 20;
-  kCurrentTime %= kCompleateLEDCycleTime; 
-  */
   UniversalStep();
-  std::cout << "working" << std::endl;
-  for(int i = 0; i < kLength; i++)
-    m_ledBuffer[i].SetHSV(simulinkModel.getExternalOutputs().LED_Array[i], 255, 127);
-  std::cout << "working" << std::endl;
-  m_led.SetData(m_ledBuffer);
 }
 
 /**
@@ -108,7 +88,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-  Game_State = 1;
+  Game_State = -1;//FIX
 }
 
 void Robot::TeleopPeriodic() {
@@ -133,6 +113,9 @@ void Robot::UniversalStep() {
   in.Trigger_val_p = controller.GetRawAxis(positiveAxisIndex);
   in.Trigger_val_n = controller.GetRawAxis(negitiveAxisIndex);
   simulinkModel.setExternalInputs(&in);
+  for(int i = 0; i < kLength; i++)
+    m_ledBuffer[i].SetHSV(simulinkModel.getExternalOutputs().LED_Array[i], 255, 127);
+  m_led.SetData(m_ledBuffer);
   //step
   simulinkModel.step();
   //outputs

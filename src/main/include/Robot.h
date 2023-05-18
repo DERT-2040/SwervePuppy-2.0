@@ -35,11 +35,8 @@ class Robot : public frc::TimedRobot {
   std::string m_autoSelected;
 
   //led test
-    static constexpr int kLength = 75;
-    frc::AddressableLED m_led{1};
+    static constexpr int kLength = 8;
+    frc::AddressableLED m_led{0};
     std::array<frc::AddressableLED::LEDData, kLength>
       m_ledBuffer;
-    const double a = 180;
-    static constexpr int kCompleateLEDCycleTime = 5000; //in ms
-    int kCurrentTime;
 };
