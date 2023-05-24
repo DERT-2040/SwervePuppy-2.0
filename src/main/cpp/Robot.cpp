@@ -15,26 +15,28 @@
 #include <frc/GenericHID.h>
 #include <frc/XboxController.h>
 
+#include <hal/AddressableLEDTypes.h>
+
 #include <iostream>
 
 //vars
-static code_gen_model simulinkModel; //initalizes the object for simulink code
+//static code_gen_model simulinkModel; //initalizes the object for simulink code
 
 static constexpr int positiveAxisIndex = 3; //right trigger controller axis input
 static constexpr int negitiveAxisIndex = 2; //left trigger controller axis input
 
-static frc::XboxController controller(0); //controller object
+static frc::GenericHID controller(0); //controller object
 
 //static rev::CANSparkMax motor(30, rev::CANSparkMaxLowLevel::MotorType::kBrushless); //only motor object
 
-static code_gen_model::ExtU_code_gen_model_T in; //input struct for code_gen_model
+//static code_gen_model::ExtU_code_gen_model_T in; //input struct for code_gen_model
 
 int Game_State;
 
 
 void Robot::RobotInit() {
   Game_State = -1; //disabled game state
-  simulinkModel.initialize();
+  //simulinkModel.initialize();
 
 //init led
   m_led.SetLength(kLength);
@@ -84,7 +86,6 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic() {
-  UniversalStep();
 }
 
 void Robot::TeleopInit() {
@@ -92,7 +93,7 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-  UniversalStep();
+  //std::cout << controller.GetRawAxis(positiveAxisIndex) << std::endl;
 }
 
 void Robot::DisabledInit() {}
@@ -109,15 +110,16 @@ void Robot::SimulationPeriodic() {}
 
 void Robot::UniversalStep() {
   //inputs
-  in.Game_State = Game_State;
-  in.Trigger_val_p = controller.GetRawAxis(positiveAxisIndex);
-  in.Trigger_val_n = controller.GetRawAxis(negitiveAxisIndex);
-  simulinkModel.setExternalInputs(&in);
+  //in.Game_State = Game_State;
+  //in.Trigger_val_p = controller.GetRawAxis(positiveAxisIndex);
+  //in.Trigger_val_n = controller.GetRawAxis(negitiveAxisIndex);
+  //simulinkModel.setExternalInputs(&in);
+
   for(int i = 0; i < kLength; i++)
-    m_ledBuffer[i].SetHSV(simulinkModel.getExternalOutputs().LED_Array[i], 255, 127);
+    m_ledBuffer[i].SetHSV(17, 49, 60);
   m_led.SetData(m_ledBuffer);
-  //step
-  simulinkModel.step();
+  //step simulinkModel.getExternalOutputs().LED_Array[i]
+  //simulinkModel.step();
   //outputs
   //motor.Set(simulinkModel.getExternalOutputs().Motor_speed);
 }

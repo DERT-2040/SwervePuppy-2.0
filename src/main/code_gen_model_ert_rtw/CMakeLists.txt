@@ -49,7 +49,7 @@ set(CODE_GEN_MODEL_COMMON_DEFINES -DMODEL=code_gen_model
     -DTERMFCN=1
     -DONESTEPFCN=1
     -DMAT_FILE=0
-    -DMULTI_INSTANCE_CODE=1
+    -DMULTI_INSTANCE_CODE=0
     -DINTEGER_CODE=0
     -DMT=0
     -D_CRT_SECURE_NO_WARNINGS)
@@ -57,15 +57,15 @@ set(CODE_GEN_MODEL_COMMON_DEFINES -DMODEL=code_gen_model
 set(CODE_GEN_MODEL_COMMON_COMPILER_FLAGS /wd4251
     -EHs)
 
-add_library(code_gen_model_objects OBJECT ${START_DIR}/code_gen_model_ert_rtw/code_gen_model.cpp
-    ${START_DIR}/code_gen_model_ert_rtw/code_gen_model_data.cpp
-    ${START_DIR}/code_gen_model_ert_rtw/rtGetInf.cpp
-    ${START_DIR}/code_gen_model_ert_rtw/rtGetNaN.cpp
-    ${START_DIR}/code_gen_model_ert_rtw/rt_nonfinite.cpp)
+add_library(code_gen_model_objects OBJECT ${START_DIR}/code_gen_model_ert_rtw/code_gen_model.c
+    ${START_DIR}/code_gen_model_ert_rtw/code_gen_model_data.c
+    ${START_DIR}/code_gen_model_ert_rtw/rtGetInf.c
+    ${START_DIR}/code_gen_model_ert_rtw/rtGetNaN.c
+    ${START_DIR}/code_gen_model_ert_rtw/rt_nonfinite.c)
 set_target_properties(code_gen_model_objects PROPERTIES
     PREFIX ""
     POSITION_INDEPENDENT_CODE ON)
-target_compile_features(code_gen_model_objects PUBLIC cxx_std_11)
+target_compile_features(code_gen_model_objects PUBLIC c_std_99)
 target_compile_definitions(code_gen_model_objects PRIVATE ${CODE_GEN_MODEL_COMMON_DEFINES})
 target_compile_options(code_gen_model_objects PRIVATE ${CODE_GEN_MODEL_COMMON_COMPILER_FLAGS})
 target_include_directories(code_gen_model_objects PUBLIC $<BUILD_INTERFACE:${START_DIR}>
@@ -79,11 +79,11 @@ target_include_directories(code_gen_model_objects PUBLIC $<BUILD_INTERFACE:${STA
     $<BUILD_INTERFACE:${MATLAB_ROOT}/rtw/c/ert>)
 target_link_libraries(code_gen_model_objects PUBLIC $<$<BOOL:${FOUND_LIBM}>:m>)
 
-add_executable(code_gen_model  ${START_DIR}/code_gen_model_ert_rtw/ert_main.cpp)
+add_executable(code_gen_model  ${START_DIR}/code_gen_model_ert_rtw/ert_main.c)
 set_target_properties(code_gen_model PROPERTIES
     PREFIX ""
     POSITION_INDEPENDENT_CODE ON)
-target_compile_features(code_gen_model PUBLIC cxx_std_11)
+target_compile_features(code_gen_model PUBLIC c_std_99)
 target_compile_definitions(code_gen_model PRIVATE ${CODE_GEN_MODEL_COMMON_DEFINES})
 target_compile_options(code_gen_model PRIVATE ${CODE_GEN_MODEL_COMMON_COMPILER_FLAGS})
 target_link_libraries(code_gen_model PRIVATE code_gen_model_objects)
