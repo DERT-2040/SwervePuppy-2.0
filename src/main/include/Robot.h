@@ -5,9 +5,13 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
-
+#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
+#include <rev/CANSparkMax.h>
+#include <frc/XboxController.h>
+#include <frc/GenericHID.h>
 class Robot : public frc::TimedRobot {
  public:
+  Robot();
   void RobotInit() override;
   void RobotPeriodic() override;
 
@@ -25,4 +29,11 @@ class Robot : public frc::TimedRobot {
 
   void SimulationInit() override;
   void SimulationPeriodic() override;
+
+private:
+  void PreStep();
+  void PostStep();
+
+  rev::CANSparkMax m_SparkMax;
+  frc::XboxController m_Controller;
 };
