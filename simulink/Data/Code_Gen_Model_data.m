@@ -10,3 +10,5 @@ Steering_PID_int = 0.02;
 Steering_PID_der = 0.0025;
 
 RIO_Offset = pi/2;
+
+translation_Acceleration = 0.9;
