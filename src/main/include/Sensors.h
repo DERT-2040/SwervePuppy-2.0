@@ -5,7 +5,6 @@
 
 class Sensors {
 public:
-    Sensors();
     void PreStep();
     void PostStep();
 private:

@@ -8,4 +8,3 @@ void Sensors::PreStep() {
 void Sensors::PostStep() {
     
 }
-Sensors::Sensors() {}
