@@ -4,11 +4,16 @@
 
 #pragma once
 
-#include <frc/TimedRobot.h>
+//local
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
-#include <rev/CANSparkMax.h>
-#include <frc/XboxController.h>
-#include <frc/GenericHID.h>
+#include "include/HIDs.h"
+#include "include/Sensors.h"
+#include "include/SwerveDrive.h"
+//frc
+#include <frc/TimedRobot.h>
+#include <frc/event/EventLoop.h>
+#include <frc/event/BooleanEvent.h>
+
 class Robot : public frc::TimedRobot {
  public:
   Robot();
@@ -33,7 +38,11 @@ class Robot : public frc::TimedRobot {
 private:
   void PreStep();
   void PostStep();
+  
+  void BindEvents();
 
-  rev::CANSparkMax m_SparkMax;
-  frc::XboxController m_Controller;
+  HIDs m_HIDs;
+  Sensors m_Sensors;
+  SwerveDrive m_SwerveDrive;
+  frc::EventLoop m_EventLoop;
 };
