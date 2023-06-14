@@ -57,7 +57,11 @@ set(CODE_GEN_MODEL_COMMON_DEFINES -DMODEL=Code_Gen_Model
 set(CODE_GEN_MODEL_COMMON_COMPILER_FLAGS /wd4251
     -EHs)
 
-add_library(Code_Gen_Model_objects OBJECT ${START_DIR}/Code_Gen_Model_ert_rtw/Code_Gen_Model.c)
+add_library(Code_Gen_Model_objects OBJECT ${START_DIR}/Code_Gen_Model_ert_rtw/Code_Gen_Model.c
+    ${START_DIR}/Code_Gen_Model_ert_rtw/Code_Gen_Model_data.c
+    ${START_DIR}/Code_Gen_Model_ert_rtw/rtGetInf.c
+    ${START_DIR}/Code_Gen_Model_ert_rtw/rtGetNaN.c
+    ${START_DIR}/Code_Gen_Model_ert_rtw/rt_nonfinite.c)
 set_target_properties(Code_Gen_Model_objects PROPERTIES
     PREFIX ""
     POSITION_INDEPENDENT_CODE ON)
