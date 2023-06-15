@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.24
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Wed Jun 14 16:13:20 2023
+ * C/C++ source code generated on : Thu Jun 15 09:55:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -24,26 +24,6 @@
 #include <math.h>
 #include "rt_defines.h"
 #include <float.h>
-
-/* Exported block parameters */
-real_T BackLeft_Turn_Offset = 0.0;     /* Variable: BackLeft_Turn_Offset
-                                        * Referenced by: '<Root>/BackLeft_Turn_Offset'
-                                        */
-real_T BackRight_Turn_Offset = 0.0;    /* Variable: BackRight_Turn_Offset
-                                        * Referenced by: '<Root>/BackRight_Turn_Offset'
-                                        */
-real_T FrontLeft_Turn_Offset = 0.0;    /* Variable: FrontLeft_Turn_Offset
-                                        * Referenced by: '<Root>/FrontLeft_Turn_Offset'
-                                        */
-real_T FrontRight_Turn_Offset = 0.0;   /* Variable: FrontRight_Turn_Offset
-                                        * Referenced by: '<Root>/FrontRight_Turn_Offset'
-                                        */
-boolean_T Is_Absolute_Steering = false;/* Variable: Is_Absolute_Steering
-                                        * Referenced by: '<Root>/Is_Absolute_Steering'
-                                        */
-boolean_T Is_Absolute_Translation = false;/* Variable: Is_Absolute_Translation
-                                           * Referenced by: '<Root>/Is_Absolute_Translation'
-                                           */
 
 /* Block signals (default storage) */
 B_Code_Gen_Model_T Code_Gen_Model_B;
@@ -441,15 +421,15 @@ void Code_Gen_Model_step(void)
     rtb_Gain1 = 0.017453292519943295 * Code_Gen_Model_U.Gyro_Angle;
 
     /* Switch: '<S460>/Switch' incorporates:
-     *  Constant: '<Root>/Is_Absolute_Translation'
      *  Constant: '<S524>/Constant3'
      *  Constant: '<S524>/Constant4'
+     *  Inport: '<Root>/Is_Absolute_Translation'
      *  Math: '<S524>/Math Function'
      *  Sum: '<S524>/Add1'
      *  Sum: '<S524>/Add2'
      *  Trigonometry: '<S460>/Atan2'
      */
-    if (Is_Absolute_Translation) {
+    if (Code_Gen_Model_U.Is_Absolute_Translation) {
       rtb_Sum1_h = rt_modd_snf(rt_atan2d_snf(rtb_Integrator_i, rtb_Sum1_h) +
         rtb_Gain1 + 3.1415926535897931, 6.2831853071795862) - 3.1415926535897931;
     } else {
@@ -538,10 +518,10 @@ void Code_Gen_Model_step(void)
     rtb_Tsamp = 0.0025 * rtb_Gain1 * 50.0;
 
     /* Switch: '<S459>/Switch' incorporates:
-     *  Constant: '<Root>/Is_Absolute_Steering'
      *  Gain: '<S459>/Gain'
+     *  Inport: '<Root>/Is_Absolute_Steering'
      */
-    if (Is_Absolute_Steering) {
+    if (Code_Gen_Model_U.Is_Absolute_Steering) {
       /* Sum: '<S516>/Sum' incorporates:
        *  Delay: '<S500>/UD'
        *  DiscreteIntegrator: '<S507>/Integrator'
@@ -650,10 +630,10 @@ void Code_Gen_Model_step(void)
     }
 
     /* Sum: '<S347>/Add' incorporates:
-     *  Constant: '<Root>/BackRight_Turn_Offset'
+     *  Inport: '<Root>/BackRight_Turn_Offset'
      *  Switch: '<S348>/Switch'
      */
-    rtb_Integrator_d = rtb_Hypot_m + BackRight_Turn_Offset;
+    rtb_Integrator_d = rtb_Hypot_m + Code_Gen_Model_U.BackRight_Turn_Offset;
 
     /* Abs: '<S400>/Abs' */
     rtb_Abs_b = fabs(rtb_Integrator_d);
@@ -899,10 +879,10 @@ void Code_Gen_Model_step(void)
     }
 
     /* Sum: '<S236>/Add' incorporates:
-     *  Constant: '<Root>/BackLeft_Turn_Offset'
+     *  Inport: '<Root>/BackLeft_Turn_Offset'
      *  Switch: '<S237>/Switch'
      */
-    rtb_Sum1_h = rtb_Hypot_m + BackLeft_Turn_Offset;
+    rtb_Sum1_h = rtb_Hypot_m + Code_Gen_Model_U.BackLeft_Turn_Offset;
 
     /* Abs: '<S289>/Abs' */
     rtb_Abs_m = fabs(rtb_Sum1_h);
@@ -1150,10 +1130,10 @@ void Code_Gen_Model_step(void)
     }
 
     /* Sum: '<S125>/Add' incorporates:
-     *  Constant: '<Root>/FrontRight_Turn_Offset'
+     *  Inport: '<Root>/FrontRight_Turn_Offset'
      *  Switch: '<S126>/Switch'
      */
-    rtb_Sum1_h = rtb_Hypot_m + FrontRight_Turn_Offset;
+    rtb_Sum1_h = rtb_Hypot_m + Code_Gen_Model_U.FrontRight_Turn_Offset;
 
     /* Abs: '<S178>/Abs' */
     rtb_Abs_f = fabs(rtb_Sum1_h);
@@ -1402,10 +1382,10 @@ void Code_Gen_Model_step(void)
     }
 
     /* Sum: '<S14>/Add' incorporates:
-     *  Constant: '<Root>/FrontLeft_Turn_Offset'
+     *  Inport: '<Root>/FrontLeft_Turn_Offset'
      *  Switch: '<S15>/Switch'
      */
-    rtb_Sum1_h = rtb_Hypot_m + FrontLeft_Turn_Offset;
+    rtb_Sum1_h = rtb_Hypot_m + Code_Gen_Model_U.FrontLeft_Turn_Offset;
 
     /* Abs: '<S67>/Abs' */
     rtb_Abs_p = fabs(rtb_Sum1_h);

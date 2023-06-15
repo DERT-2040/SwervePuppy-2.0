@@ -51,11 +51,11 @@ void Robot::BindEvents() {
       .Rising().IfHigh([&SwerveDrive = m_SwerveDrive]
       {SwerveDrive.Reset_Wheel_Offset();}
       );
-  Robot::m_HIDs.Get_Gamepad().Button(Constants::k_Toggle_Absolute_Translation_Button, &m_EventLoop)
+  Robot::m_HIDs.Get_Drive_Joystick().Top(&m_EventLoop)
       .Rising().IfHigh([&SwerveDrive = m_SwerveDrive]
       {SwerveDrive.Toggle_Absolute_Translation();}
       );
-  Robot::m_HIDs.Get_Gamepad().Button(Constants::k_Toggle_Absolute_Steering_Button, &m_EventLoop)
+  Robot::m_HIDs.Get_Steer_Joystick().Top(&m_EventLoop)
       .Rising().IfHigh([&SwerveDrive = m_SwerveDrive]
       {SwerveDrive.Toggle_Absolute_Steering();}
       );

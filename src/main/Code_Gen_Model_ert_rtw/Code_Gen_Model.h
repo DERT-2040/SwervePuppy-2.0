@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.22
+ * Model version                  : 1.24
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Wed Jun 14 16:13:20 2023
+ * C/C++ source code generated on : Thu Jun 15 09:55:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -156,6 +156,12 @@ typedef struct {
   real_T FrontRight_Steer_Encoder;     /* '<Root>/FrontRight_Steer_Encoder' */
   real_T BackLeft_Steer_Encoder;       /* '<Root>/BackLeft_Steer_Encoder' */
   real_T BackRight_Steer_Encoder;      /* '<Root>/BackRight_Steer_Encoder' */
+  real_T FrontLeft_Turn_Offset;        /* '<Root>/FrontLeft_Turn_Offset' */
+  real_T FrontRight_Turn_Offset;       /* '<Root>/FrontRight_Turn_Offset' */
+  real_T BackLeft_Turn_Offset;         /* '<Root>/BackLeft_Turn_Offset' */
+  real_T BackRight_Turn_Offset;        /* '<Root>/BackRight_Turn_Offset' */
+  boolean_T Is_Absolute_Steering;      /* '<Root>/Is_Absolute_Steering' */
+  boolean_T Is_Absolute_Translation;   /* '<Root>/Is_Absolute_Translation' */
 } ExtU_Code_Gen_Model_T;
 
 /* External outputs (root outports fed by signals with default storage) */
@@ -190,33 +196,6 @@ extern const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB;/* constant block i/o
 
 /* Constant parameters (default storage) */
 extern const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP;
-
-/*
- * Exported Global Parameters
- *
- * Note: Exported global parameters are tunable parameters with an exported
- * global storage class designation.  Code generation will declare the memory for
- * these parameters and exports their symbols.
- *
- */
-extern real_T BackLeft_Turn_Offset;    /* Variable: BackLeft_Turn_Offset
-                                        * Referenced by: '<Root>/BackLeft_Turn_Offset'
-                                        */
-extern real_T BackRight_Turn_Offset;   /* Variable: BackRight_Turn_Offset
-                                        * Referenced by: '<Root>/BackRight_Turn_Offset'
-                                        */
-extern real_T FrontLeft_Turn_Offset;   /* Variable: FrontLeft_Turn_Offset
-                                        * Referenced by: '<Root>/FrontLeft_Turn_Offset'
-                                        */
-extern real_T FrontRight_Turn_Offset;  /* Variable: FrontRight_Turn_Offset
-                                        * Referenced by: '<Root>/FrontRight_Turn_Offset'
-                                        */
-extern boolean_T Is_Absolute_Steering; /* Variable: Is_Absolute_Steering
-                                        * Referenced by: '<Root>/Is_Absolute_Steering'
-                                        */
-extern boolean_T Is_Absolute_Translation;/* Variable: Is_Absolute_Translation
-                                          * Referenced by: '<Root>/Is_Absolute_Translation'
-                                          */
 
 /* Model entry point functions */
 extern void Code_Gen_Model_initialize(void);
