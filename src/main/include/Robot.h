@@ -4,14 +4,18 @@
 
 #pragma once
 
-#include <frc/TimedRobot.h>
+//local
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
-#include <rev/CANSparkMax.h>
-#include <frc/XboxController.h>
-#include <frc/GenericHID.h>
+#include "include/HIDs.h"
+#include "include/Sensors.h"
+#include "include/SwerveDrive.h"
+//frc
+#include <frc/TimedRobot.h>
+#include <frc/event/EventLoop.h>
+#include <frc/event/BooleanEvent.h>
+
 class Robot : public frc::TimedRobot {
  public:
-  Robot();
   void RobotInit() override;
   void RobotPeriodic() override;
 
@@ -33,7 +37,21 @@ class Robot : public frc::TimedRobot {
 private:
   void PreStep();
   void PostStep();
+  
+  /**
+   * @brief BindEvents binds all events to the event loop.
+   * This is all sensors or HIDs that need to be polled
+   */
+  void BindEvents();
 
-  rev::CANSparkMax m_SparkMax;
-  frc::XboxController m_Controller;
+  /*
+   * Below are the instances of the subsystems used by the robot
+   * Everything here should be direct hardware control, only
+   * functions that manipulate global variables declared by Simulink
+   * are exceptions to this rule.
+   */
+  HIDs m_HIDs;
+  Sensors m_Sensors;
+  SwerveDrive m_SwerveDrive;
+  frc::EventLoop m_EventLoop;
 };
