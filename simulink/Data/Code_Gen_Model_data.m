@@ -1,13 +1,6 @@
 % sample time model
 t_sample = .02;
 
-EXTERN('FrontLeft_Turn_Offset', 'double', '0.0');
-EXTERN('FrontRight_Turn_Offset', 'double', '0.0');
-EXTERN('BackLeft_Turn_Offset', 'double', '0.0');
-EXTERN('BackRight_Turn_Offset', 'double', '0.0');
-
-EXTERN('Is_Absolute_Steering', 'boolean', 'false');
-EXTERN('Is_Absolute_Translation', 'boolean', 'false');
 
 % modulation curve 
 temp_x = [0.1 0.2  0.3 0.4 0.5  0.6  0.7  0.8 0.9  1.0];

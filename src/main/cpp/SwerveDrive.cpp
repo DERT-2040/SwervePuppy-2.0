@@ -78,8 +78,8 @@ SwerveDrive::SwerveDrive() {
       m_BackRight_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_BackRight_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
   //States
-    Is_Absolute_Steering = false;
-    Is_Absolute_Translation = true;
+    Code_Gen_Model_U.Is_Absolute_Steering = false;
+    Code_Gen_Model_U.Is_Absolute_Translation = true;
   //Wheel Offset
     SwerveDrive::Initalize_Wheel_Offset();
 }
@@ -110,11 +110,11 @@ void SwerveDrive::CoastMode() {
 }
 
 void SwerveDrive::Toggle_Absolute_Translation() {
-  Is_Absolute_Translation = !Is_Absolute_Translation;
+  Code_Gen_Model_U.Is_Absolute_Translation = !Code_Gen_Model_U.Is_Absolute_Translation;
 }
 
 void SwerveDrive::Toggle_Absolute_Steering() {
-  Is_Absolute_Steering = !Is_Absolute_Steering;
+  Code_Gen_Model_U.Is_Absolute_Steering = !Code_Gen_Model_U.Is_Absolute_Steering;
 }
 
 void SwerveDrive::Initalize_Wheel_Offset() {
@@ -138,8 +138,8 @@ void SwerveDrive::Reset_Wheel_Offset() {
 }
 
 void SwerveDrive::Set_Wheel_Offset() {
-  BackLeft_Turn_Offset = frc::Preferences::GetDouble(Constants::k_BackLeft_Wheel_Offset_Key, 0.0);
-  BackRight_Turn_Offset = frc::Preferences::GetDouble(Constants::k_BackRight_Wheel_Offset_Key, 0.0);
-  FrontLeft_Turn_Offset = frc::Preferences::GetDouble(Constants::k_FrontLeft_Wheel_Offset_Key, 0.0);
-  FrontRight_Turn_Offset = frc::Preferences::GetDouble(Constants::k_FrontRight_Wheel_Offset_Key, 0.0);
+  Code_Gen_Model_U.BackLeft_Turn_Offset = frc::Preferences::GetDouble(Constants::k_BackLeft_Wheel_Offset_Key, 0.0);
+  Code_Gen_Model_U.BackRight_Turn_Offset = frc::Preferences::GetDouble(Constants::k_BackRight_Wheel_Offset_Key, 0.0);
+  Code_Gen_Model_U.FrontLeft_Turn_Offset = frc::Preferences::GetDouble(Constants::k_FrontLeft_Wheel_Offset_Key, 0.0);
+  Code_Gen_Model_U.FrontRight_Turn_Offset = frc::Preferences::GetDouble(Constants::k_FrontRight_Wheel_Offset_Key, 0.0);
 }
