@@ -56,3 +56,7 @@ Derivative_low_pass_filter_freq = 2; % Hz
 Steering_Motor_Control_D_FilterCoeff = 1-exp(-2*pi*Derivative_low_pass_filter_freq*t_sample);
 Steering_Motor_Control_D_UL = 0.2;
 Steering_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
+
+
+%% Occupency Map
+Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
