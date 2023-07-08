@@ -9,6 +9,7 @@
 #include "include/HIDs.h"
 #include "include/Sensors.h"
 #include "include/SwerveDrive.h"
+#include "include/SmartDashboard.h"
 //frc
 #include <frc/TimedRobot.h>
 #include <frc/event/EventLoop.h>
@@ -54,4 +55,5 @@ private:
   Sensors m_Sensors;
   SwerveDrive m_SwerveDrive;
   frc::EventLoop m_EventLoop;
+  SmartDashboard m_SmartDashboard;
 };

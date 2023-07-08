@@ -2,6 +2,9 @@
 #include "include/SwerveDrive.h"
 #include "Code_Gen_Model_ert_rtw/Code_Gen_Model.h"
 
+//std
+#include <iostream>
+
 void SwerveDrive::PreStep() {
   //Drive Encoders
   Code_Gen_Model_U.FrontLeft_Drive_Encoder = m_FrontLeft_Drive_Encoder.GetVelocity();
@@ -55,25 +58,25 @@ SwerveDrive::SwerveDrive() {
   //Steer Motors
     //Front Left
       m_FrontLeft_Steer.RestoreFactoryDefaults();
-      m_FrontLeft_Steer.SetInverted(false);
+      m_FrontLeft_Steer.SetInverted(true);
       m_FrontLeft_Steer.SetSmartCurrentLimit(Constants::k_Steer_Motor_Smart_Current_Limit);
       m_FrontLeft_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_FrontLeft_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
     //Front Right
       m_FrontRight_Steer.RestoreFactoryDefaults();
-      m_FrontRight_Steer.SetInverted(false);
+      m_FrontRight_Steer.SetInverted(true);
       m_FrontRight_Steer.SetSmartCurrentLimit(Constants::k_Steer_Motor_Smart_Current_Limit);
       m_FrontRight_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_FrontRight_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
     //Back Left
       m_BackLeft_Steer.RestoreFactoryDefaults();
-      m_BackLeft_Steer.SetInverted(false);
+      m_BackLeft_Steer.SetInverted(true);
       m_BackLeft_Steer.SetSmartCurrentLimit(Constants::k_Steer_Motor_Smart_Current_Limit);
       m_BackLeft_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_BackLeft_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
     //Back Right
       m_BackRight_Steer.RestoreFactoryDefaults();
-      m_BackRight_Steer.SetInverted(false);
+      m_BackRight_Steer.SetInverted(true);
       m_BackRight_Steer.SetSmartCurrentLimit(Constants::k_Steer_Motor_Smart_Current_Limit);
       m_BackRight_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_BackRight_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
@@ -130,10 +133,10 @@ void SwerveDrive::Initalize_Wheel_Offset() {
 }
 
 void SwerveDrive::Reset_Wheel_Offset() {
-  frc::Preferences::SetDouble(Constants::k_FrontLeft_Wheel_Offset_Key, m_FrontLeft_Steer.GetEncoder().GetPosition());
-  frc::Preferences::SetDouble(Constants::k_FrontRight_Wheel_Offset_Key, m_FrontRight_Steer.GetEncoder().GetPosition());
-  frc::Preferences::SetDouble(Constants::k_BackLeft_Wheel_Offset_Key, m_BackLeft_Steer.GetEncoder().GetPosition());
-  frc::Preferences::SetDouble(Constants::k_BackRight_Wheel_Offset_Key, m_BackRight_Steer.GetEncoder().GetPosition());
+  frc::Preferences::SetDouble(Constants::k_FrontLeft_Wheel_Offset_Key, m_FrontLeft_Steer_Encoder.GetAbsolutePosition());
+  frc::Preferences::SetDouble(Constants::k_FrontRight_Wheel_Offset_Key, m_FrontRight_Steer_Encoder.GetAbsolutePosition());
+  frc::Preferences::SetDouble(Constants::k_BackLeft_Wheel_Offset_Key, m_BackLeft_Steer_Encoder.GetAbsolutePosition());
+  frc::Preferences::SetDouble(Constants::k_BackRight_Wheel_Offset_Key, m_BackRight_Steer_Encoder.GetAbsolutePosition());
   SwerveDrive::Set_Wheel_Offset();
 }
 
