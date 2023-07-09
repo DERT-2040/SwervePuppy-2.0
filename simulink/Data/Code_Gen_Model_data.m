@@ -81,3 +81,4 @@ Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
 
 %% Occupency Map
 Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
+%% Spline Creation Constants
