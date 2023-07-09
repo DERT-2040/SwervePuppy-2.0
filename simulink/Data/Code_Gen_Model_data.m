@@ -18,7 +18,7 @@ Steering_Mod_Str_Abs_out = [-fliplr(temp_y) 0 temp_y];
 Steering_Mod_Str_Rel_in = [-fliplr(temp_x) 0 temp_x];
 Steering_Mod_Str_Rel_out = [-fliplr(temp_y) 0 temp_y];
 
-Steering_Relative_Gain = -0.75;
+Steering_Relative_Gain = 0.75;
 
 Translation_Limit_Acceleration = 0.9;
 Translation_Limit_Deceleration = -1000;
