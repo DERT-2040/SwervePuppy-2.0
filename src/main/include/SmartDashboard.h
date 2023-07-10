@@ -5,5 +5,7 @@ class SmartDashboard {
 public:
     SmartDashboard() {}
     void UpdateSDValues();
+    void PollSDValues();
+    void InitPolledSDValues();
 private:
 };

@@ -20,3 +20,9 @@ void SmartDashboard::UpdateSDValues(){
         frc::SmartDashboard::PutBoolean("Is_Absolute_Steering", Code_Gen_Model_U.Is_Absolute_Steering);
         frc::SmartDashboard::UpdateValues();
 }
+void SmartDashboard::PollSDValues() {
+        // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", VARIABLE);
+}
+void SmartDashboard::InitPolledSDValues() {
+        // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
+}

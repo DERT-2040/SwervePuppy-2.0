@@ -12,6 +12,7 @@ void Robot::RobotInit() {
   Code_Gen_Model_U.GameState = -1;
   Code_Gen_Model_initialize(); //code gen model init
   m_SwerveDrive.BreakMode(); //set all motors to coast mode
+  m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
 }
 void Robot::RobotPeriodic() {
   if(Robot::m_HIDs.Get_Gamepad().GetRawButtonPressed(Constants::k_Reset_Wheel_Offset_Button)){
@@ -29,6 +30,7 @@ void Robot::RobotPeriodic() {
   PreStep(); //Robot wide PreStep
   Code_Gen_Model_step(); //Step the model
   PostStep(); //Robot wide PostStep
+  m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
 }
 
 void Robot::AutonomousInit() { Code_Gen_Model_U.GameState = 1; }

@@ -67,22 +67,29 @@ Steering_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
 
 
 %% Steering Heading PID
-Steering_Heading_Control_P = 0.75;
+% Steering_Heading_Control_P = 0.75;
+EXTERN('Steering_Heading_Control_P', 'double', '0.75');
 
-Steering_Heading_Control_I = 0.0009;
-Steering_Heading_Control_I_UL = 0.08;
+% Steering_Heading_Control_I = 0.0009;
+EXTERN('Steering_Heading_Control_I', 'double', '0.0009');
+% Steering_Heading_Control_I_UL = 0.08;
+EXTERN('Steering_Heading_Control_I_UL', 'double', '0.08');
 Steering_Heading_Control_I_LL = -Steering_Heading_Control_I_UL;
 
-Steering_Heading_Control_D = 0.02/t_sample;
+% Steering_Heading_Control_D = 0.02/t_sample;
+EXTERN('Steering_Heading_Control_D', 'double', '0.02/0.02');
 Derivative_low_pass_filter_freq = 2; % Hz
 Steering_Heading_Control_D_FilterCoeff = 1-exp(-2*pi*Derivative_low_pass_filter_freq*t_sample);
-Steering_Heading_Control_D_UL = 1000;
+% Steering_Heading_Control_D_UL = 1000;
+EXTERN('Steering_Heading_Control_D_UL', 'double', '1000');
 Steering_Heading_Control_D_LL = -Steering_Heading_Control_D_UL;
 
-Steering_Heading_Control_Total_UL = 1;  % m/sec
+% Steering_Heading_Control_Total_UL = 1;  % m/sec
+EXTERN('Steering_Heading_Control_Total_UL', 'double', '1');
 Steering_Heading_Control_Total_LL = -Steering_Heading_Control_Total_UL;
 
-Steering_Heading_Control_Deadzone_Pos = 0.01;
+% Steering_Heading_Control_Deadzone_Pos = 0.01;
+EXTERN('Steering_Heading_Control_Deadzone_Pos', 'double', '0.01');
 Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
 
 %% Translation Speed Rate Limit
@@ -94,8 +101,8 @@ Translation_Speed_NonZero_Error_Thresh = 0.2;
 Translation_Speed_NonZero_Final_Scale_Factor = 0.1;
 
 %% Steering Localized Cmd Rate Limit
-Steering_Localized_Cmd_Rate_Limit_Inc = 1/0.25*0.02;
-Steering_Localized_Cmd_Rate_Limit_Dec = -1/0.25*0.02;
+Steering_Localized_Cmd_Rate_Limit_Inc = 1/0.25*0.02*0+1;
+Steering_Localized_Cmd_Rate_Limit_Dec = -1/0.25*0.02*0-1;
 Steering_Localized_Cmd_Approach_Zero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_Approach_Zero_Final_Thresh = 0.01;
 Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
