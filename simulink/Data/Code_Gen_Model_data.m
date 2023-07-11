@@ -24,7 +24,7 @@ temp_y = [0.0 0.01 0.04 0.10 0.17 0.27 0.40 0.55 0.75 1.0];
 Steering_Mod_Str_Rel_in = [-fliplr(temp_x) 0 temp_x];
 Steering_Mod_Str_Rel_out = [-fliplr(temp_y) 0 temp_y];
 
-Steering_Relative_Gain = 0.75;
+Steering_Relative_Gain = 1.3;
 
 Translation_Limit_Acceleration = 0.9;
 Translation_Limit_Deceleration = -1000;
@@ -68,29 +68,33 @@ Steering_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
 
 %% Steering Heading PID
 % Steering_Heading_Control_P = 0.75;
-EXTERN('Steering_Heading_Control_P', 'double', '0.75');
+EXTERN('Steering_Heading_Control_P', 'double', '1.5');
 
 % Steering_Heading_Control_I = 0.0009;
-EXTERN('Steering_Heading_Control_I', 'double', '0.0009');
+EXTERN('Steering_Heading_Control_I', 'double', '0.015');
 % Steering_Heading_Control_I_UL = 0.08;
-EXTERN('Steering_Heading_Control_I_UL', 'double', '0.08');
-Steering_Heading_Control_I_LL = -Steering_Heading_Control_I_UL;
+EXTERN('Steering_Heading_Control_I_UL', 'double', '0.1');
+% Steering_Heading_Control_I_LL = -Steering_Heading_Control_I_UL;
+EXTERN('Steering_Heading_Control_I_LL', 'double', '-0.1');
 
 % Steering_Heading_Control_D = 0.02/t_sample;
-EXTERN('Steering_Heading_Control_D', 'double', '0.02/0.02');
+EXTERN('Steering_Heading_Control_D', 'double', '0');
 Derivative_low_pass_filter_freq = 2; % Hz
 Steering_Heading_Control_D_FilterCoeff = 1-exp(-2*pi*Derivative_low_pass_filter_freq*t_sample);
 % Steering_Heading_Control_D_UL = 1000;
-EXTERN('Steering_Heading_Control_D_UL', 'double', '1000');
-Steering_Heading_Control_D_LL = -Steering_Heading_Control_D_UL;
+EXTERN('Steering_Heading_Control_D_UL', 'double', '0');
+% Steering_Heading_Control_D_LL = -Steering_Heading_Control_D_UL;
+EXTERN('Steering_Heading_Control_D_LL', 'double', '0');
 
 % Steering_Heading_Control_Total_UL = 1;  % m/sec
-EXTERN('Steering_Heading_Control_Total_UL', 'double', '1');
-Steering_Heading_Control_Total_LL = -Steering_Heading_Control_Total_UL;
+EXTERN('Steering_Heading_Control_Total_UL', 'double', '1.3');
+% Steering_Heading_Control_Total_LL = -Steering_Heading_Control_Total_UL;
+EXTERN('Steering_Heading_Control_Total_LL', 'double', '-1.3');
 
 % Steering_Heading_Control_Deadzone_Pos = 0.01;
 EXTERN('Steering_Heading_Control_Deadzone_Pos', 'double', '0.01');
-Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
+% Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
+EXTERN('Steering_Heading_Control_Deadzone_Neg', 'double', '-0.01');
 
 %% Translation Speed Rate Limit
 Translation_Speed_Rate_Limit_Inc = 1;

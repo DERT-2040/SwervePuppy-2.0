@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.27
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Sat Jul  8 21:20:54 2023
+ * C/C++ source code generated on : Mon Jul 10 12:05:41 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -23,9 +23,13 @@
 #include "Code_Gen_Model.h"
 #include "Code_Gen_Model_types.h"
 
-extern real_T rt_atan2d_snf(real_T u0, real_T u1);
 extern real_T rt_hypotd_snf(real_T u0, real_T u1);
+extern real_T rt_atan2d_snf(real_T u0, real_T u1);
 extern real_T rt_modd_snf(real_T u0, real_T u1);
+void BINARYSEARCH_real_T(uint32_T *piLeft, uint32_T *piRght, real_T u, const
+  real_T *pData, uint32_T iHi);
+void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const
+  real_T *pUData, uint32_T iHi);
 extern real_T look1_binlcpw(real_T u0, const real_T bp0[], const real_T table[],
   uint32_T maxIndex);
 extern void Code_Gen_ModulobyConstant_Start(DW_ModulobyConstant_Code_Gen__T
