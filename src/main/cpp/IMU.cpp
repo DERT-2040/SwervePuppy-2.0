@@ -53,3 +53,6 @@ IMU::IMU() {
     Gyro_Drift = frc::Preferences::GetDouble(Constants::k_Gyro_Drift_Offset_Key, 0.0);
     std::cout << std::setprecision(15) << Gyro_Drift  << std::endl;
 }
+void IMU::Zero_Yaw() {
+    m_AHRS.ZeroYaw();
+}

@@ -9,6 +9,7 @@ public:
     void PreStep();
     void PostStep();
     void Start_Gyro_Calibration();
+    void Zero_Yaw();
 private:
     AHRS m_AHRS{frc::SPI::Port::kMXP};
     void Gyro_Drift_Calibrate();

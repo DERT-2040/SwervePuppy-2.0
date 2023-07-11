@@ -11,7 +11,7 @@
 void Robot::RobotInit() {
   Code_Gen_Model_U.GameState = -1;
   Code_Gen_Model_initialize(); //code gen model init
-  m_SwerveDrive.CoastMode(); //set all motors to coast mode
+  m_SwerveDrive.BreakMode(); //set all motors to coast mode
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
 }
 void Robot::RobotPeriodic() {
@@ -27,6 +27,10 @@ void Robot::RobotPeriodic() {
   if(Robot::m_HIDs.Get_Steer_Joystick().GetRawButtonPressed(Constants::k_Toggle_Absolute_Steering_Button)){
     m_SwerveDrive.Toggle_Absolute_Steering();
     std::cout << "Steering Method Toggled" << std::endl;
+  }
+  if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Reset_Gryo_Button)) {
+    m_IMU.Zero_Yaw();
+    std::cout << "Yaw Zero-ed" << std::endl;
   }
   PreStep(); //Robot wide PreStep
   Code_Gen_Model_step(); //Step the model

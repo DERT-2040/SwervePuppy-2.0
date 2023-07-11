@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.27
+ * Model version                  : 1.29
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Mon Jul 10 12:05:41 2023
+ * C/C++ source code generated on : Tue Jul 11 18:19:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -114,9 +114,12 @@ typedef struct {
   real_T UnitDelay_DSTATE_gy;          /* '<S168>/Unit Delay' */
   real_T UnitDelay1_DSTATE_d;          /* '<S169>/Unit Delay1' */
   real_T UnitDelay1_DSTATE_dw;         /* '<S168>/Unit Delay1' */
-  real_T PrevY;                        /* '<S167>/Rate Limiter' */
+  real_T UnitDelay_DSTATE_e;           /* '<S178>/Unit Delay' */
+  real_T UnitDelay1_DSTATE_g;          /* '<S178>/Unit Delay1' */
+  real_T FixPtUnitDelay1_DSTATE_k;     /* '<S185>/FixPt Unit Delay1' */
   uint8_T FixPtUnitDelay2_DSTATE;      /* '<S124>/FixPt Unit Delay2' */
   uint8_T FixPtUnitDelay2_DSTATE_d;    /* '<S133>/FixPt Unit Delay2' */
+  uint8_T FixPtUnitDelay2_DSTATE_l;    /* '<S185>/FixPt Unit Delay2' */
   DW_ModulobyConstant_Code_Gen__T ModulobyConstant_i;/* '<S27>/Modulo by Constant' */
   DW_ModulobyConstant_Code_Gen__T ModulobyConstant_l;/* '<S27>/Modulo by Constant' */
   DW_ModulobyConstant_Code_Gen__T ModulobyConstant_a;/* '<S27>/Modulo by Constant' */
@@ -181,21 +184,29 @@ typedef struct {
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Pooled Parameter (Mixed Expressions)
-   * Referenced by:
-   *   '<S166>/Modulation_Str_X_Rel'
-   *   '<S167>/Modulation_Drv_X'
-   *   '<S167>/Modulation_Drv_Y'
+  /* Expression: Steering_Mod_Str_Rel_out
+   * Referenced by: '<S166>/Modulation_Str_X_Rel'
    */
-  real_T pooled7[21];
+  real_T Modulation_Str_X_Rel_tableData[21];
 
-  /* Pooled Parameter (Mixed Expressions)
+  /* Expression: Steering_Mod_Str_Rel_in
+   * Referenced by: '<S166>/Modulation_Str_X_Rel'
+   */
+  real_T Modulation_Str_X_Rel_bp01Data[21];
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
    * Referenced by:
-   *   '<S166>/Modulation_Str_X_Rel'
    *   '<S167>/Modulation_Drv_X'
    *   '<S167>/Modulation_Drv_Y'
    */
-  real_T pooled8[21];
+  real_T pooled11[21];
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
+   * Referenced by:
+   *   '<S167>/Modulation_Drv_X'
+   *   '<S167>/Modulation_Drv_Y'
+   */
+  real_T pooled12[21];
 } ConstP_Code_Gen_Model_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -205,6 +216,7 @@ typedef struct {
   real_T Steer_Joystick_Y;             /* '<Root>/Steer_Joystick_Y' */
   real_T Drive_Joystick_X;             /* '<Root>/Drive_Joystick_X' */
   real_T Drive_Joystick_Y;             /* '<Root>/Drive_Joystick_Y' */
+  real_T Is_Boost_Trigger_Pulled;      /* '<Root>/Is_Boost_Trigger_Pulled' */
   real_T Gyro_Angle;                   /* '<Root>/Gyro_Angle' */
   real_T FrontLeft_Drive_Encoder;      /* '<Root>/FrontLeft_Drive_Encoder' */
   real_T FrontRight_Drive_Encoder;     /* '<Root>/FrontRight_Drive_Encoder' */
@@ -255,60 +267,6 @@ extern const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB;/* constant block i/o
 /* Constant parameters (default storage) */
 extern const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP;
 
-/*
- * Exported Global Parameters
- *
- * Note: Exported global parameters are tunable parameters with an exported
- * global storage class designation.  Code generation will declare the memory for
- * these parameters and exports their symbols.
- *
- */
-extern real_T Steering_Heading_Control_D;/* Variable: Steering_Heading_Control_D
-                                          * Referenced by: '<S134>/Constant3'
-                                          */
-extern real_T Steering_Heading_Control_D_LL;
-                                      /* Variable: Steering_Heading_Control_D_LL
-                                       * Referenced by: '<S134>/Saturation'
-                                       */
-extern real_T Steering_Heading_Control_D_UL;
-                                      /* Variable: Steering_Heading_Control_D_UL
-                                       * Referenced by: '<S134>/Saturation'
-                                       */
-extern real_T Steering_Heading_Control_Deadzone_Neg;
-                              /* Variable: Steering_Heading_Control_Deadzone_Neg
-                               * Referenced by: '<S126>/Dead Zone'
-                               */
-extern real_T Steering_Heading_Control_Deadzone_Pos;
-                              /* Variable: Steering_Heading_Control_Deadzone_Pos
-                               * Referenced by: '<S126>/Dead Zone'
-                               */
-extern real_T Steering_Heading_Control_I;/* Variable: Steering_Heading_Control_I
-                                          * Referenced by: '<S134>/Gain2'
-                                          */
-extern real_T Steering_Heading_Control_I_LL;
-                                      /* Variable: Steering_Heading_Control_I_LL
-                                       * Referenced by: '<S134>/Saturation1'
-                                       */
-extern real_T Steering_Heading_Control_I_UL;
-                                      /* Variable: Steering_Heading_Control_I_UL
-                                       * Referenced by: '<S134>/Saturation1'
-                                       */
-extern real_T Steering_Heading_Control_P;/* Variable: Steering_Heading_Control_P
-                                          * Referenced by: '<S134>/Gain1'
-                                          */
-extern real_T Steering_Heading_Control_Total_LL;
-                                  /* Variable: Steering_Heading_Control_Total_LL
-                                   * Referenced by:
-                                   *   '<S134>/Constant1'
-                                   *   '<S134>/Saturation2'
-                                   */
-extern real_T Steering_Heading_Control_Total_UL;
-                                  /* Variable: Steering_Heading_Control_Total_UL
-                                   * Referenced by:
-                                   *   '<S134>/Constant'
-                                   *   '<S134>/Saturation2'
-                                   */
-
 /* Model entry point functions */
 extern void Code_Gen_Model_initialize(void);
 extern void Code_Gen_Model_step(void);
@@ -353,6 +311,9 @@ extern RT_MODEL_Code_Gen_Model_T *const Code_Gen_Model_M;
  * Block '<S137>/Data Type Duplicate' : Unused code path elimination
  * Block '<S137>/Data Type Propagation' : Unused code path elimination
  * Block '<S134>/Scope' : Unused code path elimination
+ * Block '<S184>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S184>/Data Type Propagation' : Unused code path elimination
+ * Block '<S185>/FixPt Data Type Duplicate1' : Unused code path elimination
  */
 
 /*-
@@ -547,6 +508,14 @@ extern RT_MODEL_Code_Gen_Model_T *const Code_Gen_Model_M;
  * '<S175>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Steering/Gyro_Adjustment/Compare To Zero4'
  * '<S176>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Steering/Latch Outputs when Both Inputs Zero/Compare To Zero'
  * '<S177>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Steering/Latch Outputs when Both Inputs Zero/Compare To Zero1'
+ * '<S178>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Latch Outputs when Both Inputs Zero'
+ * '<S179>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Subsystem'
+ * '<S180>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Latch Outputs when Both Inputs Zero/Compare To Zero'
+ * '<S181>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Latch Outputs when Both Inputs Zero/Compare To Zero1'
+ * '<S182>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Subsystem/Simple Rate Limit'
+ * '<S183>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Subsystem/Simple Rate Limit/Discrete Rate Limiter'
+ * '<S184>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Subsystem/Simple Rate Limit/Discrete Rate Limiter/Saturation Dynamic'
+ * '<S185>' : 'Code_Gen_Model/Control/Teleop/Joystick_Input_To_Swerve_Drive/Robot_Desired_Translation/Subsystem/Simple Rate Limit/Discrete Rate Limiter/Unit Delay External IC'
  */
 #endif                                 /* RTW_HEADER_Code_Gen_Model_h_ */
 

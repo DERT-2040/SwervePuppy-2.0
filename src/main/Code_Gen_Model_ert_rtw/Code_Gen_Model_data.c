@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.27
+ * Model version                  : 1.29
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Mon Jul 10 12:05:41 2023
+ * C/C++ source code generated on : Tue Jul 11 18:19:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -49,8 +49,8 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
   -6.2831853071795862,                 /* '<S95>/Subtract' */
   -1.0,                                /* '<S104>/Cos5' */
   1.2246467991473532E-16,              /* '<S104>/Sin5' */
-  0.04,                                /* '<S110>/Unary Minus' */
-  -1.0,                                /* '<S110>/Unary Minus1' */
+  0.2,                                 /* '<S110>/Unary Minus' */
+  -0.085714285714285715,               /* '<S110>/Unary Minus1' */
   1.0,                                 /* '<S125>/Unary Minus' */
   -1.0,                                /* '<S125>/Unary Minus1' */
   -6.2831853071795862,                 /* '<S134>/Minus' */
@@ -73,23 +73,33 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
 
 /* Constant parameters (default storage) */
 const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP = {
-  /* Pooled Parameter (Mixed Expressions)
-   * Referenced by:
-   *   '<S166>/Modulation_Str_X_Rel'
-   *   '<S167>/Modulation_Drv_X'
-   *   '<S167>/Modulation_Drv_Y'
+  /* Expression: Steering_Mod_Str_Rel_out
+   * Referenced by: '<S166>/Modulation_Str_X_Rel'
    */
   { -1.0, -0.75, -0.55, -0.4, -0.27, -0.17, -0.1, -0.04, -0.01, -0.0, 0.0, 0.0,
     0.01, 0.04, 0.1, 0.17, 0.27, 0.4, 0.55, 0.75, 1.0 },
 
-  /* Pooled Parameter (Mixed Expressions)
+  /* Expression: Steering_Mod_Str_Rel_in
+   * Referenced by: '<S166>/Modulation_Str_X_Rel'
+   */
+  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.25, -0.2, 0.0, 0.2, 0.25,
+    0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
    * Referenced by:
-   *   '<S166>/Modulation_Str_X_Rel'
    *   '<S167>/Modulation_Drv_X'
    *   '<S167>/Modulation_Drv_Y'
    */
-  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.25, -0.2, 0.0, 0.2, 0.25,
-    0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 }
+  { -1.0, -0.58, -0.31, -0.18, -0.14, -0.09, -0.06, -0.04, -0.01, -0.0, 0.0, 0.0,
+    0.01, 0.04, 0.06, 0.09, 0.14, 0.18, 0.31, 0.58, 1.0 },
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
+   * Referenced by:
+   *   '<S167>/Modulation_Drv_X'
+   *   '<S167>/Modulation_Drv_Y'
+   */
+  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.45, -0.4, -0.35, -0.3, 0.0, 0.3, 0.35,
+    0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 }
 };
 
 /*

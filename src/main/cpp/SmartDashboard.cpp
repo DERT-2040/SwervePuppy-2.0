@@ -18,33 +18,14 @@ void SmartDashboard::UpdateSDValues(){
         frc::SmartDashboard::PutNumber("Translation_Steering_Cmd", Code_Gen_Model_B.Translation_Steering_Cmd);
         frc::SmartDashboard::PutBoolean("Is_Absolute_Translation", Code_Gen_Model_U.Is_Absolute_Translation);
         frc::SmartDashboard::PutBoolean("Is_Absolute_Steering", Code_Gen_Model_U.Is_Absolute_Steering);
+        frc::SmartDashboard::PutBoolean("Is_Boost_Trigger_Pulled", Code_Gen_Model_U.Is_Boost_Trigger_Pulled);
         frc::SmartDashboard::UpdateValues();
 }
 void SmartDashboard::PollSDValues() {
-        // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", VARIABLE);
-        Steering_Heading_Control_P = frc::SmartDashboard::GetNumber("Steering_Heading_Control_P", 0);
-        Steering_Heading_Control_I = frc::SmartDashboard::GetNumber("Steering_Heading_Control_I", 0);
-        Steering_Heading_Control_I_UL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_I_UL", 0);
-        Steering_Heading_Control_D = frc::SmartDashboard::GetNumber("Steering_Heading_Control_D", 0);
-        Steering_Heading_Control_D_UL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_D_UL", 0);
-        Steering_Heading_Control_Total_UL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_Total_UL", 0);
-        Steering_Heading_Control_Deadzone_Pos = frc::SmartDashboard::GetNumber("Steering_Heading_Control_Deadzone_Pos", 0);
-        Steering_Heading_Control_I_LL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_I_LL", 0);
-        Steering_Heading_Control_D_LL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_D_LL", 0);
-        Steering_Heading_Control_Total_LL = frc::SmartDashboard::GetNumber("Steering_Heading_Control_Total_LL", 0);
-        Steering_Heading_Control_Deadzone_Neg = frc::SmartDashboard::GetNumber("Steering_Heading_Control_Deadzone_Neg", 0);
+        // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", SAFEDEFAULT_VALUE);
+
 }
 void SmartDashboard::InitPolledSDValues() {
         // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_P", Steering_Heading_Control_P);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_I", Steering_Heading_Control_I);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_I_UL", Steering_Heading_Control_I_UL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_D", Steering_Heading_Control_D);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_D_UL", Steering_Heading_Control_D_UL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_Total_UL", Steering_Heading_Control_Total_UL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_Deadzone_Pos", Steering_Heading_Control_Deadzone_Pos);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_I_LL", Steering_Heading_Control_I_LL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_D_LL", Steering_Heading_Control_D_LL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_Total_LL", Steering_Heading_Control_Total_LL);
-        frc::SmartDashboard::PutNumber("Steering_Heading_Control_Deadzone_Neg", Steering_Heading_Control_Deadzone_Neg);
+     
 }

@@ -41,6 +41,8 @@ public:
     static constexpr int k_Calibrate_Gyro_Button = 2;
     static constexpr int k_Toggle_Absolute_Translation_Button = 3;
     static constexpr int k_Toggle_Absolute_Steering_Button = 3;
+    static constexpr int k_Boost_Trigger_Button = 1;
+    static constexpr int k_Reset_Gryo_Button = 11;
 //IMU
     //Total Number of Samples when Calibrating
         static constexpr int k_IMU_Calibration_Sample_Count = 10000;
