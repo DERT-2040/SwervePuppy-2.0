@@ -88,3 +88,4 @@ Spline_Tension = 0.5;
 Spline_S = (1-Spline_Tension)/2;
 Spline_Characteristic_Matrix = [-Spline_S, 2-Spline_S, Spline_S-2, Spline_S; 2.*Spline_S, Spline_S-3, 3-(2.*Spline_S), -Spline_S; -Spline_S, 0, Spline_S, 0; 0, 1, 0, 0];
 Spline_Samples_Per_Quad_Bezier = 20;
+NULL = -9999;
