@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.29
+ * Model version                  : 1.30
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Tue Jul 11 18:19:23 2023
+ * C/C++ source code generated on : Thu Jul 13 18:54:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -160,10 +160,8 @@ typedef struct {
   const real_T Modulus_m;              /* '<S95>/Subtract' */
   const real_T Cos5_m;                 /* '<S104>/Cos5' */
   const real_T Sin5_a;                 /* '<S104>/Sin5' */
-  const real_T UnaryMinus_i;           /* '<S110>/Unary Minus' */
-  const real_T UnaryMinus1;            /* '<S110>/Unary Minus1' */
   const real_T UnaryMinus_c;           /* '<S125>/Unary Minus' */
-  const real_T UnaryMinus1_c;          /* '<S125>/Unary Minus1' */
+  const real_T UnaryMinus1;            /* '<S125>/Unary Minus1' */
   const real_T Minus_g;                /* '<S134>/Minus' */
   const real_T Error_Bound_f;          /* '<S134>/Divide' */
   const real_T UnaryMinus_mw;          /* '<S134>/Unary Minus' */
@@ -266,6 +264,31 @@ extern const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB;/* constant block i/o
 
 /* Constant parameters (default storage) */
 extern const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP;
+
+/*
+ * Exported Global Parameters
+ *
+ * Note: Exported global parameters are tunable parameters with an exported
+ * global storage class designation.  Code generation will declare the memory for
+ * these parameters and exports their symbols.
+ *
+ */
+extern real_T Boost_Trigger_Decreasing_Limit;
+                                     /* Variable: Boost_Trigger_Decreasing_Limit
+                                      * Referenced by: '<S182>/Constant1'
+                                      */
+extern real_T Boost_Trigger_Increasing_Limit;
+                                     /* Variable: Boost_Trigger_Increasing_Limit
+                                      * Referenced by: '<S182>/Constant3'
+                                      */
+extern real_T Translation_Speed_Rate_Limit_Dec;
+                                   /* Variable: Translation_Speed_Rate_Limit_Dec
+                                    * Referenced by: '<S110>/Constant1'
+                                    */
+extern real_T Translation_Speed_Rate_Limit_Inc;
+                                   /* Variable: Translation_Speed_Rate_Limit_Inc
+                                    * Referenced by: '<S110>/Constant3'
+                                    */
 
 /* Model entry point functions */
 extern void Code_Gen_Model_initialize(void);

@@ -29,8 +29,10 @@ Steering_Relative_Gain = 1.3;
 Boost_Trigger_High_Speed = 3.658; % m/s
 Boost_Trigger_Low_Speed = 1.5; % m/s
 
-Boost_Trigger_Increasing_Limit = 2/1*0.02;
-Boost_Trigger_Decreasing_Limit = -2/0.9*0.02;
+% Boost_Trigger_Increasing_Limit = 2/1*0.02;
+EXTERN('Boost_Trigger_Increasing_Limit', 'double', '2/1*0.02'); % (0.08)
+% Boost_Trigger_Decreasing_Limit = -2/0.9*0.02;
+EXTERN('Boost_Trigger_Decreasing_Limit', 'double', '-2/0.9*0.02'); % (-0.1)
 
 %% Wheel Gear Ratio
 gear_ratio = 8.14;
@@ -88,8 +90,10 @@ Steering_Heading_Control_Deadzone_Pos = 0.01;
 Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
 
 %% Translation Speed Rate Limit
-Translation_Speed_Rate_Limit_Inc =  3/0.7*0.02;
-Translation_Speed_Rate_Limit_Dec = -2/0.2*0.02;
+% Translation_Speed_Rate_Limit_Inc =  3/0.7*0.02;
+EXTERN('Translation_Speed_Rate_Limit_Inc','double', '3/0.7*0.02');
+% Translation_Speed_Rate_Limit_Dec = -2/0.2*0.02;
+EXTERN('Translation_Speed_Rate_Limit_Dec', 'double', '-2/0.2*0.02');
 Translation_Speed_Approach_Zero_Error_Thresh = 0.2;
 Translation_Speed_Approach_Zero_Final_Thresh = 0.01;
 Translation_Speed_NonZero_Error_Thresh = 0.15;

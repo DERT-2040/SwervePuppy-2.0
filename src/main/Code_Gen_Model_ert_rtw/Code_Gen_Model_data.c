@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.29
+ * Model version                  : 1.30
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Tue Jul 11 18:19:23 2023
+ * C/C++ source code generated on : Thu Jul 13 18:54:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -49,8 +49,6 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
   -6.2831853071795862,                 /* '<S95>/Subtract' */
   -1.0,                                /* '<S104>/Cos5' */
   1.2246467991473532E-16,              /* '<S104>/Sin5' */
-  0.2,                                 /* '<S110>/Unary Minus' */
-  -0.085714285714285715,               /* '<S110>/Unary Minus1' */
   1.0,                                 /* '<S125>/Unary Minus' */
   -1.0,                                /* '<S125>/Unary Minus1' */
   -6.2831853071795862,                 /* '<S134>/Minus' */

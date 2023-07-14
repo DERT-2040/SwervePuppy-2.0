@@ -23,9 +23,16 @@ void SmartDashboard::UpdateSDValues(){
 }
 void SmartDashboard::PollSDValues() {
         // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", SAFEDEFAULT_VALUE);
+        Boost_Trigger_Increasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Increasing_Limit", 0);
+        Boost_Trigger_Decreasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Decreasing_Limit", 0);
+        Translation_Speed_Rate_Limit_Inc = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Inc", 0);
+        Translation_Speed_Rate_Limit_Dec = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Dec", 0);
 
 }
 void SmartDashboard::InitPolledSDValues() {
         // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
-     
+     frc::SmartDashboard::PutNumber("Boost_Trigger_Increasing_Limit", Boost_Trigger_Increasing_Limit);
+     frc::SmartDashboard::PutNumber("Boost_Trigger_Decreasing_Limit", Boost_Trigger_Decreasing_Limit);
+     frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Inc", Translation_Speed_Rate_Limit_Inc);
+     frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Dec", Translation_Speed_Rate_Limit_Dec);
 }

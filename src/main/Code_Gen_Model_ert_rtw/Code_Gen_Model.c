@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 1.29
+ * Model version                  : 1.30
  * Simulink Coder version         : 9.9 (R2023a) 19-Nov-2022
- * C/C++ source code generated on : Tue Jul 11 18:19:23 2023
+ * C/C++ source code generated on : Thu Jul 13 18:54:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -24,6 +24,24 @@
 #include <math.h>
 #include "rt_defines.h"
 #include <float.h>
+
+/* Exported block parameters */
+real_T Boost_Trigger_Decreasing_Limit = -0.044444444444444446;
+                                     /* Variable: Boost_Trigger_Decreasing_Limit
+                                      * Referenced by: '<S182>/Constant1'
+                                      */
+real_T Boost_Trigger_Increasing_Limit = 0.04;
+                                     /* Variable: Boost_Trigger_Increasing_Limit
+                                      * Referenced by: '<S182>/Constant3'
+                                      */
+real_T Translation_Speed_Rate_Limit_Dec = -0.2;
+                                   /* Variable: Translation_Speed_Rate_Limit_Dec
+                                    * Referenced by: '<S110>/Constant1'
+                                    */
+real_T Translation_Speed_Rate_Limit_Inc = 0.085714285714285715;
+                                   /* Variable: Translation_Speed_Rate_Limit_Inc
+                                    * Referenced by: '<S110>/Constant3'
+                                    */
 
 /* Block signals (default storage) */
 B_Code_Gen_Model_T Code_Gen_Model_B;
@@ -617,13 +635,13 @@ void Code_Gen_Model_step(void)
      *  RelationalOperator: '<S184>/UpperRelop'
      *  Switch: '<S184>/Switch'
      */
-    if (rtb_Product_jb > 0.04) {
-      rtb_Product_jb = 0.04;
-    } else if (rtb_Product_jb < -0.044444444444444446) {
+    if (rtb_Product_jb > Boost_Trigger_Increasing_Limit) {
+      rtb_Product_jb = Boost_Trigger_Increasing_Limit;
+    } else if (rtb_Product_jb < Boost_Trigger_Decreasing_Limit) {
       /* Switch: '<S184>/Switch' incorporates:
        *  Constant: '<S182>/Constant1'
        */
-      rtb_Product_jb = -0.044444444444444446;
+      rtb_Product_jb = Boost_Trigger_Decreasing_Limit;
     }
 
     /* End of Switch: '<S184>/Switch2' */
@@ -791,7 +809,9 @@ void Code_Gen_Model_step(void)
   rtb_Switch2 = fabs(Code_Gen_Model_B.Translation_Speed - rtb_Switch2_g);
 
   /* Switch: '<S110>/Switch5' incorporates:
+   *  Constant: '<S110>/Constant1'
    *  Switch: '<S110>/Switch1'
+   *  UnaryMinus: '<S110>/Unary Minus'
    */
   if (rtb_Compare_j) {
     /* SignalConversion generated from: '<S110>/Lookup Table Dynamic' incorporates:
@@ -821,7 +841,7 @@ void Code_Gen_Model_step(void)
                          &rtb_TmpSignalConversionAtLook_n[0], rtb_Switch2,
                          &rtb_TmpSignalConversionAtLook_k[0], 1U);
     rtb_Switch2 = rtb_LookupTableDynamic_p;
-    rtb_Switch2_p = Code_Gen_Model_ConstB.UnaryMinus_i;
+    rtb_Switch2_p = -Translation_Speed_Rate_Limit_Dec;
   } else {
     /* SignalConversion generated from: '<S110>/Lookup Table Dynamic1' incorporates:
      *  Constant: '<S110>/Constant10'
@@ -852,12 +872,14 @@ void Code_Gen_Model_step(void)
     rtb_Switch2 = rtb_LookupTableDynamic1_l;
 
     /* Switch: '<S110>/Switch3' incorporates:
+     *  Constant: '<S110>/Constant1'
      *  Constant: '<S110>/Constant3'
+     *  UnaryMinus: '<S110>/Unary Minus'
      */
     if (rtb_Compare_gm) {
-      rtb_Switch2_p = 0.085714285714285715;
+      rtb_Switch2_p = Translation_Speed_Rate_Limit_Inc;
     } else {
-      rtb_Switch2_p = Code_Gen_Model_ConstB.UnaryMinus_i;
+      rtb_Switch2_p = -Translation_Speed_Rate_Limit_Dec;
     }
 
     /* End of Switch: '<S110>/Switch3' */
@@ -879,17 +901,19 @@ void Code_Gen_Model_step(void)
   if (!(rtb_Switch1_b > rtb_Switch2_p)) {
     /* Switch: '<S110>/Switch2' incorporates:
      *  Constant: '<S110>/Constant1'
+     *  Constant: '<S110>/Constant3'
      *  Switch: '<S110>/Switch4'
+     *  UnaryMinus: '<S110>/Unary Minus1'
      */
     if (rtb_Compare_j) {
-      rtb_Switch2_p = -0.2;
+      rtb_Switch2_p = Translation_Speed_Rate_Limit_Dec;
     } else if (rtb_Compare_gm) {
       /* Switch: '<S110>/Switch4' incorporates:
        *  Constant: '<S110>/Constant1'
        */
-      rtb_Switch2_p = -0.2;
+      rtb_Switch2_p = Translation_Speed_Rate_Limit_Dec;
     } else {
-      rtb_Switch2_p = Code_Gen_Model_ConstB.UnaryMinus1;
+      rtb_Switch2_p = -Translation_Speed_Rate_Limit_Inc;
     }
 
     /* Product: '<S110>/Product2' incorporates:
@@ -1253,7 +1277,7 @@ void Code_Gen_Model_step(void)
        */
       rtb_Switch2_p = -1.0;
     } else {
-      rtb_Switch2_p = Code_Gen_Model_ConstB.UnaryMinus1_c;
+      rtb_Switch2_p = Code_Gen_Model_ConstB.UnaryMinus1;
     }
 
     /* Product: '<S125>/Product2' incorporates:
