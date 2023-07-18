@@ -37,7 +37,15 @@ public:
         static constexpr std::string_view k_BackLeft_Wheel_Offset_Key = "BackLeftWheelOffset";
         static constexpr std::string_view k_BackRight_Wheel_Offset_Key = "BackRightWheelOffset";
   //Buttons
-    static constexpr int k_Reset_Wheel_Offset_Button = 1;
+    static constexpr int k_Reset_Wheel_Offset_Button = 7;
+    static constexpr int k_Calibrate_Gyro_Button = 2;
     static constexpr int k_Toggle_Absolute_Translation_Button = 3;
     static constexpr int k_Toggle_Absolute_Steering_Button = 3;
+    static constexpr int k_Boost_Trigger_Button = 1;
+    static constexpr int k_Reset_Gryo_Button = 11;
+//IMU
+    //Total Number of Samples when Calibrating
+        static constexpr int k_IMU_Calibration_Sample_Count = 10000;
+    //Gryo Drift Offset Key
+        static constexpr std::string_view k_Gyro_Drift_Offset_Key = "GyroDrift";
 };

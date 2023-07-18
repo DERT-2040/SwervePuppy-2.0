@@ -81,7 +81,7 @@ SwerveDrive::SwerveDrive() {
       m_BackRight_Steer.SetSecondaryCurrentLimit(Constants::k_Steer_Motor_Secondary_Current_Limit);
       m_BackRight_Steer.SetOpenLoopRampRate(Constants::k_Steer_Motor_Open_Loop_Ramp_Rate);
   //States
-    Code_Gen_Model_U.Is_Absolute_Steering = false;
+    Code_Gen_Model_U.Is_Absolute_Steering = true;
     Code_Gen_Model_U.Is_Absolute_Translation = true;
   //Wheel Offset
     SwerveDrive::Initalize_Wheel_Offset();
