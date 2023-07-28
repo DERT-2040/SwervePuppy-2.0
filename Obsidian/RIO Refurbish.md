@@ -1,6 +1,9 @@
+#Electrical 
 ## Requirements:
+
 ## Friends:
 
+#### Description:
 Currently, we have one functioning RIO, we have another one that works ok, but does have issues. And then we have three other RIOs:
 
 S/N:

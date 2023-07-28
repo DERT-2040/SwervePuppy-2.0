@@ -84,8 +84,13 @@ Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
 %% Spline Creation Constants
 Spline_Num_Samples = 100;
 Spline_Max_Num_RefPoses = 10;
-Spline_Tension = 0.5;
+Spline_Tension = 0.1;
 Spline_S = (1-Spline_Tension)/2;
-Spline_Characteristic_Matrix = [-Spline_S, 2-Spline_S, Spline_S-2, Spline_S; 2.*Spline_S, Spline_S-3, 3-(2.*Spline_S), -Spline_S; -Spline_S, 0, Spline_S, 0; 0, 1, 0, 0];
-Spline_Samples_Per_Quad_Bezier = 20;
+Spline_Characteristic_Matrix = [-Spline_S  , 2-Spline_S, Spline_S-2     , Spline_S ;...
+                                2.*Spline_S, Spline_S-3, 3-(2.*Spline_S), -Spline_S;...
+                                -Spline_S  , 0         , Spline_S       , 0        ;...
+                                0          , 1         , 0              , 0       ];
+Spline_Samples_Per_Pass = 10; %must be an even number
 NULL = -9999;
+Spline_Curvature_Look_Ahead_Distance = 1.5;
+Spline_h = 0.001;

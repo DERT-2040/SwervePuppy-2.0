@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "9dcda796cc090301",
+        "id": "2464fc41f6208e19",
         "type": "tabs",
         "children": [
           {
-            "id": "7b861dab1b45fac2",
+            "id": "5659c277d5978f9a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "360 3D LIDAR.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -61,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -82,6 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "360 3D LIDAR.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,6 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "360 3D LIDAR.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -119,7 +126,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "360 3D LIDAR.md"
+              }
             }
           }
         ]
@@ -139,13 +148,30 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7b861dab1b45fac2",
+  "active": "5659c277d5978f9a",
   "lastOpenFiles": [
-    "Autonomous Path Planning In Teleop.md",
+    "360 3D LIDAR.md",
+    "Design Test Platform.md",
+    "Test Platform.md",
+    "Track Other Robots.md",
+    "Determine Team Of Other Robot.md",
+    "Determine Color Of Extended Objects.md",
+    "Extended Object Tracking.md",
+    "UE4 Simulated 3D Environment.md",
+    "AI controlled Tele-op.md",
+    "Sensor Fusion (Lidar & Camera).md",
+    "Autonomous Path Planning In Tele-op.md",
+    "Path Planning.md",
+    "Path Finding.md",
+    "PR Contact.md",
+    "RIO Refurbish.md",
     "Pneumatics Control.md",
     "Get Ready For 2024 Game.md",
-    "Planning out goals for Robotics.md",
-    "RIO Refurbish.md",
-    "Test Platform.md"
+    "Quick Preplanning.md",
+    "Follow A Path Of Poses.md",
+    "Motion Planning.md",
+    "TX2 or Orin Nano.md",
+    "Quick Re-Planning.md",
+    "Planning out goals for Robotics.md"
   ]
 }

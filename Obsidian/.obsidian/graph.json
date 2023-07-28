@@ -4,19 +4,55 @@
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
-  "showOrphans": false,
+  "showOrphans": true,
   "collapse-color-groups": false,
-  "colorGroups": [],
+  "colorGroups": [
+    {
+      "query": "tag:#Electrical",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag:#ROOT",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    },
+    {
+      "query": "tag:#All",
+      "color": {
+        "a": 1,
+        "rgb": 14363135
+      }
+    },
+    {
+      "query": "tag:#CAD",
+      "color": {
+        "a": 1,
+        "rgb": 5431378
+      }
+    },
+    {
+      "query": "tag:#PR",
+      "color": {
+        "a": 1,
+        "rgb": 5431473
+      }
+    }
+  ],
   "collapse-display": false,
   "showArrow": true,
-  "textFadeMultiplier": 0,
-  "nodeSizeMultiplier": 1.75885416666667,
-  "lineSizeMultiplier": 2.49895833333333,
+  "textFadeMultiplier": -1.7,
+  "nodeSizeMultiplier": 2.49895833333333,
+  "lineSizeMultiplier": 4.3109375,
   "collapse-forces": false,
   "centerStrength": 0.015625,
-  "repelStrength": 20,
-  "linkStrength": 1,
-  "linkDistance": 184,
-  "scale": 0.5087618855792669,
+  "repelStrength": 17.2916666666667,
+  "linkStrength": 0.833333333333333,
+  "linkDistance": 86,
+  "scale": 0.8897383983458507,
   "close": true
 }
