@@ -94,3 +94,4 @@ Spline_Samples_Per_Pass = 10; %must be an even number
 NULL = -9999;
 Spline_Curvature_Look_Ahead_Distance = 1.5;
 Spline_h = 0.001;
+Spline_Velocity_Adjustment_Magnitude = 2;
