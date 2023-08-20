@@ -12,8 +12,8 @@ public:
     void PostStep();
 
     frc::GenericHID& Get_Gamepad() { return m_Gamepad; }
-    frc::Joystick& Get_Drive_Joystick() { return m_Drive_Joystick; }
-    frc::Joystick& Get_Steer_Joystick() { return m_Steer_Joystick; }
+    frc::GenericHID& Get_Drive_Joystick() { return m_Drive_Joystick; }
+    frc::GenericHID& Get_Steer_Joystick() { return m_Steer_Joystick; }
 private:
   //HID Devices
     /**

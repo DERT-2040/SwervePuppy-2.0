@@ -7,8 +7,9 @@
 //local
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
 #include "include/HIDs.h"
-#include "include/Sensors.h"
+#include "include/IMU.h"
 #include "include/SwerveDrive.h"
+#include "include/SmartDashboard.h"
 //frc
 #include <frc/TimedRobot.h>
 #include <frc/event/EventLoop.h>
@@ -51,7 +52,8 @@ private:
    * are exceptions to this rule.
    */
   HIDs m_HIDs;
-  Sensors m_Sensors;
+  IMU m_IMU;
   SwerveDrive m_SwerveDrive;
   frc::EventLoop m_EventLoop;
+  SmartDashboard m_SmartDashboard;
 };
