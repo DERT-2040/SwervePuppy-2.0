@@ -56,6 +56,8 @@ Drive_Motor_Control_D_FilterCoeff = 1-exp(-2*pi*Derivative_low_pass_filter_freq*
 Drive_Motor_Control_D_UL = 0.2;
 Drive_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
 
+Drive_Motor_Control_Module_Angle_Error = [0 45]*pi/180;
+Drive_Motor_Control_Scale_Factor = [1 0.05];
 
 %% Steering Motor PID
 Steering_Motor_Control_P = 0.15;
