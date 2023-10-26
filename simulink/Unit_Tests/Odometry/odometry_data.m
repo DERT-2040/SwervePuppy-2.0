@@ -1,4 +1,4 @@
-
+t_sample = 0.020;
 
 % distances between swerve modules
 BackFront = 0.3746;
