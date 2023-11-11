@@ -28,36 +28,22 @@ void Robot::RobotPeriodic() {
     m_SwerveDrive.Toggle_Absolute_Steering();
     std::cout << "Steering Method Toggled" << std::endl;
   }
-  if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Reset_Gryo_Button)) {
-    m_IMU.Zero_Yaw();
-    std::cout << "Yaw Zero-ed" << std::endl;
-  }
   PreStep(); //Robot wide PreStep
   Code_Gen_Model_step(); //Step the model
   PostStep(); //Robot wide PostStep
   m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
-
-  if(Robot::m_HIDs.Get_Gamepad().GetRawButtonPressed(2)){
-    m_IMU.Start_Gyro_Calibration();
-  }
 }
 
 void Robot::AutonomousInit() { Code_Gen_Model_U.GameState = 1; }
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit() {
-  Code_Gen_Model_U.GameState = 2;
-  }
+void Robot::TeleopInit() {Code_Gen_Model_U.GameState = 2; }
 void Robot::TeleopPeriodic() {}
 
-void Robot::DisabledInit() {
-  Code_Gen_Model_U.GameState = 0;
-  }
+void Robot::DisabledInit() {Code_Gen_Model_U.GameState = 0; }
 void Robot::DisabledPeriodic() {}
 
-void Robot::TestInit() {
-  Code_Gen_Model_U.GameState = 3;
-  }
+void Robot::TestInit() {Code_Gen_Model_U.GameState = 3; }
 void Robot::TestPeriodic() {}
 
 void Robot::SimulationInit() {}

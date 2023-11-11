@@ -42,10 +42,7 @@ public:
     static constexpr int k_Toggle_Absolute_Translation_Button = 3;
     static constexpr int k_Toggle_Absolute_Steering_Button = 3;
     static constexpr int k_Boost_Trigger_Button = 1;
-    static constexpr int k_Reset_Gryo_Button = 11;
 //IMU
-    //Total Number of Samples when Calibrating
-        static constexpr int k_IMU_Calibration_Sample_Count = 10000;
-    //Gryo Drift Offset Key
-        static constexpr std::string_view k_Gyro_Drift_Offset_Key = "GyroDrift";
+    static constexpr int k_Pigeon2_Device_ID = 0;
+    static constexpr std::string_view k_Pigeon2_Device_Name = "uno";
 };
