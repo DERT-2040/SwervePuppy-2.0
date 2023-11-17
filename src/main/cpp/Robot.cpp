@@ -13,6 +13,7 @@ void Robot::RobotInit() {
   Code_Gen_Model_initialize(); //code gen model init
   m_SwerveDrive.BreakMode(); //set all motors to coast mode
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
+  m_IMU.Reset();
 }
 void Robot::RobotPeriodic() {
   if(Robot::m_HIDs.Get_Gamepad().GetRawButtonPressed(Constants::k_Reset_Wheel_Offset_Button)){

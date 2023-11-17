@@ -3,6 +3,7 @@
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
 
 void SmartDashboard::UpdateSDValues(){
+        frc::SmartDashboard::PutNumber("Raw_Gyro", Code_Gen_Model_U.Gyro_Angle);
         frc::SmartDashboard::PutNumber("FL_Steer_Encoder", Code_Gen_Model_U.FrontLeft_Steer_Encoder);
         frc::SmartDashboard::PutNumber("FR_Steer_Encoder", Code_Gen_Model_U.FrontRight_Steer_Encoder);
         frc::SmartDashboard::PutNumber("BL_Steer_Encoder", Code_Gen_Model_U.BackLeft_Steer_Encoder);

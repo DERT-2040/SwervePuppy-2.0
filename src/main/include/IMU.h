@@ -10,6 +10,7 @@ public:
     IMU();
     void PreStep();
     void PostStep();
+    void Reset();
 private:
     ctre::phoenix6::hardware::Pigeon2 m_Pigeon2{Constants::k_Pigeon2_Device_ID, static_cast<std::string>(Constants::k_Pigeon2_Device_Name)};
 };

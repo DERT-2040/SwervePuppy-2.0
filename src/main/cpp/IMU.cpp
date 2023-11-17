@@ -15,4 +15,7 @@ void IMU::PreStep() {
 }
 
 void IMU::PostStep() {}
+void IMU::Reset() {
+    m_Pigeon2.Reset();
+}
 IMU::IMU() {}
