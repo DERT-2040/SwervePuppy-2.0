@@ -38,6 +38,7 @@ class Robot : public frc::TimedRobot {
 private:
   void PreStep();
   void PostStep();
+  void GameInitValues();
   
   /**
    * @brief BindEvents binds all events to the event loop.

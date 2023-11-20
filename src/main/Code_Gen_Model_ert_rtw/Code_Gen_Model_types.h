@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.4
+ * Model version                  : 2.11
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Nov 16 18:46:57 2023
+ * C/C++ source code generated on : Sat Nov 18 23:32:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -19,23 +19,6 @@
 
 #ifndef RTW_HEADER_Code_Gen_Model_types_h_
 #define RTW_HEADER_Code_Gen_Model_types_h_
-#include "rtwtypes.h"
-#ifndef struct_tag_0WejdoS6JiQmXScgamg5mE
-#define struct_tag_0WejdoS6JiQmXScgamg5mE
-
-struct tag_0WejdoS6JiQmXScgamg5mE
-{
-  int32_T isInitialized;
-};
-
-#endif                                 /* struct_tag_0WejdoS6JiQmXScgamg5mE */
-
-#ifndef typedef_fixed_system_ModByConstant_Co_T
-#define typedef_fixed_system_ModByConstant_Co_T
-
-typedef struct tag_0WejdoS6JiQmXScgamg5mE fixed_system_ModByConstant_Co_T;
-
-#endif                             /* typedef_fixed_system_ModByConstant_Co_T */
 
 /* Forward declaration for rtModel */
 typedef struct tag_RTM_Code_Gen_Model_T RT_MODEL_Code_Gen_Model_T;

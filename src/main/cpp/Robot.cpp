@@ -15,12 +15,7 @@ void Robot::RobotInit() {
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
   m_IMU.Reset();
 }
-void Robot::RobotPeriodic() {
-  if(Robot::m_HIDs.Get_Gamepad().GetRawButtonPressed(Constants::k_Reset_Wheel_Offset_Button)){
-    m_SwerveDrive.Reset_Wheel_Offset();
-    std::cout << "Wheel Offsets Reset" << std::endl;
-  }
-  
+void Robot::RobotPeriodic() {  
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Toggle_Absolute_Translation_Button)){
     m_SwerveDrive.Toggle_Absolute_Translation();
     std::cout << "Translation Method Toggled" << std::endl;
@@ -35,17 +30,26 @@ void Robot::RobotPeriodic() {
   m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
 }
 
-void Robot::AutonomousInit() { Code_Gen_Model_U.GameState = 1; }
+void Robot::AutonomousInit() { Code_Gen_Model_U.GameState = 1; GameInitValues();}
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit() {Code_Gen_Model_U.GameState = 2; }
+void Robot::TeleopInit() {Code_Gen_Model_U.GameState = 2; GameInitValues();}
 void Robot::TeleopPeriodic() {}
 
-void Robot::DisabledInit() {Code_Gen_Model_U.GameState = 0; }
+void Robot::DisabledInit() {Code_Gen_Model_U.GameState = 0; GameInitValues();}
 void Robot::DisabledPeriodic() {}
 
-void Robot::TestInit() {Code_Gen_Model_U.GameState = 3; }
-void Robot::TestPeriodic() {}
+void Robot::TestInit() {Code_Gen_Model_U.GameState = 3; GameInitValues();}
+void Robot::TestPeriodic() {
+  if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_TestMode_Wheel_On))
+    m_SwerveDrive.WheelsOn();
+  if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_TestMode_Wheel_Off))
+    m_SwerveDrive.WheelsOff();
+  if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Reset_Wheel_Offset_Button)){
+    m_SwerveDrive.Reset_Wheel_Offset();
+    std::cout << "Wheel Offsets Reset" << std::endl;
+  }
+}
 
 void Robot::SimulationInit() {}
 void Robot::SimulationPeriodic() {}
@@ -61,6 +65,10 @@ void Robot::PostStep() {
   m_IMU.PostStep();
   m_SwerveDrive.PostStep();
   m_SmartDashboard.UpdateSDValues();
+}
+
+void Robot::GameInitValues() {
+  m_SwerveDrive.GameInitValues();
 }
 
 #ifndef RUNNING_FRC_TESTS

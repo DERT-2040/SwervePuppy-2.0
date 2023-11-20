@@ -12,6 +12,7 @@
 class SwerveDrive {
 public:
     SwerveDrive();
+    void GameInitValues();
 
     void PreStep();
     void PostStep();
@@ -25,7 +26,9 @@ public:
     void Initalize_Wheel_Offset();
     void Reset_Wheel_Offset();
     void Set_Wheel_Offset();
-    
+
+    void WheelsOn();
+    void WheelsOff();
 private:
   //Drive Motors
     rev::CANSparkMax m_FrontLeft_Drive{Constants::k_FrontLeft_Drive_CANID, rev::CANSparkMax::MotorType::kBrushless};
@@ -47,5 +50,6 @@ private:
     frc::DutyCycleEncoder m_FrontRight_Steer_Encoder{Constants::k_FrontRight_Steer_Encoder_Port};
     frc::DutyCycleEncoder m_BackLeft_Steer_Encoder{Constants::k_BackLeft_Steer_Encoder_Port};
     frc::DutyCycleEncoder m_BackRight_Steer_Encoder{Constants::k_BackRight_Steer_Encoder_Port};
+  //Motor States
+    bool AreMotorsDisabled = false;
 };
-
