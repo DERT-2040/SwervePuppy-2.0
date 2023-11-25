@@ -1,6 +1,7 @@
 #include <include/PhotonVisionInterface.h>
 
 PhotonVisionInterface::PhotonVisionInterface() {
+
 }
 
 const std::vector<double>& PhotonVisionInterface::getDistances() const{
@@ -23,7 +24,15 @@ const std::vector<double>& PhotonVisionInterface::getPoseAmbiguities() const {
     return poseAmbiguities;
 }
 
+const std::pair<frc::Pose3d, double> getRobotPose(photonlib::EstimatedRobotPose estimatedRobotPose) {
+    return std::make_pair(estimatedRobotPose.estimatedPose, static_cast<int>(estimatedRobotPose.timestamp));
+}
+
+
 void PhotonVisionInterface::updatePhotonVision() {
+
+    auto estimatedRobotPose = poseEstimator.Update();
+
     photonlib::PhotonPipelineResult latestPipelineResult = camera.GetLatestResult();
     bool hasTargets = latestPipelineResult.HasTargets();
 

@@ -43,26 +43,26 @@ public:
     /**
      * @brief Prints out the current dected fiducialIds into console
     */
-    const void printDetectedTargetIds() const;
+    //const void printDetectedTargetIds() const;
 
     /**
-     * @brief Returns the 3d pose of the robot in a vector (x, y, x)
+     * @brief Returns the 3d pose of the robot with a vector (x, y, x) and the timestamp (all within a pair)
     */
 
     /**
-     * @brief Returns the pose of the robot as a 3d pose
+     * @brief Returns the pose of the robot with a 3d pose and the timestamp (all within a pair)
+    */
+    const std::pair<frc::Pose3d, double> getRobotPose(photonlib::EstimatedRobotPose estimatedRobotPose);
+
+    /**
+     * @brief Returns the 2d pose of the robot with a vector (x, y) and the timestamp (all within a pair)
     */
 
     /**
-     * @brief Returns the 2d pose of the robot in a vector (x, y)
-    */
-
-    /**
-     * @brief Returns the pose of the robot as a 2d pose
+     * @brief Returns the pose of the robot with a 2d pose and the timestamp (all within a pair)
     */
 
 private:
-
     // Makes a apriltag feild layout for our shop 
     frc::AprilTag tag1 = frc::AprilTag(1, frc::Pose3d(frc::Translation3d(15.513558_m, 1.02743_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
     frc::AprilTag tag2 = frc::AprilTag(2, frc::Pose3d(frc::Translation3d(15.513558_m, 2.748026_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
@@ -95,7 +95,7 @@ private:
      * @note I do not know exactly why I need std::move() in the constructor but it works so im running with it. Kill me if you want. *shrugs*
     */
     photonlib::PhotonPoseEstimator poseEstimator = photonlib::PhotonPoseEstimator(AprilTagFieldLayout, photonlib::MULTI_TAG_PNP, std::move(camera), robotToCamera);
-
+    photonlib::EstimatedRobotPose estimatedRobotPose;
     // Constants with preset values
     static constexpr units::meter_t CAMERA_HEIGHT{0.25}; // meters
     static constexpr units::radian_t CAMERA_PITCH{0_rad}; // degrees (rad)
