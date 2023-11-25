@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.11
+ * Model version                  : 2.16
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Nov 18 23:32:23 2023
+ * C/C++ source code generated on : Fri Nov 24 21:30:40 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -341,14 +341,14 @@ void Code_Gen_Model_step(void)
   boolean_T rtb_Compare_dh;
 
   /* Gain: '<S4>/Gain' incorporates:
-   *  Inport: '<Root>/FrontLeft_Steer_Encoder'
+   *  Inport: '<Root>/FrontLeft_Steer_Rev'
    */
   rtb_SteeringAngle_rad_4 = 6.2831853071795862 *
-    Code_Gen_Model_U.FrontLeft_Steer_Encoder;
+    Code_Gen_Model_U.FrontLeft_Steer_Rev;
 
   /* Product: '<S4>/Product' incorporates:
    *  Constant: '<S4>/Constant1'
-   *  Inport: '<Root>/FrontLeft_Drive_Rev'
+   *  Inport: '<Root>/FrontLeft_Drive_Motor_Rev'
    *  Sum: '<S9>/Diff'
    *  UnitDelay: '<S9>/UD'
    *
@@ -360,7 +360,7 @@ void Code_Gen_Model_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_thetay = (Code_Gen_Model_U.FrontLeft_Drive_Rev -
+  rtb_thetay = (Code_Gen_Model_U.FrontLeft_Drive_Motor_Rev -
                 Code_Gen_Model_DW.UD_DSTATE) * 0.039212094760200447;
 
   /* SignalConversion generated from: '<S4>/Product7' incorporates:
@@ -371,14 +371,14 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_g_0[1] = rtb_thetay * sin(rtb_SteeringAngle_rad_4);
 
   /* Gain: '<S4>/Gain1' incorporates:
-   *  Inport: '<Root>/FrontRight_Steer_Encoder'
+   *  Inport: '<Root>/FrontRight_Steer_Rev'
    */
   rtb_SteeringAngle_rad_4 = 6.2831853071795862 *
-    Code_Gen_Model_U.FrontRight_Steer_Encoder;
+    Code_Gen_Model_U.FrontRight_Steer_Rev;
 
   /* Product: '<S4>/Product1' incorporates:
    *  Constant: '<S4>/Constant1'
-   *  Inport: '<Root>/FrontRight_Drive_Rev'
+   *  Inport: '<Root>/FrontRight_Drive_Motor_Rev'
    *  Sum: '<S10>/Diff'
    *  UnitDelay: '<S10>/UD'
    *
@@ -390,7 +390,7 @@ void Code_Gen_Model_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_Init = (Code_Gen_Model_U.FrontRight_Drive_Rev -
+  rtb_Init = (Code_Gen_Model_U.FrontRight_Drive_Motor_Rev -
               Code_Gen_Model_DW.UD_DSTATE_m) * 0.039212094760200447;
 
   /* SignalConversion generated from: '<S4>/Product7' incorporates:
@@ -401,14 +401,14 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_g_0[3] = rtb_Init * sin(rtb_SteeringAngle_rad_4);
 
   /* Gain: '<S4>/Gain2' incorporates:
-   *  Inport: '<Root>/BackLeft_Steer_Encoder'
+   *  Inport: '<Root>/BackLeft_Steer_Rev'
    */
   rtb_SteeringAngle_rad_4 = 6.2831853071795862 *
-    Code_Gen_Model_U.BackLeft_Steer_Encoder;
+    Code_Gen_Model_U.BackLeft_Steer_Rev;
 
   /* Product: '<S4>/Product2' incorporates:
    *  Constant: '<S4>/Constant1'
-   *  Inport: '<Root>/BackLeft_Drive_Rev'
+   *  Inport: '<Root>/BackLeft_Drive_Motor_Rev'
    *  Sum: '<S11>/Diff'
    *  UnitDelay: '<S11>/UD'
    *
@@ -420,7 +420,7 @@ void Code_Gen_Model_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_Sin4 = (Code_Gen_Model_U.BackLeft_Drive_Rev -
+  rtb_Sin4 = (Code_Gen_Model_U.BackLeft_Drive_Motor_Rev -
               Code_Gen_Model_DW.UD_DSTATE_i) * 0.039212094760200447;
 
   /* SignalConversion generated from: '<S4>/Product7' incorporates:
@@ -431,14 +431,14 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_g_0[5] = rtb_Sin4 * sin(rtb_SteeringAngle_rad_4);
 
   /* Gain: '<S4>/Gain3' incorporates:
-   *  Inport: '<Root>/BackRight_Steer_Encoder'
+   *  Inport: '<Root>/BackRight_Steer_Rev'
    */
   rtb_SteeringAngle_rad_4 = 6.2831853071795862 *
-    Code_Gen_Model_U.BackRight_Steer_Encoder;
+    Code_Gen_Model_U.BackRight_Steer_Rev;
 
   /* Product: '<S4>/Product3' incorporates:
    *  Constant: '<S4>/Constant1'
-   *  Inport: '<Root>/BackRight_Drive_Rev'
+   *  Inport: '<Root>/BackRight_Drive_Motor_Rev'
    *  Sum: '<S12>/Diff'
    *  UnitDelay: '<S12>/UD'
    *
@@ -450,7 +450,7 @@ void Code_Gen_Model_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_Switch2_a = (Code_Gen_Model_U.BackRight_Drive_Rev -
+  rtb_Switch2_a = (Code_Gen_Model_U.BackRight_Drive_Motor_Rev -
                    Code_Gen_Model_DW.UD_DSTATE_c) * 0.039212094760200447;
 
   /* SignalConversion generated from: '<S4>/Product7' incorporates:
@@ -1506,14 +1506,14 @@ void Code_Gen_Model_step(void)
    *  Constant: '<S102>/Constant3'
    *  Constant: '<S102>/Constant4'
    *  Gain: '<S93>/Revolutions to Radians'
-   *  Inport: '<Root>/BackRight_Steer_Encoder'
+   *  Inport: '<Root>/BackRight_Steer_Rev'
    *  Inport: '<Root>/BackRight_Turn_Offset'
    *  Math: '<S102>/Math Function'
    *  Sum: '<S102>/Add2'
    *  Sum: '<S93>/Add'
    */
   Code_Gen_Model_B.BR_Steer_Module_Angle_Adjusted = rt_modd_snf
-    ((Code_Gen_Model_U.BackRight_Steer_Encoder -
+    ((Code_Gen_Model_U.BackRight_Steer_Rev -
       Code_Gen_Model_U.BackRight_Turn_Offset) * 6.2831853071795862 +
      3.1415926535897931, 6.2831853071795862) - 3.1415926535897931;
 
@@ -1604,21 +1604,21 @@ void Code_Gen_Model_step(void)
   }
 
   /* Signum: '<S96>/Sign1' incorporates:
-   *  Inport: '<Root>/BackRight_Drive_Encoder'
+   *  Inport: '<Root>/BackRight_Drive_Motor_Speed'
    */
-  if (rtIsNaN(Code_Gen_Model_U.BackRight_Drive_Encoder)) {
+  if (rtIsNaN(Code_Gen_Model_U.BackRight_Drive_Motor_Speed)) {
     rtb_Add_ci = (rtNaN);
-  } else if (Code_Gen_Model_U.BackRight_Drive_Encoder < 0.0) {
+  } else if (Code_Gen_Model_U.BackRight_Drive_Motor_Speed < 0.0) {
     rtb_Add_ci = -1.0;
   } else {
-    rtb_Add_ci = Code_Gen_Model_U.BackRight_Drive_Encoder > 0.0;
+    rtb_Add_ci = Code_Gen_Model_U.BackRight_Drive_Motor_Speed > 0.0;
   }
 
   /* Switch: '<S96>/Switch' incorporates:
    *  Abs: '<S96>/Abs'
    *  Constant: '<S113>/Constant'
    *  Constant: '<S96>/Constant'
-   *  Inport: '<Root>/BackRight_Drive_Encoder'
+   *  Inport: '<Root>/BackRight_Drive_Motor_Speed'
    *  Logic: '<S96>/OR'
    *  RelationalOperator: '<S113>/Compare'
    *  RelationalOperator: '<S96>/Equal1'
@@ -1626,7 +1626,7 @@ void Code_Gen_Model_step(void)
    *  Signum: '<S96>/Sign1'
    */
   if (!(rtb_Switch2_a == rtb_Add_ci) && !(fabs
-       (Code_Gen_Model_U.BackRight_Drive_Encoder) <= 1500.0)) {
+       (Code_Gen_Model_U.BackRight_Drive_Motor_Speed) <= 1500.0)) {
     rtb_Total_Limited = 0.0;
   }
 
@@ -1700,9 +1700,9 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_g = 0.00018181818181818181 * rtb_Total_Limited;
 
   /* Sum: '<S92>/Sum' incorporates:
-   *  Inport: '<Root>/BackRight_Drive_Encoder'
+   *  Inport: '<Root>/BackRight_Drive_Motor_Speed'
    */
-  rtb_Total_Limited -= Code_Gen_Model_U.BackRight_Drive_Encoder;
+  rtb_Total_Limited -= Code_Gen_Model_U.BackRight_Drive_Motor_Speed;
 
   /* Sum: '<S100>/Sum1' incorporates:
    *  Constant: '<S92>/Constant2'
@@ -1940,14 +1940,14 @@ void Code_Gen_Model_step(void)
    *  Constant: '<S79>/Constant3'
    *  Constant: '<S79>/Constant4'
    *  Gain: '<S70>/Revolutions to Radians'
-   *  Inport: '<Root>/BackLeft_Steer_Encoder'
+   *  Inport: '<Root>/BackLeft_Steer_Rev'
    *  Inport: '<Root>/BackLeft_Turn_Offset'
    *  Math: '<S79>/Math Function'
    *  Sum: '<S70>/Add'
    *  Sum: '<S79>/Add2'
    */
   Code_Gen_Model_B.BL_Steer_Module_Angle_Adjusted = rt_modd_snf
-    ((Code_Gen_Model_U.BackLeft_Steer_Encoder -
+    ((Code_Gen_Model_U.BackLeft_Steer_Rev -
       Code_Gen_Model_U.BackLeft_Turn_Offset) * 6.2831853071795862 +
      3.1415926535897931, 6.2831853071795862) - 3.1415926535897931;
 
@@ -2039,21 +2039,21 @@ void Code_Gen_Model_step(void)
   }
 
   /* Signum: '<S73>/Sign1' incorporates:
-   *  Inport: '<Root>/BackLeft_Drive_Encoder'
+   *  Inport: '<Root>/BackLeft_Drive_Motor_Speed'
    */
-  if (rtIsNaN(Code_Gen_Model_U.BackLeft_Drive_Encoder)) {
+  if (rtIsNaN(Code_Gen_Model_U.BackLeft_Drive_Motor_Speed)) {
     rtb_Add_ci = (rtNaN);
-  } else if (Code_Gen_Model_U.BackLeft_Drive_Encoder < 0.0) {
+  } else if (Code_Gen_Model_U.BackLeft_Drive_Motor_Speed < 0.0) {
     rtb_Add_ci = -1.0;
   } else {
-    rtb_Add_ci = Code_Gen_Model_U.BackLeft_Drive_Encoder > 0.0;
+    rtb_Add_ci = Code_Gen_Model_U.BackLeft_Drive_Motor_Speed > 0.0;
   }
 
   /* Switch: '<S73>/Switch' incorporates:
    *  Abs: '<S73>/Abs'
    *  Constant: '<S73>/Constant'
    *  Constant: '<S90>/Constant'
-   *  Inport: '<Root>/BackLeft_Drive_Encoder'
+   *  Inport: '<Root>/BackLeft_Drive_Motor_Speed'
    *  Logic: '<S73>/OR'
    *  RelationalOperator: '<S73>/Equal1'
    *  RelationalOperator: '<S90>/Compare'
@@ -2061,7 +2061,7 @@ void Code_Gen_Model_step(void)
    *  Signum: '<S73>/Sign1'
    */
   if (!(rtb_Switch2_a == rtb_Add_ci) && !(fabs
-       (Code_Gen_Model_U.BackLeft_Drive_Encoder) <= 1500.0)) {
+       (Code_Gen_Model_U.BackLeft_Drive_Motor_Speed) <= 1500.0)) {
     rtb_Total_Limited = 0.0;
   }
 
@@ -2135,9 +2135,9 @@ void Code_Gen_Model_step(void)
   rtb_Add_f_idx_1 = 0.00018181818181818181 * rtb_Total_Limited;
 
   /* Sum: '<S69>/Sum' incorporates:
-   *  Inport: '<Root>/BackLeft_Drive_Encoder'
+   *  Inport: '<Root>/BackLeft_Drive_Motor_Speed'
    */
-  rtb_Total_Limited -= Code_Gen_Model_U.BackLeft_Drive_Encoder;
+  rtb_Total_Limited -= Code_Gen_Model_U.BackLeft_Drive_Motor_Speed;
 
   /* Sum: '<S77>/Sum1' incorporates:
    *  Constant: '<S69>/Constant2'
@@ -2381,14 +2381,14 @@ void Code_Gen_Model_step(void)
    *  Constant: '<S56>/Constant3'
    *  Constant: '<S56>/Constant4'
    *  Gain: '<S47>/Revolutions to Radians'
-   *  Inport: '<Root>/FrontRight_Steer_Encoder'
+   *  Inport: '<Root>/FrontRight_Steer_Rev'
    *  Inport: '<Root>/FrontRight_Turn_Offset'
    *  Math: '<S56>/Math Function'
    *  Sum: '<S47>/Add'
    *  Sum: '<S56>/Add2'
    */
   Code_Gen_Model_B.FR_Steer_Module_Angle_Adjusted = rt_modd_snf
-    ((Code_Gen_Model_U.FrontRight_Steer_Encoder -
+    ((Code_Gen_Model_U.FrontRight_Steer_Rev -
       Code_Gen_Model_U.FrontRight_Turn_Offset) * 6.2831853071795862 +
      3.1415926535897931, 6.2831853071795862) - 3.1415926535897931;
 
@@ -2481,21 +2481,21 @@ void Code_Gen_Model_step(void)
   }
 
   /* Signum: '<S50>/Sign1' incorporates:
-   *  Inport: '<Root>/FrontRight_Drive_Encoder'
+   *  Inport: '<Root>/FrontRight_Drive_Motor_Speed'
    */
-  if (rtIsNaN(Code_Gen_Model_U.FrontRight_Drive_Encoder)) {
+  if (rtIsNaN(Code_Gen_Model_U.FrontRight_Drive_Motor_Speed)) {
     rtb_Add_ci = (rtNaN);
-  } else if (Code_Gen_Model_U.FrontRight_Drive_Encoder < 0.0) {
+  } else if (Code_Gen_Model_U.FrontRight_Drive_Motor_Speed < 0.0) {
     rtb_Add_ci = -1.0;
   } else {
-    rtb_Add_ci = Code_Gen_Model_U.FrontRight_Drive_Encoder > 0.0;
+    rtb_Add_ci = Code_Gen_Model_U.FrontRight_Drive_Motor_Speed > 0.0;
   }
 
   /* Switch: '<S50>/Switch' incorporates:
    *  Abs: '<S50>/Abs'
    *  Constant: '<S50>/Constant'
    *  Constant: '<S67>/Constant'
-   *  Inport: '<Root>/FrontRight_Drive_Encoder'
+   *  Inport: '<Root>/FrontRight_Drive_Motor_Speed'
    *  Logic: '<S50>/OR'
    *  RelationalOperator: '<S50>/Equal1'
    *  RelationalOperator: '<S67>/Compare'
@@ -2503,7 +2503,7 @@ void Code_Gen_Model_step(void)
    *  Signum: '<S50>/Sign1'
    */
   if (!(rtb_Switch2_a == rtb_Add_ci) && !(fabs
-       (Code_Gen_Model_U.FrontRight_Drive_Encoder) <= 1500.0)) {
+       (Code_Gen_Model_U.FrontRight_Drive_Motor_Speed) <= 1500.0)) {
     rtb_Total_Limited = 0.0;
   }
 
@@ -2577,9 +2577,9 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_h4 = 0.00018181818181818181 * rtb_Total_Limited;
 
   /* Sum: '<S46>/Sum' incorporates:
-   *  Inport: '<Root>/FrontRight_Drive_Encoder'
+   *  Inport: '<Root>/FrontRight_Drive_Motor_Speed'
    */
-  rtb_Total_Limited -= Code_Gen_Model_U.FrontRight_Drive_Encoder;
+  rtb_Total_Limited -= Code_Gen_Model_U.FrontRight_Drive_Motor_Speed;
 
   /* Sum: '<S54>/Sum1' incorporates:
    *  Constant: '<S46>/Constant2'
@@ -2825,14 +2825,14 @@ void Code_Gen_Model_step(void)
    *  Constant: '<S33>/Constant3'
    *  Constant: '<S33>/Constant4'
    *  Gain: '<S24>/Revolutions to Radians'
-   *  Inport: '<Root>/FrontLeft_Steer_Encoder'
+   *  Inport: '<Root>/FrontLeft_Steer_Rev'
    *  Inport: '<Root>/FrontLeft_Turn_Offset'
    *  Math: '<S33>/Math Function'
    *  Sum: '<S24>/Add'
    *  Sum: '<S33>/Add2'
    */
   Code_Gen_Model_B.FL_Steer_Module_Angle_Adjusted = rt_modd_snf
-    ((Code_Gen_Model_U.FrontLeft_Steer_Encoder -
+    ((Code_Gen_Model_U.FrontLeft_Steer_Rev -
       Code_Gen_Model_U.FrontLeft_Turn_Offset) * 6.2831853071795862 +
      3.1415926535897931, 6.2831853071795862) - 3.1415926535897931;
 
@@ -2925,21 +2925,21 @@ void Code_Gen_Model_step(void)
   }
 
   /* Signum: '<S27>/Sign1' incorporates:
-   *  Inport: '<Root>/FrontLeft_Drive_Encoder'
+   *  Inport: '<Root>/FrontLeft_Drive_Motor_Speed'
    */
-  if (rtIsNaN(Code_Gen_Model_U.FrontLeft_Drive_Encoder)) {
+  if (rtIsNaN(Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed)) {
     rtb_Add_ci = (rtNaN);
-  } else if (Code_Gen_Model_U.FrontLeft_Drive_Encoder < 0.0) {
+  } else if (Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed < 0.0) {
     rtb_Add_ci = -1.0;
   } else {
-    rtb_Add_ci = Code_Gen_Model_U.FrontLeft_Drive_Encoder > 0.0;
+    rtb_Add_ci = Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed > 0.0;
   }
 
   /* Switch: '<S27>/Switch' incorporates:
    *  Abs: '<S27>/Abs'
    *  Constant: '<S27>/Constant'
    *  Constant: '<S44>/Constant'
-   *  Inport: '<Root>/FrontLeft_Drive_Encoder'
+   *  Inport: '<Root>/FrontLeft_Drive_Motor_Speed'
    *  Logic: '<S27>/OR'
    *  RelationalOperator: '<S27>/Equal1'
    *  RelationalOperator: '<S44>/Compare'
@@ -2947,7 +2947,7 @@ void Code_Gen_Model_step(void)
    *  Signum: '<S27>/Sign1'
    */
   if (!(rtb_Switch2_a == rtb_Add_ci) && !(fabs
-       (Code_Gen_Model_U.FrontLeft_Drive_Encoder) <= 1500.0)) {
+       (Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed) <= 1500.0)) {
     rtb_Total_Limited = 0.0;
   }
 
@@ -3021,9 +3021,9 @@ void Code_Gen_Model_step(void)
   rtb_Switch2_h4 = 0.00018181818181818181 * rtb_Total_Limited;
 
   /* Sum: '<S23>/Sum' incorporates:
-   *  Inport: '<Root>/FrontLeft_Drive_Encoder'
+   *  Inport: '<Root>/FrontLeft_Drive_Motor_Speed'
    */
-  rtb_Total_Limited -= Code_Gen_Model_U.FrontLeft_Drive_Encoder;
+  rtb_Total_Limited -= Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed;
 
   /* Sum: '<S31>/Sum1' incorporates:
    *  Constant: '<S23>/Constant2'
@@ -3238,40 +3238,40 @@ void Code_Gen_Model_step(void)
   Code_Gen_Model_B.Y_global_est_m = Code_Gen_Model_DW.Accumulator_DSTATE;
 
   /* Update for UnitDelay: '<S9>/UD' incorporates:
-   *  Inport: '<Root>/FrontLeft_Drive_Rev'
+   *  Inport: '<Root>/FrontLeft_Drive_Motor_Rev'
    *
    * Block description for '<S9>/UD':
    *
    *  Store in Global RAM
    */
-  Code_Gen_Model_DW.UD_DSTATE = Code_Gen_Model_U.FrontLeft_Drive_Rev;
+  Code_Gen_Model_DW.UD_DSTATE = Code_Gen_Model_U.FrontLeft_Drive_Motor_Rev;
 
   /* Update for UnitDelay: '<S10>/UD' incorporates:
-   *  Inport: '<Root>/FrontRight_Drive_Rev'
+   *  Inport: '<Root>/FrontRight_Drive_Motor_Rev'
    *
    * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */
-  Code_Gen_Model_DW.UD_DSTATE_m = Code_Gen_Model_U.FrontRight_Drive_Rev;
+  Code_Gen_Model_DW.UD_DSTATE_m = Code_Gen_Model_U.FrontRight_Drive_Motor_Rev;
 
   /* Update for UnitDelay: '<S11>/UD' incorporates:
-   *  Inport: '<Root>/BackLeft_Drive_Rev'
+   *  Inport: '<Root>/BackLeft_Drive_Motor_Rev'
    *
    * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
-  Code_Gen_Model_DW.UD_DSTATE_i = Code_Gen_Model_U.BackLeft_Drive_Rev;
+  Code_Gen_Model_DW.UD_DSTATE_i = Code_Gen_Model_U.BackLeft_Drive_Motor_Rev;
 
   /* Update for UnitDelay: '<S12>/UD' incorporates:
-   *  Inport: '<Root>/BackRight_Drive_Rev'
+   *  Inport: '<Root>/BackRight_Drive_Motor_Rev'
    *
    * Block description for '<S12>/UD':
    *
    *  Store in Global RAM
    */
-  Code_Gen_Model_DW.UD_DSTATE_c = Code_Gen_Model_U.BackRight_Drive_Rev;
+  Code_Gen_Model_DW.UD_DSTATE_c = Code_Gen_Model_U.BackRight_Drive_Motor_Rev;
 
   /* Update for UnitDelay: '<S8>/UD'
    *

@@ -1,21 +1,22 @@
 //local
 #include "include/SwerveDrive.h"
-#include "Code_Gen_Model_ert_rtw/Code_Gen_Model.h"
-
-//std
-#include <iostream>
 
 void SwerveDrive::PreStep() {
-  //Drive Encoders
-  Code_Gen_Model_U.FrontLeft_Drive_Encoder = m_FrontLeft_Drive_Encoder.GetVelocity();
-  Code_Gen_Model_U.FrontRight_Drive_Encoder = m_FrontRight_Drive_Encoder.GetVelocity();
-  Code_Gen_Model_U.BackLeft_Drive_Encoder = m_BackLeft_Drive_Encoder.GetVelocity();
-  Code_Gen_Model_U.BackRight_Drive_Encoder = m_BackRight_Drive_Encoder.GetVelocity();
-  //Steer Encoders
-  Code_Gen_Model_U.FrontLeft_Steer_Encoder = m_FrontLeft_Steer_Encoder.GetAbsolutePosition();
-  Code_Gen_Model_U.FrontRight_Steer_Encoder = m_FrontRight_Steer_Encoder.GetAbsolutePosition();
-  Code_Gen_Model_U.BackLeft_Steer_Encoder = m_BackLeft_Steer_Encoder.GetAbsolutePosition();
-  Code_Gen_Model_U.BackRight_Steer_Encoder = m_BackRight_Steer_Encoder.GetAbsolutePosition();
+  //Drive Motor Speed
+  Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed = m_FrontLeft_Drive_Encoder.GetVelocity();
+  Code_Gen_Model_U.FrontRight_Drive_Motor_Speed = m_FrontRight_Drive_Encoder.GetVelocity();
+  Code_Gen_Model_U.BackLeft_Drive_Motor_Speed = m_BackLeft_Drive_Encoder.GetVelocity();
+  Code_Gen_Model_U.BackRight_Drive_Motor_Speed = m_BackRight_Drive_Encoder.GetVelocity();
+  //Drive Motor Revolutions
+  Code_Gen_Model_U.FrontLeft_Drive_Motor_Rev = m_FrontLeft_Drive_Encoder.GetPosition();
+  Code_Gen_Model_U.FrontRight_Drive_Motor_Rev = m_FrontRight_Drive_Encoder.GetPosition();
+  Code_Gen_Model_U.BackLeft_Drive_Motor_Rev = m_BackLeft_Drive_Encoder.GetPosition();
+  Code_Gen_Model_U.BackRight_Drive_Motor_Rev = m_BackRight_Drive_Encoder.GetPosition();
+  //Steer Module Revolutions
+  Code_Gen_Model_U.FrontLeft_Steer_Rev = m_FrontLeft_Steer_Encoder.GetAbsolutePosition();
+  Code_Gen_Model_U.FrontRight_Steer_Rev = m_FrontRight_Steer_Encoder.GetAbsolutePosition();
+  Code_Gen_Model_U.BackLeft_Steer_Rev = m_BackLeft_Steer_Encoder.GetAbsolutePosition();
+  Code_Gen_Model_U.BackRight_Steer_Rev = m_BackRight_Steer_Encoder.GetAbsolutePosition();
 }
 void SwerveDrive::PostStep() {
   if(AreMotorsDisabled) //escape if motor output is disabled

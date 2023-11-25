@@ -1,7 +1,7 @@
 {
   "tabPane": [
     {
-      "title": "SmartDashboard",
+      "title": "Swerve Drivetrain",
       "autoPopulate": true,
       "autoPopulatePrefix": "SmartDashboard/",
       "widgetPane": {
@@ -421,6 +421,45 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FL_Drive_Motor_Speed",
+              "_title": "FL_Drive_Motor_Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FR_Drive_Motor_Speed",
+              "_title": "FR_Drive_Motor_Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/BL_Drive_Motor_Speed",
+              "_title": "BL_Drive_Motor_Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -637,6 +676,46 @@
                   "_showGlyph": false
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Odometry",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry_X_Global_Est",
+              "_title": "/SmartDashboard/Odometry_X_Global_Est",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry_Y_Global_Est",
+              "_title": "/SmartDashboard/Odometry_Y_Global_Est",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }

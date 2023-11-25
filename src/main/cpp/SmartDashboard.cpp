@@ -11,10 +11,18 @@ void SmartDashboard::UpdateSDValues(){
         frc::SmartDashboard::PutNumber("BL_Steer_Module_Angle_Adjusted", Code_Gen_Model_B.BL_Steer_Module_Angle_Adjusted);
         frc::SmartDashboard::PutNumber("BR_Steer_Module_Angle_Adjusted", Code_Gen_Model_B.BR_Steer_Module_Angle_Adjusted);
 
-        frc::SmartDashboard::PutNumber("FL_Drive_Encoder", Code_Gen_Model_U.FrontLeft_Drive_Encoder);
-        frc::SmartDashboard::PutNumber("FR_Drive_Encoder", Code_Gen_Model_U.FrontRight_Drive_Encoder);
-        frc::SmartDashboard::PutNumber("BL_Drive_Encoder", Code_Gen_Model_U.BackLeft_Drive_Encoder);
-        frc::SmartDashboard::PutNumber("BR_Drive_Encoder", Code_Gen_Model_U.BackRight_Drive_Encoder);
+        frc::SmartDashboard::PutNumber("FL_Drive_Motor_Speed", Code_Gen_Model_U.FrontLeft_Drive_Motor_Speed);
+        frc::SmartDashboard::PutNumber("FR_Drive_Motor_Speed", Code_Gen_Model_U.FrontRight_Drive_Motor_Speed);
+        frc::SmartDashboard::PutNumber("BL_Drive_Motor_Speed", Code_Gen_Model_U.BackLeft_Drive_Motor_Speed);
+        frc::SmartDashboard::PutNumber("BR_Drive_Motor_Speed", Code_Gen_Model_U.BackRight_Drive_Motor_Speed);
+
+        frc::SmartDashboard::PutNumber("FL_Drive_Motor_Rev", Code_Gen_Model_U.FrontLeft_Drive_Motor_Rev);
+        frc::SmartDashboard::PutNumber("FR_Drive_Motor_Rev", Code_Gen_Model_U.FrontRight_Drive_Motor_Rev);
+        frc::SmartDashboard::PutNumber("BL_Drive_Motor_Rev", Code_Gen_Model_U.BackLeft_Drive_Motor_Rev);
+        frc::SmartDashboard::PutNumber("BR_Drive_Motor_Rev", Code_Gen_Model_U.BackRight_Drive_Motor_Rev);
+
+        frc::SmartDashboard::PutNumber("Odometry_X_Global_Est", Code_Gen_Model_B.X_global_est_m);
+        frc::SmartDashboard::PutNumber("Odometry_Y_Global_Est", Code_Gen_Model_B.Y_global_est_m);
 
         // frc::SmartDashboard::PutNumber("FL_Steer_DC", Code_Gen_Model_Y.FrontLeft_Steer_DutyCycle);
         // frc::SmartDashboard::PutNumber("FR_Steer_DC", Code_Gen_Model_Y.FrontRight_Steer_DutyCycle);

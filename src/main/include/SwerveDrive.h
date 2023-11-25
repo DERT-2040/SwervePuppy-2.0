@@ -2,6 +2,7 @@
 
 //local
 #include "include/Constants.h"
+#include "Code_Gen_Model_ert_rtw/Code_Gen_Model.h"
 //frc
 #include <frc/DutyCycleEncoder.h>
 #include <frc/Preferences.h>

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.11
+ * Model version                  : 2.16
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Nov 18 23:32:23 2023
+ * C/C++ source code generated on : Fri Nov 24 21:30:40 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -199,24 +199,25 @@ typedef struct {
   real_T Drive_Joystick_Y;             /* '<Root>/Drive_Joystick_Y' */
   real_T Is_Boost_Trigger_Pulled;      /* '<Root>/Is_Boost_Trigger_Pulled' */
   real_T Gyro_Angle;                   /* '<Root>/Gyro_Angle' */
-  real_T FrontLeft_Drive_Encoder;      /* '<Root>/FrontLeft_Drive_Encoder' */
-  real_T FrontRight_Drive_Encoder;     /* '<Root>/FrontRight_Drive_Encoder' */
-  real_T BackLeft_Drive_Encoder;       /* '<Root>/BackLeft_Drive_Encoder' */
-  real_T BackRight_Drive_Encoder;      /* '<Root>/BackRight_Drive_Encoder' */
-  real_T FrontLeft_Steer_Encoder;      /* '<Root>/FrontLeft_Steer_Encoder' */
-  real_T FrontRight_Steer_Encoder;     /* '<Root>/FrontRight_Steer_Encoder' */
-  real_T BackLeft_Steer_Encoder;       /* '<Root>/BackLeft_Steer_Encoder' */
-  real_T BackRight_Steer_Encoder;      /* '<Root>/BackRight_Steer_Encoder' */
+  real_T FrontLeft_Drive_Motor_Speed; /* '<Root>/FrontLeft_Drive_Motor_Speed' */
+  real_T FrontRight_Drive_Motor_Speed;
+                                     /* '<Root>/FrontRight_Drive_Motor_Speed' */
+  real_T BackLeft_Drive_Motor_Speed;   /* '<Root>/BackLeft_Drive_Motor_Speed' */
+  real_T BackRight_Drive_Motor_Speed; /* '<Root>/BackRight_Drive_Motor_Speed' */
+  real_T FrontLeft_Steer_Rev;          /* '<Root>/FrontLeft_Steer_Rev' */
+  real_T FrontRight_Steer_Rev;         /* '<Root>/FrontRight_Steer_Rev' */
+  real_T BackLeft_Steer_Rev;           /* '<Root>/BackLeft_Steer_Rev' */
+  real_T BackRight_Steer_Rev;          /* '<Root>/BackRight_Steer_Rev' */
   real_T FrontLeft_Turn_Offset;        /* '<Root>/FrontLeft_Turn_Offset' */
   real_T FrontRight_Turn_Offset;       /* '<Root>/FrontRight_Turn_Offset' */
   real_T BackLeft_Turn_Offset;         /* '<Root>/BackLeft_Turn_Offset' */
   real_T BackRight_Turn_Offset;        /* '<Root>/BackRight_Turn_Offset' */
   boolean_T Is_Absolute_Steering;      /* '<Root>/Is_Absolute_Steering' */
   boolean_T Is_Absolute_Translation;   /* '<Root>/Is_Absolute_Translation' */
-  real_T FrontLeft_Drive_Rev;          /* '<Root>/FrontLeft_Drive_Rev' */
-  real_T FrontRight_Drive_Rev;         /* '<Root>/FrontRight_Drive_Rev' */
-  real_T BackLeft_Drive_Rev;           /* '<Root>/BackLeft_Drive_Rev' */
-  real_T BackRight_Drive_Rev;          /* '<Root>/BackRight_Drive_Rev' */
+  real_T FrontLeft_Drive_Motor_Rev;    /* '<Root>/FrontLeft_Drive_Motor_Rev' */
+  real_T FrontRight_Drive_Motor_Rev;   /* '<Root>/FrontRight_Drive_Motor_Rev' */
+  real_T BackLeft_Drive_Motor_Rev;     /* '<Root>/BackLeft_Drive_Motor_Rev' */
+  real_T BackRight_Drive_Motor_Rev;    /* '<Root>/BackRight_Drive_Motor_Rev' */
 } ExtU_Code_Gen_Model_T;
 
 /* External outputs (root outports fed by signals with default storage) */
