@@ -4,14 +4,11 @@
 
 //local
 #include "include/Robot.h"
-#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
-//std
-#include <iostream>
 
 void Robot::RobotInit() {
   Code_Gen_Model_U.GameState = -1;
   Code_Gen_Model_initialize(); //code gen model init
-  m_SwerveDrive.BreakMode(); //set all motors to coast mode
+  m_SwerveDrive.BrakeMode(); //set all motors to coast mode
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
   m_IMU.Reset();
 }
@@ -45,6 +42,14 @@ void Robot::TestPeriodic() {
     m_SwerveDrive.WheelsOn();
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_TestMode_Wheel_Off))
     m_SwerveDrive.WheelsOff();
+    /**
+     * Wheel calibration procedure:
+     * 1. Go into 'Test' game state
+     * 2. Push the Wheel Off button (left/drive joystick button #6).  This sets steering duty cycle to 0 and puts them into coast mode.
+     * 3. Alight the wheels with gears facing RIGHT.  If this is done backwards then robot will steer in the opposite directions.
+     * 4. Push the Calibrate button (left/drive joystick button #8).
+     * 5. (optional) Push the Wheel On button (left/drive joystick button #11).  
+     */
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Reset_Wheel_Offset_Button)){
     m_SwerveDrive.Reset_Wheel_Offset();
     std::cout << "Wheel Offsets Reset" << std::endl;

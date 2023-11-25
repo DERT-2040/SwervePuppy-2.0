@@ -32,9 +32,7 @@ Boost_Trigger_High_Speed = 3.658; % m/s
 Boost_Trigger_Low_Speed = 1.5; % m/s
 
 Boost_Trigger_Increasing_Limit = 2/1*0.02;
-% EXTERN('Boost_Trigger_Increasing_Limit', 'double', '2/1*0.02');
 Boost_Trigger_Decreasing_Limit = -2/0.9*0.02;
-% EXTERN('Boost_Trigger_Decreasing_Limit', 'double', '-2/0.9*0.02');
 
 %% Wheel Gear Ratio
 gear_ratio = 8.14;
@@ -107,7 +105,6 @@ Drive_Motor_Control_D_UL = 0.2;
 Drive_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
 
 Drive_Motor_Control_Sign_Change_Deadband = 1500;
-% EXTERN('Drive_Motor_Control_Sign_Change_Deadband', 'double', '1500');
 
 Drive_Motor_Control_Module_Angle_Error = [0 45]*pi/180;
 Drive_Motor_Control_Scale_Factor = [1 0.05];
@@ -145,9 +142,7 @@ Steering_Heading_Control_Deadzone = 0.1;
 
 %% Translation Speed Rate Limit
 Translation_Speed_Rate_Limit_Inc =  3/0.7*0.02;
-% EXTERN('Translation_Speed_Rate_Limit_Inc','double', '3/0.7*0.02');
 Translation_Speed_Rate_Limit_Dec = -2/0.2*0.02;
-% EXTERN('Translation_Speed_Rate_Limit_Dec', 'double', '-2/0.2*0.02');
 Translation_Speed_Approach_Zero_Error_Thresh = 0.2;
 Translation_Speed_Approach_Zero_Final_Thresh = 0.01;
 Translation_Speed_NonZero_Error_Thresh = 0.15;
@@ -162,4 +157,4 @@ Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 
 %% Occupency Map
-Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
+%Occupency_Matrix = LoadBinaryPNG('TestMap1.png');

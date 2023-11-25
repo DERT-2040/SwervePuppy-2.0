@@ -88,7 +88,7 @@ SwerveDrive::SwerveDrive() {
   //Wheel Offset
     SwerveDrive::Initalize_Wheel_Offset();
 }
-void SwerveDrive::BreakMode() {
+void SwerveDrive::BrakeMode() {
   //Drive Motors
   m_FrontLeft_Drive.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_FrontRight_Drive.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
@@ -145,7 +145,7 @@ void SwerveDrive::Set_Wheel_Offset() {
 }
 void SwerveDrive::WheelsOn() {
   AreMotorsDisabled = false;
-  BreakMode();
+  BrakeMode();
 }
 void SwerveDrive::WheelsOff() {
   AreMotorsDisabled = true;
