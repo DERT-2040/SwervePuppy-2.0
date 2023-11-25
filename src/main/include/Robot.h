@@ -124,4 +124,9 @@ private:
    * Component for all Smart Dashboard objects
    */
   SmartDashboard m_SmartDashboard;
+
+  /**
+   * Monitor code execution time
+   */
+  frc::Tracer m_Tracer{};
 };

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.16
+ * Model version                  : 2.22
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Fri Nov 24 21:30:40 2023
+ * C/C++ source code generated on : Sat Nov 25 11:38:35 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -23,9 +23,9 @@
 #include "Code_Gen_Model_types.h"
 #include "Code_Gen_Model.h"
 
+extern real_T rt_modd_snf(real_T u0, real_T u1);
 extern real_T rt_hypotd_snf(real_T u0, real_T u1);
 extern real_T rt_atan2d_snf(real_T u0, real_T u1);
-extern real_T rt_modd_snf(real_T u0, real_T u1);
 void BINARYSEARCH_real_T(uint32_T *piLeft, uint32_T *piRght, real_T u, const
   real_T *pData, uint32_T iHi);
 void LookUp_real_T_real_T(real_T *pY, const real_T *pYData, real_T u, const

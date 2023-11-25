@@ -86,6 +86,10 @@ temp = pinv(Rotation_Local);
 % only keep first two rows since we don't need to estimate Theta
 Rotation_Local_Inv = temp(1:2,:);
 
+% only used for validation testing
+% set to 1 (TRUE) to tear the X and Y measurement
+EXTERN('Odometry_X_Y_TEAR','boolean', '0')
+
 clear temp
 
 %% Drive Motor PID
