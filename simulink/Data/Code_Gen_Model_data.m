@@ -113,6 +113,8 @@ Drive_Motor_Control_Sign_Change_Deadband = 1500;
 Drive_Motor_Control_Module_Angle_Error = [0 45]*pi/180;
 Drive_Motor_Control_Scale_Factor = [1 0.05];
 
+clear Derivative_low_pass_filter_freq
+
 %% Steering Motor PID
 Steering_Motor_Control_P = 0.15;
 
@@ -126,6 +128,7 @@ Steering_Motor_Control_D_FilterCoeff = 1-exp(-2*pi*Derivative_low_pass_filter_fr
 Steering_Motor_Control_D_UL = 0.2;
 Steering_Motor_Control_D_LL = -Drive_Motor_Control_D_UL;
 
+clear Derivative_low_pass_filter_freq
 
 %% Steering Heading PID
 Steering_Heading_Control_P = 1.5;
@@ -143,6 +146,8 @@ Steering_Heading_Control_Total_UL = 1.3;  % m/sec
 Steering_Heading_Control_Total_LL = -Steering_Heading_Control_Total_UL;
 
 Steering_Heading_Control_Deadzone = 0.1;
+
+clear Derivative_low_pass_filter_freq
 
 %% Translation Speed Rate Limit
 Translation_Speed_Rate_Limit_Inc =  3/0.7*0.02;

@@ -8,9 +8,11 @@ for i = 1:length(Names)
     temp_value = Values{i};
     temp_datatypes = DataTypes{i};
 
-    if or(ismember(temp_name, overrideNames), not(any(evalin('base',strcat('isa(', string(temp_name), ', ''numeric'')')),...
-                                                      evalin('base',strcat('isa(', string(temp_name), ', ''logical'')')),...
-                                                      evalin('base',strcat('isa(', string(temp_name), ', ''string'') ')) )) )
+    if not(evalin('base',strcat('isa(', string(temp_name), ', ''numeric'')')) )
+        continue
+    elseif not(evalin('base', strcat('all(size(',string(temp_name),') == 1)')))
+        continue
+    elseif ismember(temp_name, overrideNames)
         continue
     end
     

@@ -11,6 +11,7 @@ void Robot::RobotInit() {
   m_SwerveDrive.BrakeMode(); //set all motors to coast mode
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
   m_IMU.Reset();
+  m_TunableSmartDashboard.InitTunableSmartDashboard(); //TODO: ssss
 }
 void Robot::RobotPeriodic() { 
   m_Tracer.ResetTimer();
