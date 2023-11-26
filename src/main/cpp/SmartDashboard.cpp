@@ -73,20 +73,7 @@ void SmartDashboard::UpdateSDValues(){
 }
 void SmartDashboard::PollSDValues() {
         // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", SAFEDEFAULT_VALUE);
-        // Drive_Motor_Control_Sign_Change_Deadband = frc::SmartDashboard::GetNumber("Drive_Motor_Control_Sign_Change_Deadband", 1500);        
-        // Boost_Trigger_Increasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Increasing_Limit", 0);
-        // Boost_Trigger_Decreasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Decreasing_Limit", 0);
-        // Translation_Speed_Rate_Limit_Inc = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Inc", 0);
-        // Translation_Speed_Rate_Limit_Dec = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Dec", 0);
-        Odometry_X_Y_TEAR = frc::SmartDashboard::GetNumber("Odometry_X_Y_TEAR", false);
-
 }
 void SmartDashboard::InitPolledSDValues() {
         // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
-        // frc::SmartDashboard::PutNumber("Drive_Motor_Control_Sign_Change_Deadband", Drive_Motor_Control_Sign_Change_Deadband);        
-        // frc::SmartDashboard::PutNumber("Boost_Trigger_Increasing_Limit", Boost_Trigger_Increasing_Limit);
-        // frc::SmartDashboard::PutNumber("Boost_Trigger_Decreasing_Limit", Boost_Trigger_Decreasing_Limit);
-        // frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Inc", Translation_Speed_Rate_Limit_Inc);
-        // frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Dec", Translation_Speed_Rate_Limit_Dec);
-        frc::SmartDashboard::PutNumber("Odometry_X_Y_TEAR", false);
 }

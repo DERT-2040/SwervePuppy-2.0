@@ -1,15 +1,25 @@
+% Created by Janelyn Anderson (student) with help from Randy Anderson (mentor)
+% November 2023
+
+% clear workspace and load data needed for code generation
 clear
 evalin('base', 'Code_Gen_Model_data');
 
-
-
-
-
+% Create a structure 'T' with contents from the workspace
 T = whos;
+
+% Create lists of the names, dataypes, and values from the workspace data
 Names = {T.name};
 DataTypes = {T.class};
 Values = cellfun(@eval, Names, 'UniformOutput',false);
-overrideNames = ['t_sample'];
+
+% Create Simulink.Parameter structures for:
+%    numeric data types
+%       does not work for logical/boolean data types (make these double in Simulink)
+%       type 'doc isa' at the workspace to see a list of numeric data types
+%    scalars (not vectors or matrices)
+%    parameters not in the 'Not_Tunable_List' list (created in 'Code_Gen_Model_data')
+% Set the storage class to ExportedGlobal to make them tunable
 for i = 1:length(Names)
     temp_name = Names{i};
     temp_value = Values{i};
@@ -19,7 +29,7 @@ for i = 1:length(Names)
         continue
     elseif not(evalin('base', strcat('all(size(',string(temp_name),') == 1)')))
         continue
-    elseif ismember(temp_name, overrideNames)
+    elseif ismember(temp_name, Not_Tunable_List)
         continue
     end
     
@@ -27,15 +37,14 @@ for i = 1:length(Names)
     evalin('base',strcat(string(temp_name),'.Value = ',string(temp_value),';'));
     evalin('base',strcat(string(temp_name),'.DataType = ''',string(temp_datatypes),''';'));
     evalin('base',strcat(string(temp_name),'.CoderInfo.StorageClass = ''ExportedGlobal'';'));
-
-
 end
 
 
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 % --- --- --- --- --- --- --Write to file-- --- --- --- --- --- --- --- ---
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+% Created by Janelyn Anderson (student) without any help
+% November 2023
 
 CPPFileID = fopen('..\src\main\cpp\SimulinkSmartDashboard.cpp', 'w');
 HFileID = fopen('..\src\main\include\SimulinkSmartDashboard.h', 'w');
@@ -46,9 +55,10 @@ if HFileID == -1
     error('Could not open .h file for writing');
 end
 
-
 % H File
 HFileContents = {...
+    '// This file has been auto generated from a Matlab script',...
+    '// Do not manually edit since changes will be lost',...
     '#include <frc/smartdashboard/SmartDashboard.h>',...
     '#include <networktables/NetworkTable.h>',...
     '#include <networktables/RawTopic.h>',...
@@ -68,7 +78,10 @@ HFileContents = {...
     end
     HFileContents{end + 1} = '};';
 
+% CPP File
 CPPFileContents = {...
+    '// This file has been auto generated from a Matlab script',...
+    '// Do not manually edit since changes will be lost',...
     '#include "include/SimulinkSmartDashboard.h"',...
     ' ',...
     'void SimulinkSmartDashboard::InitTunableSmartDashboard() {',...
@@ -94,10 +107,12 @@ end
 for i = 1:length(HFileContents)
     fprintf(HFileID, '%s\n', HFileContents{i});
 end
-% Close the file
+
+% Close the files
 fclose(CPPFileID);
 fclose(HFileID);
-clear Names DataTypes Values temp_datatypes temp_name temp_value T overrideNames i CPPFileID HFileID CPPFileContents HFileContents ans
+
+clear Names DataTypes Values temp_datatypes temp_name temp_value T Not_Tunable_List i CPPFileID HFileID CPPFileContents HFileContents ans
 
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 % --- --- --- --- --- --- --- --Build Code-- --- --- --- --- --- --- --- --

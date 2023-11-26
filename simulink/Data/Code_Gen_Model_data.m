@@ -1,6 +1,12 @@
-% sample time model
-t_sample = .02;
+% Parameters to exclude from being tunable.
+% This is used in the 'Build_Extern.m' file
+Not_Tunable_List = ['t_sample',...
+    'Distance_FL_x','Distance_FL_y','Distance_FR_x','Distance_FR_y',...
+    'Distance_BL_x','Distance_BL_y','Distance_BR_x','Distance_BR_y',...
+    'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance'];
 
+% sample time model
+t_sample = 0.02;
 
 %% Joystick Command Profiling
 
@@ -87,8 +93,9 @@ temp = pinv(Rotation_Local);
 Rotation_Local_Inv = temp(1:2,:);
 
 % only used for validation testing
-% set to 1 (TRUE) to tear the X and Y measurement
-EXTERN('Odometry_X_Y_TEAR','boolean', '0')
+% set to 1 to tear the X and Y measurement
+% set to 0 to let the X and Y measurements accumulate since the last tear
+Odometry_X_Y_TEAR = 0;
 
 clear temp
 
@@ -164,6 +171,3 @@ Steering_Localized_Cmd_Approach_Zero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_Approach_Zero_Final_Thresh = 0.01;
 Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
-
-%% Occupency Map
-%Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
