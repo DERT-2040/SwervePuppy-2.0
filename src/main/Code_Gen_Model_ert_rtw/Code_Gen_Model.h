@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.22
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Nov 26 17:48:50 2023
+ * C/C++ source code generated on : Sun Nov 26 18:33:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -112,9 +112,9 @@ typedef struct {
   real_T UnitDelay_DSTATE_g4;          /* '<S171>/Unit Delay' */
   real_T UnitDelay_DSTATE_h;           /* '<S170>/Unit Delay' */
   real_T UnitDelay1_DSTATE_kr;         /* '<S170>/Unit Delay1' */
+  real_T FixPtUnitDelay1_DSTATE_f;     /* '<S184>/FixPt Unit Delay1' */
   real_T UnitDelay1_DSTATE_l;          /* '<S180>/Unit Delay1' */
   real_T UnitDelay_DSTATE_p;           /* '<S180>/Unit Delay' */
-  real_T FixPtUnitDelay1_DSTATE_f;     /* '<S184>/FixPt Unit Delay1' */
   uint8_T FixPtUnitDelay2_DSTATE;      /* '<S125>/FixPt Unit Delay2' */
   uint8_T FixPtUnitDelay2_DSTATE_c;    /* '<S134>/FixPt Unit Delay2' */
   uint8_T FixPtUnitDelay2_DSTATE_a;    /* '<S184>/FixPt Unit Delay2' */
@@ -132,6 +132,10 @@ typedef struct {
   const real_T Sin5_e;                 /* '<S84>/Sin5' */
   const real_T Cos5_b;                 /* '<S105>/Cos5' */
   const real_T Sin5_c;                 /* '<S105>/Sin5' */
+  const real_T UnaryMinus;             /* '<S114>/Unary Minus' */
+  const real_T UnaryMinus1;            /* '<S114>/Unary Minus1' */
+  const real_T UnaryMinus_p;           /* '<S126>/Unary Minus' */
+  const real_T UnaryMinus1_c;          /* '<S126>/Unary Minus1' */
   const real_T Atan2;                  /* '<S115>/Atan2' */
   const real_T FL_Tangent_Angle;       /* '<S115>/Add' */
   const real_T Atan1;                  /* '<S115>/Atan1' */
@@ -140,24 +144,11 @@ typedef struct {
   const real_T BL_Tangent_Angle;       /* '<S115>/Add2' */
   const real_T Atan4;                  /* '<S115>/Atan4' */
   const real_T BR_Tangent_Angle;       /* '<S115>/Add3' */
+  const boolean_T Compare;             /* '<S20>/Compare' */
 } ConstB_Code_Gen_Model_T;
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
-   * Referenced by:
-   *   '<S168>/Modulation_Drv_X'
-   *   '<S168>/Modulation_Drv_Y'
-   */
-  real_T pooled6[21];
-
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
-   * Referenced by:
-   *   '<S168>/Modulation_Drv_X'
-   *   '<S168>/Modulation_Drv_Y'
-   */
-  real_T pooled7[21];
-
   /* Expression: Steering_Mod_Str_Rel_out
    * Referenced by: '<S167>/Modulation_Str_X_Rel'
    */
@@ -167,6 +158,20 @@ typedef struct {
    * Referenced by: '<S167>/Modulation_Str_X_Rel'
    */
   real_T Modulation_Str_X_Rel_bp01Data[21];
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
+   * Referenced by:
+   *   '<S168>/Modulation_Drv_X'
+   *   '<S168>/Modulation_Drv_Y'
+   */
+  real_T pooled8[21];
+
+  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
+   * Referenced by:
+   *   '<S168>/Modulation_Drv_X'
+   *   '<S168>/Modulation_Drv_Y'
+   */
+  real_T pooled9[21];
 
   /* Expression: Rotation_Local_Inv
    * Referenced by: '<S5>/Constant4'
@@ -180,7 +185,7 @@ typedef struct {
    *   '<S75>/1-D Lookup Table'
    *   '<S96>/1-D Lookup Table'
    */
-  real_T pooled12[2];
+  real_T pooled23[2];
 
   /* Pooled Parameter (Expression: Drive_Motor_Control_Module_Angle_Error)
    * Referenced by:
@@ -189,7 +194,7 @@ typedef struct {
    *   '<S75>/1-D Lookup Table'
    *   '<S96>/1-D Lookup Table'
    */
-  real_T pooled13[2];
+  real_T pooled24[2];
 } ConstP_Code_Gen_Model_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -254,262 +259,6 @@ extern const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB;/* constant block i/o
 
 /* Constant parameters (default storage) */
 extern const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP;
-
-/*
- * Exported Global Parameters
- *
- * Note: Exported global parameters are tunable parameters with an exported
- * global storage class designation.  Code generation will declare the memory for
- * these parameters and exports their symbols.
- *
- */
-extern real_T Boost_Trigger_Decreasing_Limit;
-                                     /* Variable: Boost_Trigger_Decreasing_Limit
-                                      * Referenced by: '<S181>/Constant1'
-                                      */
-extern real_T Boost_Trigger_High_Speed;/* Variable: Boost_Trigger_High_Speed
-                                        * Referenced by:
-                                        *   '<S179>/Constant'
-                                        *   '<S179>/Saturation'
-                                        */
-extern real_T Boost_Trigger_Increasing_Limit;
-                                     /* Variable: Boost_Trigger_Increasing_Limit
-                                      * Referenced by: '<S181>/Constant3'
-                                      */
-extern real_T Boost_Trigger_Low_Speed; /* Variable: Boost_Trigger_Low_Speed
-                                        * Referenced by: '<S179>/Constant1'
-                                        */
-extern real_T Drive_Motor_Control_D;   /* Variable: Drive_Motor_Control_D
-                                        * Referenced by:
-                                        *   '<S31>/Constant3'
-                                        *   '<S52>/Constant3'
-                                        *   '<S73>/Constant3'
-                                        *   '<S94>/Constant3'
-                                        */
-extern real_T Drive_Motor_Control_D_FilterCoeff;
-                                  /* Variable: Drive_Motor_Control_D_FilterCoeff
-                                   * Referenced by:
-                                   *   '<S31>/Constant2'
-                                   *   '<S52>/Constant2'
-                                   *   '<S73>/Constant2'
-                                   *   '<S94>/Constant2'
-                                   */
-extern real_T Drive_Motor_Control_D_LL;/* Variable: Drive_Motor_Control_D_LL
-                                        * Referenced by:
-                                        *   '<S31>/Saturation'
-                                        *   '<S52>/Saturation'
-                                        *   '<S73>/Saturation'
-                                        *   '<S94>/Saturation'
-                                        */
-extern real_T Drive_Motor_Control_D_UL;/* Variable: Drive_Motor_Control_D_UL
-                                        * Referenced by:
-                                        *   '<S31>/Saturation'
-                                        *   '<S52>/Saturation'
-                                        *   '<S73>/Saturation'
-                                        *   '<S94>/Saturation'
-                                        */
-extern real_T Drive_Motor_Control_FF;  /* Variable: Drive_Motor_Control_FF
-                                        * Referenced by:
-                                        *   '<S31>/Gain'
-                                        *   '<S52>/Gain'
-                                        *   '<S73>/Gain'
-                                        *   '<S94>/Gain'
-                                        */
-extern real_T Drive_Motor_Control_I;   /* Variable: Drive_Motor_Control_I
-                                        * Referenced by:
-                                        *   '<S31>/Gain2'
-                                        *   '<S52>/Gain2'
-                                        *   '<S73>/Gain2'
-                                        *   '<S94>/Gain2'
-                                        */
-extern real_T Drive_Motor_Control_I_LL;/* Variable: Drive_Motor_Control_I_LL
-                                        * Referenced by:
-                                        *   '<S31>/Saturation1'
-                                        *   '<S52>/Saturation1'
-                                        *   '<S73>/Saturation1'
-                                        *   '<S94>/Saturation1'
-                                        */
-extern real_T Drive_Motor_Control_I_UL;/* Variable: Drive_Motor_Control_I_UL
-                                        * Referenced by:
-                                        *   '<S31>/Saturation1'
-                                        *   '<S52>/Saturation1'
-                                        *   '<S73>/Saturation1'
-                                        *   '<S94>/Saturation1'
-                                        */
-extern real_T Drive_Motor_Control_P;   /* Variable: Drive_Motor_Control_P
-                                        * Referenced by:
-                                        *   '<S31>/Gain1'
-                                        *   '<S52>/Gain1'
-                                        *   '<S73>/Gain1'
-                                        *   '<S94>/Gain1'
-                                        */
-extern real_T Drive_Motor_Control_Sign_Change_Deadband;
-                           /* Variable: Drive_Motor_Control_Sign_Change_Deadband
-                            * Referenced by:
-                            *   '<S36>/Constant'
-                            *   '<S57>/Constant'
-                            *   '<S78>/Constant'
-                            *   '<S99>/Constant'
-                            */
-extern real_T Odometry_X_Y_TEAR;       /* Variable: Odometry_X_Y_TEAR
-                                        * Referenced by: '<S19>/Constant'
-                                        */
-extern real_T Steering_Abs_Deadband_Range;/* Variable: Steering_Abs_Deadband_Range
-                                           * Referenced by: '<S169>/Constant2'
-                                           */
-extern real_T Steering_Heading_Control_D;/* Variable: Steering_Heading_Control_D
-                                          * Referenced by: '<S136>/Constant3'
-                                          */
-extern real_T Steering_Heading_Control_D_FilterCoeff;
-                             /* Variable: Steering_Heading_Control_D_FilterCoeff
-                              * Referenced by: '<S136>/Constant2'
-                              */
-extern real_T Steering_Heading_Control_D_LL;
-                                      /* Variable: Steering_Heading_Control_D_LL
-                                       * Referenced by: '<S136>/Saturation'
-                                       */
-extern real_T Steering_Heading_Control_D_UL;
-                                      /* Variable: Steering_Heading_Control_D_UL
-                                       * Referenced by: '<S136>/Saturation'
-                                       */
-extern real_T Steering_Heading_Control_Deadzone;
-                                  /* Variable: Steering_Heading_Control_Deadzone
-                                   * Referenced by: '<S135>/Constant'
-                                   */
-extern real_T Steering_Heading_Control_I;/* Variable: Steering_Heading_Control_I
-                                          * Referenced by: '<S136>/Gain2'
-                                          */
-extern real_T Steering_Heading_Control_I_LL;
-                                      /* Variable: Steering_Heading_Control_I_LL
-                                       * Referenced by: '<S136>/Saturation1'
-                                       */
-extern real_T Steering_Heading_Control_I_UL;
-                                      /* Variable: Steering_Heading_Control_I_UL
-                                       * Referenced by: '<S136>/Saturation1'
-                                       */
-extern real_T Steering_Heading_Control_P;/* Variable: Steering_Heading_Control_P
-                                          * Referenced by: '<S136>/Gain1'
-                                          */
-extern real_T Steering_Heading_Control_Total_LL;
-                                  /* Variable: Steering_Heading_Control_Total_LL
-                                   * Referenced by:
-                                   *   '<S136>/Constant1'
-                                   *   '<S136>/Saturation2'
-                                   */
-extern real_T Steering_Heading_Control_Total_UL;
-                                  /* Variable: Steering_Heading_Control_Total_UL
-                                   * Referenced by:
-                                   *   '<S136>/Constant'
-                                   *   '<S136>/Saturation2'
-                                   */
-extern real_T Steering_Localized_Cmd_Approach_Zero_Error_Thresh;
-                  /* Variable: Steering_Localized_Cmd_Approach_Zero_Error_Thresh
-                   * Referenced by: '<S126>/Constant5'
-                   */
-extern real_T Steering_Localized_Cmd_Approach_Zero_Final_Thresh;
-                  /* Variable: Steering_Localized_Cmd_Approach_Zero_Final_Thresh
-                   * Referenced by: '<S126>/Constant6'
-                   */
-extern real_T Steering_Localized_Cmd_NonZero_Error_Thresh;
-                        /* Variable: Steering_Localized_Cmd_NonZero_Error_Thresh
-                         * Referenced by: '<S126>/Constant9'
-                         */
-extern real_T Steering_Localized_Cmd_NonZero_Final_Scale_Factor;
-                  /* Variable: Steering_Localized_Cmd_NonZero_Final_Scale_Factor
-                   * Referenced by: '<S126>/Constant10'
-                   */
-extern real_T Steering_Localized_Cmd_Rate_Limit_Dec;
-                              /* Variable: Steering_Localized_Cmd_Rate_Limit_Dec
-                               * Referenced by: '<S126>/Constant1'
-                               */
-extern real_T Steering_Localized_Cmd_Rate_Limit_Inc;
-                              /* Variable: Steering_Localized_Cmd_Rate_Limit_Inc
-                               * Referenced by: '<S126>/Constant3'
-                               */
-extern real_T Steering_Motor_Control_D;/* Variable: Steering_Motor_Control_D
-                                        * Referenced by:
-                                        *   '<S34>/Constant3'
-                                        *   '<S55>/Constant3'
-                                        *   '<S76>/Constant3'
-                                        *   '<S97>/Constant3'
-                                        */
-extern real_T Steering_Motor_Control_D_FilterCoeff;
-                               /* Variable: Steering_Motor_Control_D_FilterCoeff
-                                * Referenced by:
-                                *   '<S34>/Constant2'
-                                *   '<S55>/Constant2'
-                                *   '<S76>/Constant2'
-                                *   '<S97>/Constant2'
-                                */
-extern real_T Steering_Motor_Control_D_LL;/* Variable: Steering_Motor_Control_D_LL
-                                           * Referenced by:
-                                           *   '<S34>/Saturation'
-                                           *   '<S55>/Saturation'
-                                           *   '<S76>/Saturation'
-                                           *   '<S97>/Saturation'
-                                           */
-extern real_T Steering_Motor_Control_D_UL;/* Variable: Steering_Motor_Control_D_UL
-                                           * Referenced by:
-                                           *   '<S34>/Saturation'
-                                           *   '<S55>/Saturation'
-                                           *   '<S76>/Saturation'
-                                           *   '<S97>/Saturation'
-                                           */
-extern real_T Steering_Motor_Control_I;/* Variable: Steering_Motor_Control_I
-                                        * Referenced by:
-                                        *   '<S34>/Gain2'
-                                        *   '<S55>/Gain2'
-                                        *   '<S76>/Gain2'
-                                        *   '<S97>/Gain2'
-                                        */
-extern real_T Steering_Motor_Control_I_LL;/* Variable: Steering_Motor_Control_I_LL
-                                           * Referenced by:
-                                           *   '<S34>/Saturation1'
-                                           *   '<S55>/Saturation1'
-                                           *   '<S76>/Saturation1'
-                                           *   '<S97>/Saturation1'
-                                           */
-extern real_T Steering_Motor_Control_I_UL;/* Variable: Steering_Motor_Control_I_UL
-                                           * Referenced by:
-                                           *   '<S34>/Saturation1'
-                                           *   '<S55>/Saturation1'
-                                           *   '<S76>/Saturation1'
-                                           *   '<S97>/Saturation1'
-                                           */
-extern real_T Steering_Motor_Control_P;/* Variable: Steering_Motor_Control_P
-                                        * Referenced by:
-                                        *   '<S34>/Gain1'
-                                        *   '<S55>/Gain1'
-                                        *   '<S76>/Gain1'
-                                        *   '<S97>/Gain1'
-                                        */
-extern real_T Steering_Relative_Gain;  /* Variable: Steering_Relative_Gain
-                                        * Referenced by: '<S167>/Constant'
-                                        */
-extern real_T Translation_Speed_Approach_Zero_Error_Thresh;
-                       /* Variable: Translation_Speed_Approach_Zero_Error_Thresh
-                        * Referenced by: '<S114>/Constant5'
-                        */
-extern real_T Translation_Speed_Approach_Zero_Final_Thresh;
-                       /* Variable: Translation_Speed_Approach_Zero_Final_Thresh
-                        * Referenced by: '<S114>/Constant6'
-                        */
-extern real_T Translation_Speed_NonZero_Error_Thresh;
-                             /* Variable: Translation_Speed_NonZero_Error_Thresh
-                              * Referenced by: '<S114>/Constant9'
-                              */
-extern real_T Translation_Speed_NonZero_Final_Scale_Factor;
-                       /* Variable: Translation_Speed_NonZero_Final_Scale_Factor
-                        * Referenced by: '<S114>/Constant10'
-                        */
-extern real_T Translation_Speed_Rate_Limit_Dec;
-                                   /* Variable: Translation_Speed_Rate_Limit_Dec
-                                    * Referenced by: '<S114>/Constant1'
-                                    */
-extern real_T Translation_Speed_Rate_Limit_Inc;
-                                   /* Variable: Translation_Speed_Rate_Limit_Inc
-                                    * Referenced by: '<S114>/Constant3'
-                                    */
 
 /* Model entry point functions */
 extern void Code_Gen_Model_initialize(void);

@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.22
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Nov 26 17:48:50 2023
+ * C/C++ source code generated on : Sun Nov 26 18:33:23 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -31,6 +31,10 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
   1.2246467991473532E-16,              /* '<S84>/Sin5' */
   -1.0,                                /* '<S105>/Cos5' */
   1.2246467991473532E-16,              /* '<S105>/Sin5' */
+  0.2,                                 /* '<S114>/Unary Minus' */
+  -0.085714285714285715,               /* '<S114>/Unary Minus1' */
+  1.0,                                 /* '<S126>/Unary Minus' */
+  -1.0,                                /* '<S126>/Unary Minus1' */
   0.78539816339744828,                 /* '<S115>/Atan2' */
   2.3561944901923448,                  /* '<S115>/Add' */
   -0.78539816339744828,                /* '<S115>/Atan1' */
@@ -38,11 +42,24 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
   2.3561944901923448,                  /* '<S115>/Atan3' */
   3.9269908169872414,                  /* '<S115>/Add2' */
   -2.3561944901923448,                 /* '<S115>/Atan4' */
-  -0.78539816339744828                 /* '<S115>/Add3' */
+  -0.78539816339744828,                /* '<S115>/Add3' */
+  0                                    /* '<S20>/Compare' */
 };
 
 /* Constant parameters (default storage) */
 const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP = {
+  /* Expression: Steering_Mod_Str_Rel_out
+   * Referenced by: '<S167>/Modulation_Str_X_Rel'
+   */
+  { -1.0, -0.75, -0.55, -0.4, -0.27, -0.17, -0.1, -0.04, -0.01, -0.0, 0.0, 0.0,
+    0.01, 0.04, 0.1, 0.17, 0.27, 0.4, 0.55, 0.75, 1.0 },
+
+  /* Expression: Steering_Mod_Str_Rel_in
+   * Referenced by: '<S167>/Modulation_Str_X_Rel'
+   */
+  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.25, -0.2, 0.0, 0.2, 0.25,
+    0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
+
   /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
    * Referenced by:
    *   '<S168>/Modulation_Drv_X'
@@ -58,18 +75,6 @@ const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP = {
    */
   { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.45, -0.4, -0.35, -0.3, 0.0, 0.3, 0.35,
     0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
-
-  /* Expression: Steering_Mod_Str_Rel_out
-   * Referenced by: '<S167>/Modulation_Str_X_Rel'
-   */
-  { -1.0, -0.75, -0.55, -0.4, -0.27, -0.17, -0.1, -0.04, -0.01, -0.0, 0.0, 0.0,
-    0.01, 0.04, 0.1, 0.17, 0.27, 0.4, 0.55, 0.75, 1.0 },
-
-  /* Expression: Steering_Mod_Str_Rel_in
-   * Referenced by: '<S167>/Modulation_Str_X_Rel'
-   */
-  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.25, -0.2, 0.0, 0.2, 0.25,
-    0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
 
   /* Expression: Rotation_Local_Inv
    * Referenced by: '<S5>/Constant4'

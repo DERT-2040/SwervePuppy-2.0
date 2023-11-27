@@ -5,6 +5,7 @@
 //frc
 #include <frc/Joystick.h>
 #include <frc/GenericHID.h>
+#include <frc/XboxController.h>
 
 class HIDs {
 public:
@@ -22,6 +23,11 @@ public:
      * returns a reference to the m_Gamepad Object
     */
     frc::GenericHID& Get_Gamepad() { return m_Gamepad; }
+
+    /**
+     * returns a reference to the m_XboxGamepad Object
+    */
+    //frc::GenericHID& Get_XboxGamepad() { return m_XboxGamepad; }
 
     /**
      * returns a reference to the m_Drive_Joystick Object
@@ -55,6 +61,11 @@ private:
      *    10: Right Joystick
      */
     frc::GenericHID m_Gamepad{Constants::k_Gamepad_Port};
+
+    /*
+     * XBOX Controller
+     */
+    // frc::XboxController m_XboxGamepad{Constants::k_Gamepad_Port};
 
     /**
      * Joystick that is on the index of k_Drive_Joystick_Port
