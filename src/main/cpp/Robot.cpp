@@ -67,6 +67,7 @@ void Robot::PreStep() {
   m_HIDs.PreStep();
   m_IMU.PreStep();
   m_SwerveDrive.PreStep();
+  m_PhotonVisionInterface.PreStep();
 }
 
 void Robot::PostStep() {
@@ -74,6 +75,7 @@ void Robot::PostStep() {
   m_IMU.PostStep();
   m_SwerveDrive.PostStep();
   m_SmartDashboard.UpdateSDValues();
+  m_PhotonVisionInterface.PostStep();
 }
 
 #ifndef RUNNING_FRC_TESTS

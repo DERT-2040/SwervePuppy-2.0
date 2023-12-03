@@ -1,7 +1,14 @@
 #include <include/PhotonVisionInterface.h>
 
 PhotonVisionInterface::PhotonVisionInterface() {
+}
 
+void PhotonVisionInterface::PreStep() {
+    updatePhotonVision();
+}
+
+void PhotonVisionInterface::PostStep() {
+    printFiducialIds();
 }
 
 const std::vector<double>& PhotonVisionInterface::getDistances() const{
@@ -24,14 +31,36 @@ const std::vector<double>& PhotonVisionInterface::getPoseAmbiguities() const {
     return poseAmbiguities;
 }
 
-const std::pair<frc::Pose3d, double> getRobotPose(photonlib::EstimatedRobotPose estimatedRobotPose) {
-    return std::make_pair(estimatedRobotPose.estimatedPose, static_cast<int>(estimatedRobotPose.timestamp));
+const void PhotonVisionInterface::printFiducialIds() const {
+    for(const auto& target : fiducialIds) {
+        std::cout << target << std::endl;
+    }
+}
+
+const units::time::second_t PhotonVisionInterface::getCameraTimestamp() const {
+    return timestamp;
+}
+
+const std::vector<double> PhotonVisionInterface::get3dTranslation() const {
+    std::vector<double> translation{static_cast<double>(estimatedPose.X()), static_cast<double>(estimatedPose.Y()), static_cast<double>(estimatedPose.Z())};
+    return translation;
+}
+
+const std::vector<double> PhotonVisionInterface::getRobotRotation() const {
+    std::vector<double> rotation{static_cast<double>(estimatedPose.Rotation().X()), static_cast<double>(estimatedPose.Rotation().Y()), static_cast<double>(estimatedPose.Rotation().Z())};
+    return rotation;
+}
+
+const std::vector<int> PhotonVisionInterface::getPoseTargetsFiducialIds() const {
+    std::vector<int> listOfIds;
+    for (const auto& target : poseTargets) {
+        listOfIds.push_back(target.GetFiducialId());
+    }
+    return listOfIds;
 }
 
 
 void PhotonVisionInterface::updatePhotonVision() {
-
-    auto estimatedRobotPose = poseEstimator.Update();
 
     photonlib::PhotonPipelineResult latestPipelineResult = camera.GetLatestResult();
     bool hasTargets = latestPipelineResult.HasTargets();
@@ -44,6 +73,11 @@ void PhotonVisionInterface::updatePhotonVision() {
     poseAmbiguities.clear();
 
     if (hasTargets) {
+
+        auto estimatedRobotPose = poseEstimator.Update(latestPipelineResult);
+        estimatedPose = estimatedRobotPose.value().estimatedPose;
+        timestamp = estimatedRobotPose.value().timestamp;
+        poseTargets = estimatedRobotPose.value().targetsUsed;
         const auto& photonVisionTrackedTargets = latestPipelineResult.GetTargets();
 
         // Populate the vectors with data from each detected target

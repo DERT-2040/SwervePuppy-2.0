@@ -10,6 +10,7 @@
 #include "include/IMU.h"
 #include "include/SwerveDrive.h"
 #include "include/SmartDashboard.h"
+#include "include/PhotonVisionInterface.h"
 //frc
 #include <frc/TimedRobot.h>
 #include <frc/event/EventLoop.h>
@@ -56,4 +57,5 @@ private:
   SwerveDrive m_SwerveDrive;
   frc::EventLoop m_EventLoop;
   SmartDashboard m_SmartDashboard;
+  PhotonVisionInterface m_PhotonVisionInterface;
 };

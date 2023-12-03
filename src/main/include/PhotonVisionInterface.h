@@ -15,6 +15,8 @@ public:
     PhotonVisionInterface();
     // This method should be called each tick of the Rio to update the data for each target given to simulink
     void updatePhotonVision();
+    void PreStep();
+    void PostStep();
     // Methods to return the vectors
     /**
      * @brief Returns vector of the distance from each target to the camera.
@@ -40,27 +42,29 @@ public:
      * @brief Returns the vertical height of each target, needs to be setup for each game and senerio. 
     */
     const units::length::meter_t determineTargetHeight(int fiducialId) const;
+    
     /**
      * @brief Prints out the current dected fiducialIds into console
     */
-    //const void printDetectedTargetIds() const;
-
+    const void printFiducialIds() const;
     /**
-     * @brief Returns the 3d pose of the robot with a vector (x, y, x) and the timestamp (all within a pair)
+    *  @brief Returns the timestamp that the camera was updated
     */
-
+    const units::time::second_t getCameraTimestamp() const;
     /**
-     * @brief Returns the pose of the robot with a 3d pose and the timestamp (all within a pair)
+     * @brief Returns the 3d translation of the robot as a vector (x, y, z)
     */
-    const std::pair<frc::Pose3d, double> getRobotPose(photonlib::EstimatedRobotPose estimatedRobotPose);
-
+    const std::vector<double> get3dTranslation() const;
     /**
-     * @brief Returns the 2d pose of the robot with a vector (x, y) and the timestamp (all within a pair)
+     * @brief Returns a vector of the robot's 3d rotation (roll, pitch, yaw)
     */
-
+    const std::vector<double> getRobotRotation() const;
     /**
-     * @brief Returns the pose of the robot with a 2d pose and the timestamp (all within a pair)
+     * @brief Returns the fiducial ids of tags being used for the generated pose
     */
+    const std::vector<int> getPoseTargetsFiducialIds() const;
+
+
 
 private:
     // Makes a apriltag feild layout for our shop 
@@ -95,7 +99,13 @@ private:
      * @note I do not know exactly why I need std::move() in the constructor but it works so im running with it. Kill me if you want. *shrugs*
     */
     photonlib::PhotonPoseEstimator poseEstimator = photonlib::PhotonPoseEstimator(AprilTagFieldLayout, photonlib::MULTI_TAG_PNP, std::move(camera), robotToCamera);
-    photonlib::EstimatedRobotPose estimatedRobotPose;
+
+    frc::Pose3d estimatedPose;
+
+    units::second_t timestamp;
+
+    wpi::SmallVector<photonlib::PhotonTrackedTarget, 10> poseTargets;
+
     // Constants with preset values
     static constexpr units::meter_t CAMERA_HEIGHT{0.25}; // meters
     static constexpr units::radian_t CAMERA_PITCH{0_rad}; // degrees (rad)
