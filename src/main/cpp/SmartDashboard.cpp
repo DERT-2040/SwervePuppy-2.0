@@ -5,6 +5,8 @@
 void SmartDashboard::UpdateSDValues(){
         // frc::SmartDashboard::PutNumber("Raw_Drive_X", Code_Gen_Model_U.Drive_Joystick_X);
         // frc::SmartDashboard::PutNumber("Raw_Drive_Y", Code_Gen_Model_U.Drive_Joystick_Y);
+        // frc::SmartDashboard::PutNumber("Raw_Steer_X", Code_Gen_Model_U.Steer_Joystick_X);
+        // frc::SmartDashboard::PutNumber("Raw_Steer_Y", Code_Gen_Model_U.Steer_Joystick_Y);
 
         frc::SmartDashboard::PutNumber("FL_Steer_Module_Angle (adjusted)", Code_Gen_Model_B.FL_Steer_Module_Angle);
         frc::SmartDashboard::PutNumber("FR_Steer_Module_Angle (adjusted)", Code_Gen_Model_B.FR_Steer_Module_Angle);

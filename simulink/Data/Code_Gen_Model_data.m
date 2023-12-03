@@ -45,9 +45,14 @@ gear_ratio = 8.14;
 wheel_diameter = 0.101600203;
 Wheel_Speed_to_Motor_Speed = 60*gear_ratio/(wheel_diameter*pi);
 
-Motor_Rev_to_Wheel_Distance = wheel_diameter*pi/gear_ratio;
+% Ran a test without the adjustment factor with the following results
+%   physical measurement = 177.33 feet
+%   odometry estimate    = 186.44 feet
+adjustment_factor = 0.951;  % 177.33/186.44
 
-clear gear_ratio wheel_diameter
+Motor_Rev_to_Wheel_Distance = wheel_diameter*pi/gear_ratio*adjustment_factor;
+
+clear gear_ratio wheel_diameter adjustment_factor
 
 %% Wheel Locations from Center of Rotation
 % distances between swerve modules
@@ -96,6 +101,10 @@ Rotation_Local_Inv = temp(1:2,:);
 % set to 1 to tear the X and Y measurement
 % set to 0 to let the X and Y measurements accumulate since the last tear
 Odometry_X_Y_TEAR = 0;
+
+% Coordinates for testing
+Odometry_Desired_X = 0;
+Odometry_Desired_Y = 0;
 
 clear temp
 
