@@ -11,30 +11,32 @@ void Robot::RobotInit() {
   m_SwerveDrive.BrakeMode(); //set all motors to coast mode
   m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
   m_IMU.Reset();
+  m_TunableSmartDashboard.InitTunableSmartDashboard();
 }
-void Robot::RobotPeriodic() { 
-  m_Tracer.ResetTimer();
-
+void Robot::RobotPeriodic() {  
+    m_Tracer.ResetTimer();
+    
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_Toggle_Absolute_Translation_Button)){
     m_SwerveDrive.Toggle_Absolute_Translation();
     std::cout << "Translation Method Toggled" << std::endl;
   }
-  
+
   if(Robot::m_HIDs.Get_Steer_Joystick().GetRawButtonPressed(Constants::k_Toggle_Absolute_Steering_Button)){
     m_SwerveDrive.Toggle_Absolute_Steering();
     std::cout << "Steering Method Toggled" << std::endl;
   }
-  
+    
   m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
   m_Tracer.AddEpoch("After PollSDValues");
   
   PreStep(); //Robot wide PreStep
-  m_Tracer.AddEpoch("After PreStep");
+    m_Tracer.AddEpoch("After PreStep");
 
   Code_Gen_Model_step(); //Step the model
-  m_Tracer.AddEpoch("After Simulink");
+    m_Tracer.AddEpoch("After Simulink");
 
   PostStep(); //Robot wide PostStep
+  m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
   m_Tracer.AddEpoch("After PostStep");
 
   m_Tracer.PrintEpochs();
