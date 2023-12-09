@@ -11,6 +11,7 @@
 #include "include/SwerveDrive.h"
 #include "include/SmartDashboard.h"
 #include "include/PhotonVisionInterface.h"
+#include "include/TunableSmartDashboard.h"
 //frc
 #include <frc/TimedRobot.h>
 //std
@@ -126,6 +127,7 @@ private:
    */
   SmartDashboard m_SmartDashboard;
   PhotonVisionInterface m_PhotonVisionInterface;
+  TunableSmartDashboard m_TunableSmartDashboard;
   /**
    * Monitor code execution time
    */
