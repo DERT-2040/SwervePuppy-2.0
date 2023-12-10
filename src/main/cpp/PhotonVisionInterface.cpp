@@ -32,8 +32,10 @@ const std::vector<double>& PhotonVisionInterface::getPoseAmbiguities() const {
 }
 
 const void PhotonVisionInterface::printFiducialIds() const {
-    for(const auto& target : fiducialIds) {
-        std::cout << target << std::endl;
+    if (fiducialIds.size() > 0) {
+        for(const auto& target : fiducialIds) {
+            std::cout << target << std::endl;
+        }
     }
 }
 
@@ -61,8 +63,7 @@ const std::vector<int> PhotonVisionInterface::getPoseTargetsFiducialIds() const 
 
 
 void PhotonVisionInterface::updatePhotonVision() {
-
-    photonlib::PhotonPipelineResult latestPipelineResult = camera.GetLatestResult();
+    photonlib::PhotonPipelineResult latestPipelineResult = poseEstimator.GetCamera().GetLatestResult();
     bool hasTargets = latestPipelineResult.HasTargets();
 
     // Clear the vectors to avoid double initialization
@@ -73,11 +74,13 @@ void PhotonVisionInterface::updatePhotonVision() {
     poseAmbiguities.clear();
 
     if (hasTargets) {
-
+        
         auto estimatedRobotPose = poseEstimator.Update(latestPipelineResult);
-        estimatedPose = estimatedRobotPose.value().estimatedPose;
-        timestamp = estimatedRobotPose.value().timestamp;
-        poseTargets = estimatedRobotPose.value().targetsUsed;
+        if (estimatedRobotPose.has_value()) {
+            estimatedPose = estimatedRobotPose.value().estimatedPose;
+            timestamp = estimatedRobotPose.value().timestamp;
+            poseTargets = estimatedRobotPose.value().targetsUsed;
+        }
         const auto& photonVisionTrackedTargets = latestPipelineResult.GetTargets();
 
         // Populate the vectors with data from each detected target

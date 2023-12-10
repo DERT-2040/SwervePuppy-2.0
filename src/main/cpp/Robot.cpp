@@ -53,6 +53,8 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::TestInit() {Code_Gen_Model_U.GameState = 3; GameInitValues();}
 void Robot::TestPeriodic() {
+  m_PhotonVisionInterface.PreStep();
+  m_PhotonVisionInterface.PostStep();
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_TestMode_Wheel_On))
     m_SwerveDrive.WheelsOn();
   if(Robot::m_HIDs.Get_Drive_Joystick().GetRawButtonPressed(Constants::k_TestMode_Wheel_Off))
@@ -78,7 +80,6 @@ void Robot::PreStep() {
   m_HIDs.PreStep();
   m_IMU.PreStep();
   m_SwerveDrive.PreStep();
-  m_PhotonVisionInterface.PreStep();
 }
 
 void Robot::PostStep() {
@@ -86,7 +87,6 @@ void Robot::PostStep() {
   m_IMU.PostStep();
   m_SwerveDrive.PostStep();
   m_SmartDashboard.UpdateSDValues();
-  m_PhotonVisionInterface.PostStep();
 }
 
 void Robot::GameInitValues() {

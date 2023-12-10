@@ -9,6 +9,8 @@
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/apriltag/AprilTagFields.h>
 #include <frc/geometry/Pose3d.h>
+
+#include <algorithm>
  
 class PhotonVisionInterface {
 public:
@@ -80,9 +82,6 @@ private:
     std::vector<frc::AprilTag> AprilTagList{tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8};
     frc::AprilTagFieldLayout AprilTagFieldLayout = frc::AprilTagFieldLayout(AprilTagList, 16.54175_m, 8.0137_m);
 
-    // Makes PhotonCamera Object
-    photonlib::PhotonCamera camera{"OV5647"};    
-
     // Member variables to store data for each detected target
     std::vector<double> distances;
     std::vector<double> yaws;
@@ -98,7 +97,7 @@ private:
     /**
      * @note I do not know exactly why I need std::move() in the constructor but it works so im running with it. Kill me if you want. *shrugs*
     */
-    photonlib::PhotonPoseEstimator poseEstimator = photonlib::PhotonPoseEstimator(AprilTagFieldLayout, photonlib::MULTI_TAG_PNP, std::move(camera), robotToCamera);
+    photonlib::PhotonPoseEstimator poseEstimator = photonlib::PhotonPoseEstimator(AprilTagFieldLayout, photonlib::MULTI_TAG_PNP, std::move(photonlib::PhotonCamera("OV5647")), robotToCamera);
 
     frc::Pose3d estimatedPose;
 
