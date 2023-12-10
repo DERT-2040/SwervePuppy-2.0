@@ -1,6 +1,7 @@
 //local
 #include "include/SmartDashboard.h"
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
+#include "include/PhotonVisionInterface.h"
 
 void SmartDashboard::UpdateSDValues(){
         // frc::SmartDashboard::PutNumber("Raw_Drive_X", Code_Gen_Model_U.Drive_Joystick_X);
@@ -61,6 +62,8 @@ void SmartDashboard::UpdateSDValues(){
         frc::SmartDashboard::PutNumber("BR_Desired_Wheel_Speed", Code_Gen_Model_B.BR_Desired_Wheel_Speed);
         frc::SmartDashboard::PutNumber("BR_Desired_Module_Angle", Code_Gen_Model_B.BR_Desired_Module_Angle);
 
+        frc::SmartDashboard::PutNumberArray("Yaws", std::span(yaws.begin(), yaws.end()));
+
         // frc::SmartDashboard::PutNumber("Translation_Angle", Code_Gen_Model_B.Translation_Angle);
         // frc::SmartDashboard::PutNumber("Steering_Localized_Cmd", Code_Gen_Model_B.Steering_Localized_Cmd);
         // frc::SmartDashboard::PutNumber("Translation_Steering_Cmd", Code_Gen_Model_B.Translation_Steering_Cmd);
@@ -70,23 +73,4 @@ void SmartDashboard::UpdateSDValues(){
         // frc::SmartDashboard::PutBoolean("Is_Boost_Trigger_Pulled", Code_Gen_Model_U.Is_Boost_Trigger_Pulled);
         
         frc::SmartDashboard::UpdateValues();
-}
-void SmartDashboard::PollSDValues() {
-        // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", SAFEDEFAULT_VALUE);
-        // Drive_Motor_Control_Sign_Change_Deadband = frc::SmartDashboard::GetNumber("Drive_Motor_Control_Sign_Change_Deadband", 1500);        
-        // Boost_Trigger_Increasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Increasing_Limit", 0);
-        // Boost_Trigger_Decreasing_Limit = frc::SmartDashboard::GetNumber("Boost_Trigger_Decreasing_Limit", 0);
-        // Translation_Speed_Rate_Limit_Inc = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Inc", 0);
-        // Translation_Speed_Rate_Limit_Dec = frc::SmartDashboard::GetNumber("Translation_Speed_Rate_Limit_Dec", 0);
-        Odometry_X_Y_TEAR = frc::SmartDashboard::GetNumber("Odometry_X_Y_TEAR", false);
-
-}
-void SmartDashboard::InitPolledSDValues() {
-        // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
-        // frc::SmartDashboard::PutNumber("Drive_Motor_Control_Sign_Change_Deadband", Drive_Motor_Control_Sign_Change_Deadband);        
-        // frc::SmartDashboard::PutNumber("Boost_Trigger_Increasing_Limit", Boost_Trigger_Increasing_Limit);
-        // frc::SmartDashboard::PutNumber("Boost_Trigger_Decreasing_Limit", Boost_Trigger_Decreasing_Limit);
-        // frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Inc", Translation_Speed_Rate_Limit_Inc);
-        // frc::SmartDashboard::PutNumber("Translation_Speed_Rate_Limit_Dec", Translation_Speed_Rate_Limit_Dec);
-        frc::SmartDashboard::PutNumber("Odometry_X_Y_TEAR", false);
 }

@@ -11,7 +11,9 @@
 #include <frc/geometry/Pose3d.h>
 
 #include <algorithm>
- 
+
+extern std::vector<double> yaws;
+
 class PhotonVisionInterface {
 public:
     PhotonVisionInterface();

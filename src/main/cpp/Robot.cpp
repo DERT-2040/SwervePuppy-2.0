@@ -9,7 +9,6 @@ void Robot::RobotInit() {
   Code_Gen_Model_U.GameState = -1;
   Code_Gen_Model_initialize(); //code gen model init
   m_SwerveDrive.BrakeMode(); //set all motors to coast mode
-  m_SmartDashboard.InitPolledSDValues(); //init polled smart dashboard values
   m_IMU.Reset();
   m_TunableSmartDashboard.PollTunableSmartDashboardValues();
 }
@@ -26,7 +25,6 @@ void Robot::RobotPeriodic() {
     std::cout << "Steering Method Toggled" << std::endl;
   }
     
-  m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
   m_Tracer.AddEpoch("After PollSDValues");
   
   PreStep(); //Robot wide PreStep
@@ -36,7 +34,6 @@ void Robot::RobotPeriodic() {
     m_Tracer.AddEpoch("After Simulink");
 
   PostStep(); //Robot wide PostStep
-  m_SmartDashboard.PollSDValues(); //Poll Smart Dashboard Values
   m_Tracer.AddEpoch("After PostStep");
 
   m_Tracer.PrintEpochs();
