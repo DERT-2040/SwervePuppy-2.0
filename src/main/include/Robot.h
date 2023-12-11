@@ -17,6 +17,7 @@
 //std
 #include <iostream>
 
+
 class Robot : public frc::TimedRobot {
  public:
   /**
@@ -99,6 +100,11 @@ private:
    * Resets variables when the game state changes (teleop, auto, test, etc.)
    */
   void GameInitValues();
+
+  /**
+   * Binds SmartDashboard Callbacks for all components
+  */
+ void BindSDCallbacks();
 
   /*
    * Below are the instances of the subsystems used by the robot

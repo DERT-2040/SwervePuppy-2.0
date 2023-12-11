@@ -8,6 +8,7 @@
 void Robot::RobotInit() {
   Code_Gen_Model_U.GameState = -1;
   Code_Gen_Model_initialize(); //code gen model init
+  BindSDCallbacks();
   m_SwerveDrive.BrakeMode(); //set all motors to coast mode
   m_IMU.Reset();
   m_TunableSmartDashboard.PollTunableSmartDashboardValues();
@@ -88,6 +89,10 @@ void Robot::PostStep() {
 
 void Robot::GameInitValues() {
   m_SwerveDrive.GameInitValues();
+}
+
+void Robot::BindSDCallbacks() {
+  m_SmartDashboard.BindSmartDashboardCallback(std::bind(&PhotonVisionInterface::SmartDashboardCallback, &m_PhotonVisionInterface));
 }
 
 #ifndef RUNNING_FRC_TESTS

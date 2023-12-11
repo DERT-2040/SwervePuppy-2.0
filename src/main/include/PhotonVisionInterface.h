@@ -9,7 +9,7 @@
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/apriltag/AprilTagFields.h>
 #include <frc/geometry/Pose3d.h>
-
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <algorithm>
 
 extern std::vector<double> yaws;
@@ -21,6 +21,7 @@ public:
     void updatePhotonVision();
     void PreStep();
     void PostStep();
+    void SmartDashboardCallback();
     // Methods to return the vectors
     /**
      * @brief Returns vector of the distance from each target to the camera.
@@ -85,11 +86,11 @@ private:
     frc::AprilTagFieldLayout AprilTagFieldLayout = frc::AprilTagFieldLayout(AprilTagList, 16.54175_m, 8.0137_m);
 
     // Member variables to store data for each detected target
-    std::vector<double> distances;
-    std::vector<double> yaws;
-    std::vector<double> pitches;
-    std::vector<int> fiducialIds;
-    std::vector<double> poseAmbiguities;
+    std::vector<double> distances{0.0};
+    std::vector<double> yaws{0.0};
+    std::vector<double> pitches{0.0};
+    std::vector<int> fiducialIds{0};
+    std::vector<double> poseAmbiguities{0.0};
 
     // A list of the target heights for finding distance to the targets
     std::vector<units::length::meter_t> targetHeight{0_m, 0.462788_m, 0.462788_m, 0.462788_m, 0.695452_m, 0.695452_m, 0.462788_m, 0.462788_m, 0.462788_m}; 

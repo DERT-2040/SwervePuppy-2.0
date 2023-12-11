@@ -11,6 +11,13 @@ void PhotonVisionInterface::PostStep() {
     printFiducialIds();
 }
 
+void PhotonVisionInterface::SmartDashboardCallback() {
+    for(int x = 0; x < yaws.size(); x++) {
+        frc::SmartDashboard::PutNumber(("yaw " + x), yaws.at(x));
+    }
+    
+}
+
 const std::vector<double>& PhotonVisionInterface::getDistances() const{
     return distances;
 }
