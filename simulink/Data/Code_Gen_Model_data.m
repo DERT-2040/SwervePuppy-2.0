@@ -80,12 +80,11 @@ Steering_Heading_Control_Deadzone_Neg = -Steering_Heading_Control_Deadzone_Pos;
 
 
 %% Occupency Map
-Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
+% Occupency_Matrix = LoadBinaryPNG('TestMap1.png');
 %% Spline Creation Constants
 Spline_Num_Samples = 50;
 Spline_Max_Num_RefPoses = 10;
 Spline_Tension = 0.5;
-Spline_S = (1-Spline_Tension)/2;
 
-Spline_Samples_Per_Pass = 10; %must be an even number
+Spline_Samples_Per_Pass = 10; % must be an even number
 Spline_Velocity_Adjustment_Magnitude = 2;
