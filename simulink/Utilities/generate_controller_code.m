@@ -1,8 +1,6 @@
 function generate_controller_code()
 % generate_controller_code
 
-load_workspace;
-
 controllerModel = 'Code_Gen_Model';
 
 if(~bdIsLoaded(controllerModel))
