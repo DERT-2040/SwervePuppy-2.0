@@ -1,2 +1,0 @@
-#Electrical
-###  • [[Path Planning]]

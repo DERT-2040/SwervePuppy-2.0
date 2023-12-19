@@ -174,7 +174,8 @@ Translation_Speed_NonZero_Error_Thresh = 0.15;
 Translation_Speed_NonZero_Final_Scale_Factor = 0.05;
 
 %% Steering Localized Cmd Rate Limit
-Steering_Localized_Cmd_Rate_Limit_Dec = -1/0.25*0.02*0-1;
+Steering_Localized_Cmd_Rate_Limit_Inc = 1/0.25*0.02*0 + 1;
+Steering_Localized_Cmd_Rate_Limit_Dec = -1/0.25*0.02*0 - 1;
 Steering_Localized_Cmd_Approach_Zero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_Approach_Zero_Final_Thresh = 0.01;
 Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
