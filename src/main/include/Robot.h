@@ -10,7 +10,7 @@
 #include "include/IMU.h"
 #include "include/SwerveDrive.h"
 #include "include/SmartDashboard.h"
-#include "include/SimulinkSmartDashboard.h"
+#include "include/SimulinkSmartDashboardInterface.h"
 //frc
 #include <frc/TimedRobot.h>
 //std
@@ -134,5 +134,5 @@ private:
   /**
    * Component for all Tunable Parameters created by simulink
    */
-  SimulinkSmartDashboard m_TunableSmartDashboard;  
+  SimulinkSmartDashboardInterface m_SimulinkSmartDashboardInterface;  
 };

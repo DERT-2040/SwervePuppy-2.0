@@ -39,6 +39,14 @@ for i = 1:length(Names)
     evalin('base',strcat(string(temp_name),'.CoderInfo.StorageClass = ''ExportedGlobal'';'));
 end
 
+
+% XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+% --- --- --- --- --- --- --- --Build Code-- --- --- --- --- --- --- --- --
+% XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+generate_controller_code;
+
+
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 % --- --- --- --- --- -- Scan Model For Names -- --- --- --- --- --- --- --
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -49,22 +57,51 @@ mdl = 'Code_Gen_Model';
 load_system(mdl);
 
 Top_Level_Blocks = find_system(mdl, 'FindAll', 'on', 'LookInsideSubsystemReference', 'off', 'Type','Block');
-ListOfPorts = {};
+% TF = get(Top_Level_Blocks, 'Port');
+% Port_Blocks = Top_Level_Blocks(logical(cell2mat(TF)));
+% ListOfPorts = get(Port_Blocks,'Name');
+ListOfInPorts = {};
+ListOfOutPorts = {};
 for i = (1:size(Top_Level_Blocks, 1))
     try
-        get_param(ListOfPorts(i), 'Port');
-        str = strsplit(get_param(ListOfPorts(i), "Name"));
-        ListOfPorts = [ListOfPorts; string(str(1))];
+        get_param(Top_Level_Blocks(i), 'Port');
+        str = strsplit(get_param(Top_Level_Blocks(i), "Name"));
+        if strcmp(get(Top_Level_Blocks(i), 'BlockType'),'Inport')
+           ListOfInPorts = [ListOfInPorts; string(str(1))];
+        else
+           ListOfOutPorts = [ListOfOutPorts; string(str(1))];
+        end
     catch
         continue;
     end
 end
 
-All_Lines = find_system(mdl, 'FindAll', 'on', 'FollowLinks', 'on', 'LookInsideSubsystemReference', 'on', 'LookUnderMasks', 'all', 'Type', 'line');
 
-TF = get(All_Lines, 'TestPoint');
-TestLines=All_Lines(logical(cell2mat(TF)));
-ListOfTestPoints = get(TestLines,'Name');
+ProjectRoot = currentProject().RootFolder;
+C_File = fileread(append(ProjectRoot,'/../src/main/Code_Gen_Model_ert_rtw/Code_Gen_Model.h'));
+C_File_Split = split(C_File, newline);
+C_File_Trimmed = cellfun(@strtrim, C_File_Split, 'UniformOutput',false);
+TF = contains(C_File_Trimmed, '/* Block signals (default storage) */');
+TF_Indexes = find(TF);
+try
+    for i = 1 : TF_Indexes
+        if strcmp(C_File_Trimmed(1 + TF_Indexes(i)),'typedef struct {');
+            StartIndex = 2 + TF_Indexes(i);
+            break;
+        end
+    end
+    EndIndex = find(contains(C_File_Trimmed, '} B_Code_Gen_Model_T;')) - 1;
+    Variable_Lines = C_File_Trimmed(StartIndex:EndIndex);
+    Split_Variable_Lines = cellfun(@strsplit, Variable_Lines, 'UniformOutput',false);
+    ListOfTestPoints_w_semicolen = cellfun(@(a) a(1,2), Split_Variable_Lines);
+    ListOfTestPoints = cell(length(ListOfTestPoints_w_semicolen), 1);
+    for i = 1:length(ListOfTestPoints_w_semicolen)
+        str = ListOfTestPoints_w_semicolen{i};
+        ListOfTestPoints{i} = str(1:end-1);
+    end
+catch
+    ListOfTestPoints = cell(0,0);
+end
 
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 % --- --- --- --- --- --- --Write to file-- --- --- --- --- --- --- --- ---
@@ -111,10 +148,16 @@ HFileContents = {...
     end
 % Top Level Ports
     HFileContents{end + 1} = ' ';
-    HFileContents{end + 1} = '        // Top Level Ports';
-    for i = 1:length(ListOfPorts)
-        HFileContents{end + 1} = append('        nt::NetworkTableEntry __', ListOfPorts{i} ,'__Entry;');
+    HFileContents{end + 1} = '        // Inports';
+
+    for i = 1:length(ListOfInPorts)
+        HFileContents{end + 1} = append('        nt::NetworkTableEntry __', ListOfInPorts{i} ,'__Entry;');
     end
+    HFileContents{end + 1} = '        // Outports';
+    for i = 1:length(ListOfOutPorts)
+        HFileContents{end + 1} = append('        nt::NetworkTableEntry __', ListOfOutPorts{i} ,'__Entry;');
+    end
+
 % Test Points
     HFileContents{end + 1} = ' ';
     HFileContents{end + 1} = '        // Test Points';
@@ -131,9 +174,10 @@ CPPFileContents = {...
     ' ',...
     'void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {',...
     '    nt::NetworkTableInstance NTinst = nt::NetworkTableInstance::GetDefault();',...
-    '    auto NTtable_Tune = NTinst.GetTable("Simulink_Tunable_Params");',...
-    '    auto NTtable_Port = NTinst.GetTable("Simulink_Top_Level_Ports");',...
-    '    auto NTtable_TPoint = NTinst.GetTable("Simulink_Test_Points");'...
+    '    auto NTtable_Tune = NTinst.GetTable("Simulink Tunable Params");',...
+    '    auto NTtable_Inport = NTinst.GetTable("Simulink Top Level Ports");',...
+    '    auto NTtable_Outport = NTinst.GetTable("Simulink Top Level Ports");',...
+    '    auto NTtable_TPoint = NTinst.GetTable("Simulink Test Points");'...
     };
 % Parameters
 for i = 1:length(Names)
@@ -145,20 +189,43 @@ for i = 1:length(Names)
     CPPFileContents{end + 1} = append('    NTinst.AddListener(__', Names{i} ,'__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {', Names{i}, ' = event.GetValueEventData()->value.GetDouble();});');
     CPPFileContents{end + 1} = append('    __', Names{i}, '__Entry.SetDouble(', string(Values{i}), ');');
 end
-for i = 1:length(ListOfPorts)
-    CPPFileContents{end + 1} = append('    __', string(ListOfPorts(i)), '__Entry = NTtable_Port->GetEntry("', string(ListOfPorts(i)),'");');
+CPPFileContents{end + 1} = ' ';
+CPPFileContents{end + 1} = '// Inports';
+% Inports
+for i = 1:length(ListOfInPorts)
+    CPPFileContents{end + 1} = append('    __', string(ListOfInPorts(i)), '__Entry = NTtable_Inport->GetEntry("', string(ListOfInPorts(i)),'");');
 end
+% Outports
+CPPFileContents{end + 1} = ' ';
+CPPFileContents{end + 1} = '// Outports';
+for i = 1:length(ListOfOutPorts)
+    CPPFileContents{end + 1} = append('    __', string(ListOfOutPorts(i)), '__Entry = NTtable_Outport->GetEntry("', string(ListOfOutPorts(i)),'");');
+end
+% Test Points
+CPPFileContents{end + 1} = ' ';
+CPPFileContents{end + 1} = '// Test Points';
+for i = 1:length(ListOfTestPoints)
+    CPPFileContents{end + 1} = append('    __', string(ListOfTestPoints(i)), '__Entry = NTtable_TPoint->GetEntry("', string(ListOfTestPoints(i)),'");');
+end
+
+
+
 
 CPPFileContents{end + 1} = '}';
 CPPFileContents{end + 1} = ' ';
 CPPFileContents{end + 1} = 'void SimulinkSmartDashboardInterface::SmartDashboardCallback() {';
-CPPFileContents{end + 1} = '    // Ports';
-for i = 1:length(ListOfPorts)
-    CPPFileContents{end + 1} = append('    __', string(ListOfPorts(i)), '__Entry.SetDouble(', string(ListOfPorts(i)), ');');
+CPPFileContents{end + 1} = '    // Inports';
+for i = 1:length(ListOfInPorts)
+    CPPFileContents{end + 1} = append('    __', string(ListOfInPorts(i)), '__Entry.SetDouble(Code_Gen_Model_U.', string(ListOfInPorts(i)), ');');
 end
+CPPFileContents{end + 1} = '    // Outports';
+for i = 1:length(ListOfOutPorts)
+    CPPFileContents{end + 1} = append('    __', string(ListOfOutPorts(i)), '__Entry.SetDouble(Code_Gen_Model_Y.', string(ListOfOutPorts(i)), ');');
+end
+
 CPPFileContents{end + 1} = '    // Test Points';
 for i = 1:length(ListOfTestPoints)
-    CPPFileContents{end + 1} = append('    __', string(ListOfTestPoints(i)), '__Entry.SetDouble(', string(ListOfTestPoints(i)), ');');
+    CPPFileContents{end + 1} = append('    __', string(ListOfTestPoints(i)), '__Entry.SetDouble(Code_Gen_Model_B.', string(ListOfTestPoints(i)), ');');
 end
 
 CPPFileContents{end + 1} = '}';
@@ -179,9 +246,4 @@ fclose(HFileID);
 clear Names DataTypes Values temp_datatypes temp_name temp_value T...
     Not_Tunable_List i CPPFileID HFileID CPPFileContents HFileContents...
     ans
-
-% XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-% --- --- --- --- --- --- --- --Build Code-- --- --- --- --- --- --- --- --
-% XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-generate_controller_code;
+disp('------- Build Done -------');
