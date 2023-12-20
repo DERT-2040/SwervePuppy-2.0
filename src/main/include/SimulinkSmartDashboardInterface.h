@@ -127,6 +127,4 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Odometry_Y_global_TEAR_ft__Entry;
         nt::NetworkTableEntry __Odometry_X_global_est_ft__Entry;
         nt::NetworkTableEntry __Odometry_X_global_TEAR_ft__Entry;
-        nt::NetworkTableEntry __Is_Absolute_Translation__Entry;
-        nt::NetworkTableEntry __Is_Absolute_Steering__Entry;
 };

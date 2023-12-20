@@ -1,13 +1,21 @@
 //local
 #include "include/SmartDashboard.h"
-#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
+
+void SmartDashboard::BindSmartDashboardCallback(std::function<void()> callback) {
+        vectorOfCallbacks.push_back(callback);
+}
 
 void SmartDashboard::UpdateSDValues(){
-        // frc::SmartDashboard::PutNumber("Raw_Drive_X", Code_Gen_Model_U.Drive_Joystick_X);
-        // frc::SmartDashboard::PutNumber("Raw_Drive_Y", Code_Gen_Model_U.Drive_Joystick_Y);
-        // frc::SmartDashboard::PutNumber("Raw_Steer_X", Code_Gen_Model_U.Steer_Joystick_X);
-        // frc::SmartDashboard::PutNumber("Raw_Steer_Y", Code_Gen_Model_U.Steer_Joystick_Y);
+        for (auto x : vectorOfCallbacks) {
+                x();
+        }
 
+        frc::SmartDashboard::UpdateValues();
+}
+
+  // frc::SmartDashboard::PutNumber("Raw_Drive_X", Code_Gen_Model_U.Drive_Joystick_X);
+        // frc::SmartDashboard::PutNumber("Raw_Drive_Y", Code_Gen_Model_U.Drive_Joystick_Y);
+        /*
         frc::SmartDashboard::PutNumber("FL_Steer_Module_Angle (adjusted)", Code_Gen_Model_B.FL_Steer_Module_Angle);
         frc::SmartDashboard::PutNumber("FR_Steer_Module_Angle (adjusted)", Code_Gen_Model_B.FR_Steer_Module_Angle);
         frc::SmartDashboard::PutNumber("BL_Steer_Module_Angle (adjusted)", Code_Gen_Model_B.BL_Steer_Module_Angle);
@@ -63,6 +71,8 @@ void SmartDashboard::UpdateSDValues(){
         frc::SmartDashboard::PutNumber("BR_Desired_Wheel_Speed", Code_Gen_Model_B.BR_Desired_Wheel_Speed);
         frc::SmartDashboard::PutNumber("BR_Desired_Module_Angle", Code_Gen_Model_B.BR_Desired_Module_Angle);
 
+        frc::SmartDashboard::PutNumberArray("Yaws", std::span(m_PhotonVisionInterface.getYaws().begin(), m_PhotonVisionInterface.getYaws().end()));
+
         // frc::SmartDashboard::PutNumber("Translation_Angle", Code_Gen_Model_B.Translation_Angle);
         // frc::SmartDashboard::PutNumber("Steering_Localized_Cmd", Code_Gen_Model_B.Steering_Localized_Cmd);
         // frc::SmartDashboard::PutNumber("Translation_Steering_Cmd", Code_Gen_Model_B.Translation_Steering_Cmd);
@@ -70,12 +80,4 @@ void SmartDashboard::UpdateSDValues(){
         // frc::SmartDashboard::PutBoolean("Is_Absolute_Translation", Code_Gen_Model_U.Is_Absolute_Translation);
         // frc::SmartDashboard::PutBoolean("Is_Absolute_Steering", Code_Gen_Model_U.Is_Absolute_Steering);
         // frc::SmartDashboard::PutBoolean("Is_Boost_Trigger_Pulled", Code_Gen_Model_U.Is_Boost_Trigger_Pulled);
-        
-        frc::SmartDashboard::UpdateValues();
-}
-void SmartDashboard::PollSDValues() {
-        // VARIABLE = frc::SmartDashboard::GetNumber("VARIABLE", SAFEDEFAULT_VALUE);
-}
-void SmartDashboard::InitPolledSDValues() {
-        // frc::SmartDashboard::PutNumber("VARIABLE", VARIABLE);
-}
+        */

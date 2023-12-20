@@ -274,8 +274,6 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     __Odometry_Y_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_TEAR_ft");
     __Odometry_X_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_est_ft");
     __Odometry_X_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_TEAR_ft");
-    __Is_Absolute_Translation__Entry = NTtable_TPoint->GetEntry("Is_Absolute_Translation");
-    __Is_Absolute_Steering__Entry = NTtable_TPoint->GetEntry("Is_Absolute_Steering");
 }
  
 void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
@@ -342,6 +340,4 @@ void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
     __Odometry_Y_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_TEAR_ft);
     __Odometry_X_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_est_ft);
     __Odometry_X_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_TEAR_ft);
-    __Is_Absolute_Translation__Entry.SetDouble(Code_Gen_Model_B.Is_Absolute_Translation);
-    __Is_Absolute_Steering__Entry.SetDouble(Code_Gen_Model_B.Is_Absolute_Steering);
 }

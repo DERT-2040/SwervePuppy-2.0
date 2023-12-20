@@ -99,6 +99,11 @@ private:
    */
   void GameInitValues();
 
+   /**
+   * Binds SmartDashboard Callbacks for all components
+   */
+  void BindSDCallbacks();
+
   /*
    * Below are the instances of the subsystems used by the robot
    * Everything here should be direct hardware control, only

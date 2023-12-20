@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.25
+ * Model version                  : 2.26
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Tue Dec 19 18:04:06 2023
+ * C/C++ source code generated on : Tue Dec 19 18:41:58 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -66,8 +66,6 @@ typedef struct {
   real_T Odometry_Y_global_TEAR_ft;    /* '<S19>/Subtract1' */
   real_T Odometry_X_global_est_ft;     /* '<S19>/meters to feet' */
   real_T Odometry_X_global_TEAR_ft;    /* '<S19>/Subtract' */
-  boolean_T Is_Absolute_Translation;   /* '<S1>/Merge5' */
-  boolean_T Is_Absolute_Steering;      /* '<S1>/Merge6' */
 } B_Code_Gen_Model_T;
 
 /* Block states (default storage) for system '<Root>' */
