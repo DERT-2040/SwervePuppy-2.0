@@ -183,8 +183,31 @@ Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 
 %% Spline Creation Constants
 Spline_Num_Samples = 50;
-Spline_Max_Num_RefPoses = 10;
+Spline_Num_Samples_x2 = Spline_Num_Samples*2;
+
+Spline_Max_Num_RefPoses = 11;
+
 Spline_Tension = 0.5;
 
 Spline_Samples_Per_Pass = 10; % must be an even number
 Spline_Velocity_Adjustment_Magnitude = 2;
+
+Spline_Lookahead_Dist = 3;
+
+Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,2);
+Spline_Num_Poses_default = 2;
+
+Spline_Enable_auto = 1;
+Spline_Ref_Poses_auto = [
+    0 0
+    4 0
+    sqrt(4^2/2) sqrt(4^2/2)
+    0 4
+    -sqrt(4^2/2) sqrt(4^2/2)
+    -4 0
+    -sqrt(4^2/2) -sqrt(4^2/2)
+    0 -4
+    sqrt(4^2/2) -sqrt(4^2/2)
+    4 0
+    0 0];
+Spline_Num_Poses_auto = 11;
