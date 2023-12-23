@@ -1,7 +1,7 @@
 % Parameters to exclude from being tunable.
 % This is used in the 'Build_Extern.m' file
 Not_Tunable_List = ['t_sample',...
-    'Distance_FL_x','Distance_FL_y','Distance_FR_x','Distance_FR_y',...
+    'Distance_FL_x','DistancAe_FL_y','Distance_FR_x','Distance_FR_y',...
     'Distance_BL_x','Distance_BL_y','Distance_BR_x','Distance_BR_y',...
     'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance'];
 
@@ -185,29 +185,41 @@ Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 Spline_Num_Samples = 50;
 Spline_Num_Samples_x2 = Spline_Num_Samples*2;
 
-Spline_Max_Num_RefPoses = 11;
+Spline_Max_Num_RefPoses = 18;
 
 Spline_Tension = 0.5;
+
+Spline_Capture_Radius = 0.5;
 
 Spline_Samples_Per_Pass = 10; % must be an even number
 Spline_Velocity_Adjustment_Magnitude = 2;
 
-Spline_Lookahead_Dist = 3;
+Spline_Lookahead_Dist = 0.2;
 
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,2);
-Spline_Num_Poses_default = 2;
+Spline_Num_Poses_default = 2.0;
 
 Spline_Enable_auto = 1;
-Spline_Ref_Poses_auto = [
+Spline_Ref_Poses_auto = 2*[
     0 0
-    4 0
-    sqrt(4^2/2) sqrt(4^2/2)
-    0 4
-    -sqrt(4^2/2) sqrt(4^2/2)
-    -4 0
-    -sqrt(4^2/2) -sqrt(4^2/2)
-    0 -4
-    sqrt(4^2/2) -sqrt(4^2/2)
-    4 0
-    0 0];
-Spline_Num_Poses_auto = 11;
+    cos(0*22.5*pi/180)  sin(0*22.5*pi/180) 
+    cos(1*22.5*pi/180)  sin(1*22.5*pi/180)
+    cos(2*22.5*pi/180)  sin(2*22.5*pi/180)
+    cos(3*22.5*pi/180)  sin(3*22.5*pi/180)
+    cos(4*22.5*pi/180)  sin(4*22.5*pi/180) 
+    cos(5*22.5*pi/180)  sin(5*22.5*pi/180)
+    cos(6*22.5*pi/180)  sin(6*22.5*pi/180)
+    cos(7*22.5*pi/180)  sin(7*22.5*pi/180)   
+    cos(8*22.5*pi/180)  sin(8*22.5*pi/180) 
+    cos(9*22.5*pi/180)  sin(9*22.5*pi/180)
+    cos(10*22.5*pi/180) sin(10*22.5*pi/180)
+    cos(11*22.5*pi/180) sin(11*22.5*pi/180)
+    cos(12*22.5*pi/180) sin(12*22.5*pi/180) 
+    cos(13*22.5*pi/180) sin(13*22.5*pi/180)
+    cos(14*22.5*pi/180) sin(14*22.5*pi/180)
+    cos(15*22.5*pi/180) sin(15*22.5*pi/180) 
+    cos(16*22.5*pi/180) sin(16*22.5*pi/180)    
+    ];
+    % 4 0
+    % 0 0];
+Spline_Num_Poses_auto = 18;
