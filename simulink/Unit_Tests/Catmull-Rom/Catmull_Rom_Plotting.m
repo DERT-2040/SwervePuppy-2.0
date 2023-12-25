@@ -5,7 +5,7 @@ Data = out.ChainSampling.signals.values;
 figure(1), clf
 plot(Pose(1), Pose(2), 'o', 'MarkerFaceColor', 'k')
 hold on
-plot(Ref_Poses(:, 1), Ref_Poses(:, 2), 'ms-')
+plot(Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 1), Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 2),"LineWidth",1);
 axis equal
 grid on
 

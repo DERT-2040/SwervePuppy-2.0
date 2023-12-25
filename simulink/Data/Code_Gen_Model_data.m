@@ -183,27 +183,30 @@ Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 
 %% Spline Creation Constants
 Spline_Num_Samples = 50;
-Spline_Num_Samples_x2 = Spline_Num_Samples*2;
+Spline_Num_Samples_x3 = Spline_Num_Samples*3;
 
-Spline_Max_Num_RefPoses = 18;
+Spline_Max_Num_RefPoses = 19;
 
 Spline_Tension = 0.5;
 
-Spline_Capture_Radius = 0.5;
+Spline_Capture_Radius = 0.1;
+Spline_Stop_Radius = 0.05;
 
 Spline_Samples_Per_Pass = 10; % must be an even number
-Spline_Velocity_Adjustment_Magnitude = 2;
 
 Spline_Lookahead_Dist = 0.2;
+
+Spline_Pose_Num_Before_End_Reduce_Speed = 2;
+Spline_Translation_Speed = 1.0;
 
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,2);
 Spline_Num_Poses_default = 2.0;
 
 Spline_Enable_auto = 1;
-Spline_Ref_Poses_auto = 2*[
+Spline_Ref_Poses_auto = 1*[
     0 0
-    cos(0*22.5*pi/180)  sin(0*22.5*pi/180) 
-    cos(1*22.5*pi/180)  sin(1*22.5*pi/180)
+    0.3*cos(2*22.5*pi/180)  0.3*sin(2*22.5*pi/180)
+    0.7*cos(2*22.5*pi/180)  0.7*sin(2*22.5*pi/180)
     cos(2*22.5*pi/180)  sin(2*22.5*pi/180)
     cos(3*22.5*pi/180)  sin(3*22.5*pi/180)
     cos(4*22.5*pi/180)  sin(4*22.5*pi/180) 
@@ -214,12 +217,12 @@ Spline_Ref_Poses_auto = 2*[
     cos(9*22.5*pi/180)  sin(9*22.5*pi/180)
     cos(10*22.5*pi/180) sin(10*22.5*pi/180)
     cos(11*22.5*pi/180) sin(11*22.5*pi/180)
-    cos(12*22.5*pi/180) sin(12*22.5*pi/180) 
+    cos(12*22.5*pi/180) sin(12*22.5*pi/180)
     cos(13*22.5*pi/180) sin(13*22.5*pi/180)
     cos(14*22.5*pi/180) sin(14*22.5*pi/180)
-    cos(15*22.5*pi/180) sin(15*22.5*pi/180) 
-    cos(16*22.5*pi/180) sin(16*22.5*pi/180)    
-    ];
+    0.7*cos(14*22.5*pi/180) 0.7*sin(14*22.5*pi/180)
+    0.3*cos(14*22.5*pi/180) 0.3*sin(14*22.5*pi/180)    
+    0 0];
     % 4 0
     % 0 0];
-Spline_Num_Poses_auto = 18;
+Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;

@@ -9,15 +9,19 @@ gyro = squeeze(out.Simulation_Gyro);
 
 
 figure(12), clf
-plot(Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 1), Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 2),"LineWidth",3);
+plot(Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 1), Spline_Ref_Poses_auto(1:Spline_Num_Poses_auto, 2),'s',...
+    'MarkerSize',10,...
+    'MarkerEdgeColor','b',...
+    'MarkerFaceColor','b');
 hold on
-plot(Target_x,Target_y,'r-')
-plot(Odom_x,Odom_y,'g-')
-plot(x, y,'k')
+plot(Target_x,Target_y,'r','LineWidth',2)
+plot(Odom_x,Odom_y,'c','LineWidth',2)
+%plot(x, y,'g','LineWidth',2)
 grid on
 zoom on
 axis equal
-legend('Design','Target','Odometry','Simulation')
+%legend('Design Points','Target','Odometry','Simulation')
+legend('Design Points','Target','Odometry')
 xlabel('X Position')
 ylabel('Y Position')
 
