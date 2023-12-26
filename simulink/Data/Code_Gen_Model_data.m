@@ -226,3 +226,5 @@ Spline_Ref_Poses_auto = 1*[
     % 4 0
     % 0 0];
 Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
+
+Max_Centripital_Acceleration = 2;
