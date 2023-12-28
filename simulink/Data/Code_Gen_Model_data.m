@@ -3,7 +3,12 @@
 Not_Tunable_List = ['t_sample',...
     'Distance_FL_x','DistancAe_FL_y','Distance_FR_x','Distance_FR_y',...
     'Distance_BL_x','Distance_BL_y','Distance_BR_x','Distance_BR_y',...
-    'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance'];
+    'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance','Drive_Wheel_Max_Speed',...
+    'Spline_Num_Samples','Spline_Num_Samples_3x','Spline_Samples_Per_Pass',...
+    'Spline_Max_Num_RefPoses','Spline_Tension','Spline_Num_Poses_default',...
+    'Spline_Num_Poses_auto','Spline_Num_Poses_auto','Spline_Ref_Poses_default',...
+    'Spline_Ref_Poses_auto',...
+];
 
 % sample time model
 t_sample = 0.02;
@@ -43,14 +48,17 @@ Boost_Trigger_Decreasing_Limit = -2/0.9*0.02;
 %% Wheel Gear Ratio
 gear_ratio = 8.14;
 wheel_diameter = 0.101600203;
-Wheel_Speed_to_Motor_Speed = 60*gear_ratio/(wheel_diameter*pi);
+Wheel_Speed_to_Motor_Speed = 60*gear_ratio/(wheel_diameter*pi); % (rev/min)/(m/sec)
+
+Drive_Motor_Max_Speed = 5500; % rpm  (also used below for PID feedforward gain)
+Drive_Wheel_Max_Speed = Drive_Motor_Max_Speed/Wheel_Speed_to_Motor_Speed; % m/sec
 
 % Ran a test without the adjustment factor with the following results
 %   physical measurement = 177.33 feet
 %   odometry estimate    = 186.44 feet
 adjustment_factor = 0.951;  % 177.33/186.44
 
-Motor_Rev_to_Wheel_Distance = wheel_diameter*pi/gear_ratio*adjustment_factor;
+Motor_Rev_to_Wheel_Distance = wheel_diameter*pi/gear_ratio*adjustment_factor; % m/rev
 
 clear gear_ratio wheel_diameter adjustment_factor
 
@@ -109,7 +117,7 @@ Odometry_Desired_Y = 0;
 clear temp
 
 %% Drive Motor PID
-Drive_Motor_Control_FF= 1/5500;  % 1 DC / Max Speed RPM;
+Drive_Motor_Control_FF= 1/Drive_Motor_Max_Speed;  % 1 DC / Max Speed RPM;
 Drive_Motor_Control_P = 0.000005;
 
 Drive_Motor_Control_I = 0.0000002*0;
@@ -129,7 +137,7 @@ Drive_Motor_Control_Sign_Change_Deadband = 1500;
 Drive_Motor_Control_Module_Angle_Error = [0 45]*pi/180;
 Drive_Motor_Control_Scale_Factor = [1 0.05];
 
-clear Derivative_low_pass_filter_freq
+clear Drive_Motor_Max_Speed Derivative_low_pass_filter_freq
 
 %% Steering Motor PID
 Steering_Motor_Control_P = 0.15;
@@ -181,29 +189,19 @@ Steering_Localized_Cmd_Approach_Zero_Final_Thresh = 0.01;
 Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 
-%% Spline Creation Constants
+%% Spline Path Following
+% Not tunable while running
 Spline_Num_Samples = 50;
-Spline_Num_Samples_x3 = Spline_Num_Samples*3;
+Spline_Num_Samples_3x = Spline_Num_Samples*3;
 Spline_Samples_Per_Pass = 10; % must be an even number
-
 Spline_Max_Num_RefPoses = 19;
-
 Spline_Tension = 0.5;
-
-Spline_Capture_Radius = 0.1;
-Spline_Stop_Radius = 0.05;
-
-Spline_Lookahead_Dist = 0.2;
-
-Spline_Max_Centripital_Acceleration = 2;        % m/sec^2
-Spline_Pose_Num_Before_End_Reduce_Speed = 2;
-Spline_Last_Pose_Distance_to_Velocity_Gain = 2; % (m/sec) / (m)
-
+Spline_Num_Poses_default = Spline_Max_Num_RefPoses;
+Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,4);
-
 radius = 1;
 Spline_Ref_Poses_auto = [% x, y, velocity, heading
-    radius*0                        radius*0                        0.1     2*22.5*pi/180
+    radius*0                        radius*0                        1.0     2*22.5*pi/180
     radius*0.3*cos(2*22.5*pi/180)   radius*0.3*sin(2*22.5*pi/180)   1.0     2*22.5*pi/180
     radius*0.7*cos(2*22.5*pi/180)   radius*0.7*sin(2*22.5*pi/180)   0.7     2*22.5*pi/180
     radius*cos(2*22.5*pi/180)       radius*sin(2*22.5*pi/180)       0.5     2*22.5*pi/180
@@ -222,8 +220,12 @@ Spline_Ref_Poses_auto = [% x, y, velocity, heading
     radius*0.7*cos(14*22.5*pi/180)  radius*0.7*sin(14*22.5*pi/180)  1.0     14*22.5*pi/180
     radius*0.3*cos(14*22.5*pi/180)  radius*0.3*sin(14*22.5*pi/180)  1.0     14*22.5*pi/180    
     radius*0                        radius*0                        0.1     14*22.5*pi/180];
+clear radius
 
-Spline_Num_Poses_default = 2.0;
-Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
-
-
+% Tunable while running
+Spline_Capture_Radius = 0.1;
+Spline_Stop_Radius = 0.05;
+Spline_Lookahead_Dist = 0.2;
+Spline_Max_Centripital_Acceleration = 2;        % m/sec^2
+Spline_Pose_Num_Before_End_Reduce_Speed = 2;
+Spline_Last_Pose_Distance_to_Velocity_Gain = 2; % (m/sec) / (m)

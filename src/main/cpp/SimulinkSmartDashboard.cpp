@@ -74,6 +74,26 @@ void SimulinkSmartDashboard::InitTunableSmartDashboard() {
     NTinst.AddListener(__Odometry_X_Y_TEAR__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_X_Y_TEAR = event.GetValueEventData()->value.GetDouble();});
     __Odometry_X_Y_TEAR__Entry.SetDouble(0);
  
+    __Spline_Capture_Radius__Entry = NTtable->GetEntry("Spline_Capture_Radius");
+    NTinst.AddListener(__Spline_Capture_Radius__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Capture_Radius = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Capture_Radius__Entry.SetDouble(0.1);
+ 
+    __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry = NTtable->GetEntry("Spline_Last_Pose_Distance_to_Velocity_Gain");
+    NTinst.AddListener(__Spline_Last_Pose_Distance_to_Velocity_Gain__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Last_Pose_Distance_to_Velocity_Gain = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry.SetDouble(2);
+ 
+    __Spline_Lookahead_Dist__Entry = NTtable->GetEntry("Spline_Lookahead_Dist");
+    NTinst.AddListener(__Spline_Lookahead_Dist__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Lookahead_Dist = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Lookahead_Dist__Entry.SetDouble(0.2);
+ 
+    __Spline_Max_Centripital_Acceleration__Entry = NTtable->GetEntry("Spline_Max_Centripital_Acceleration");
+    NTinst.AddListener(__Spline_Max_Centripital_Acceleration__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Max_Centripital_Acceleration = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Max_Centripital_Acceleration__Entry.SetDouble(2);
+ 
+    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry = NTtable->GetEntry("Spline_Pose_Num_Before_End_Reduce_Speed");
+    NTinst.AddListener(__Spline_Pose_Num_Before_End_Reduce_Speed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Pose_Num_Before_End_Reduce_Speed = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry.SetDouble(2);
+ 
     __Steering_Abs_Deadband_Range__Entry = NTtable->GetEntry("Steering_Abs_Deadband_Range");
     NTinst.AddListener(__Steering_Abs_Deadband_Range__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Steering_Abs_Deadband_Range = event.GetValueEventData()->value.GetDouble();});
     __Steering_Abs_Deadband_Range__Entry.SetDouble(0.7);
@@ -197,10 +217,6 @@ void SimulinkSmartDashboard::InitTunableSmartDashboard() {
     __Translation_Speed_NonZero_Final_Scale_Factor__Entry = NTtable->GetEntry("Translation_Speed_NonZero_Final_Scale_Factor");
     NTinst.AddListener(__Translation_Speed_NonZero_Final_Scale_Factor__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_NonZero_Final_Scale_Factor = event.GetValueEventData()->value.GetDouble();});
     __Translation_Speed_NonZero_Final_Scale_Factor__Entry.SetDouble(0.05);
- 
-    __Translation_Speed_Rate_Limit_Dec__Entry = NTtable->GetEntry("Translation_Speed_Rate_Limit_Dec");
-    NTinst.AddListener(__Translation_Speed_Rate_Limit_Dec__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_Rate_Limit_Dec = event.GetValueEventData()->value.GetDouble();});
-    __Translation_Speed_Rate_Limit_Dec__Entry.SetDouble(-0.2);
  
     __Translation_Speed_Rate_Limit_Inc__Entry = NTtable->GetEntry("Translation_Speed_Rate_Limit_Inc");
     NTinst.AddListener(__Translation_Speed_Rate_Limit_Inc__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_Rate_Limit_Inc = event.GetValueEventData()->value.GetDouble();});

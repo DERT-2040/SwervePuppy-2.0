@@ -27,6 +27,11 @@ class SimulinkSmartDashboard {
         nt::NetworkTableEntry __Odometry_Desired_X__Entry;
         nt::NetworkTableEntry __Odometry_Desired_Y__Entry;
         nt::NetworkTableEntry __Odometry_X_Y_TEAR__Entry;
+        nt::NetworkTableEntry __Spline_Capture_Radius__Entry;
+        nt::NetworkTableEntry __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry;
+        nt::NetworkTableEntry __Spline_Lookahead_Dist__Entry;
+        nt::NetworkTableEntry __Spline_Max_Centripital_Acceleration__Entry;
+        nt::NetworkTableEntry __Spline_Pose_Num_Before_End_Reduce_Speed__Entry;
         nt::NetworkTableEntry __Steering_Abs_Deadband_Range__Entry;
         nt::NetworkTableEntry __Steering_Heading_Control_D__Entry;
         nt::NetworkTableEntry __Steering_Heading_Control_D_FilterCoeff__Entry;
@@ -58,6 +63,5 @@ class SimulinkSmartDashboard {
         nt::NetworkTableEntry __Translation_Speed_Approach_Zero_Final_Thresh__Entry;
         nt::NetworkTableEntry __Translation_Speed_NonZero_Error_Thresh__Entry;
         nt::NetworkTableEntry __Translation_Speed_NonZero_Final_Scale_Factor__Entry;
-        nt::NetworkTableEntry __Translation_Speed_Rate_Limit_Dec__Entry;
         nt::NetworkTableEntry __Translation_Speed_Rate_Limit_Inc__Entry;
 };
