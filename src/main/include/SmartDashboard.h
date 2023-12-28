@@ -1,5 +1,9 @@
 //frc
+#include <vector>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
+#include <vector>
+#include <functional>
 
 class SmartDashboard {
 public:
@@ -10,13 +14,8 @@ public:
      */
     void UpdateSDValues();
 
-    /**
-     * Retrive data from smartdashboard and put those values into simulink
-     */
-    void PollSDValues();
+    void BindSmartDashboardCallback(std::function<void()> callback);
 
-    /**
-     * Create tunable values on smartdashboard
-     */
-    void InitPolledSDValues();
+private:
+    std::vector<std::function<void()>> vectorOfCallbacks;
 };

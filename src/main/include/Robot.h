@@ -10,7 +10,7 @@
 #include "include/IMU.h"
 #include "include/SwerveDrive.h"
 #include "include/SmartDashboard.h"
-#include "include/SimulinkSmartDashboard.h"
+#include "include/SimulinkSmartDashboardInterface.h"
 //frc
 #include <frc/TimedRobot.h>
 //std
@@ -99,6 +99,11 @@ private:
    */
   void GameInitValues();
 
+   /**
+   * Binds SmartDashboard Callbacks for all components
+   */
+  void BindSDCallbacks();
+
   /*
    * Below are the instances of the subsystems used by the robot
    * Everything here should be direct hardware control, only
@@ -134,5 +139,5 @@ private:
   /**
    * Component for all Tunable Parameters created by simulink
    */
-  SimulinkSmartDashboard m_TunableSmartDashboard;  
+  SimulinkSmartDashboardInterface m_SimulinkSmartDashboardInterface;  
 };
