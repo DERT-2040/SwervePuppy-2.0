@@ -1,32 +1,53 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) PhotonVision
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #pragma once
-#include <photonlib/PhotonUtils.h>
-#include <photonlib/PhotonCamera.h>
-#include <photonlib/PhotonPoseEstimator.h>
-#include <unordered_map>
-#include <vector>
-#include <iostream>
-#include <utility>
+
+#include <photon/PhotonCamera.h>
+#include <photon/PhotonPoseEstimator.h>
+#include <photon/estimation/VisionEstimation.h>
+#include <photon/simulation/VisionSystemSim.h>
+#include <photon/simulation/VisionTargetSim.h>
+#include <photon/targeting/PhotonPipelineResult.h>
+
+#include <limits>
+#include <memory>
+
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/apriltag/AprilTagFields.h>
-#include <frc/geometry/Pose3d.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <algorithm>
 
-extern std::vector<double> yaws;
+#include "Constants.h"
 
-class PhotonVisionInterface {
-public:
-    PhotonVisionInterface();
+class Vision {
+ public:
+ PhotonVisionInterface();
     // This method should be called each tick of the Rio to update the data for each target given to simulink
     void updatePhotonVision();
     void PreStep();
     void PostStep();
     void SmartDashboardCallback();
     // Methods to return the vectors
-    /**
-     * @brief Returns vector of the distance from each target to the camera.
-    */
-    const std::vector<double>& getDistances() const;
     /**
      * @brief Returns vector of yaw angles of the targets
     */
@@ -43,72 +64,119 @@ public:
      * @brief Returns vector of confidence factors [0, 1] of the targets
     */
     const std::vector<double>& getPoseAmbiguities() const;
-    /**
-     * @brief Returns the vertical height of each target, needs to be setup for each game and senerio. 
-    */
-    const units::length::meter_t determineTargetHeight(int fiducialId) const;
-    
-    /**
-     * @brief Prints out the current dected fiducialIds into console
-    */
-    const void printFiducialIds() const;
-    /**
-    *  @brief Returns the timestamp that the camera was updated
-    */
-    const units::time::second_t getCameraTimestamp() const;
-    /**
-     * @brief Returns the 3d translation of the robot as a vector (x, y, z)
-    */
-    const std::vector<double> get3dTranslation() const;
-    /**
-     * @brief Returns a vector of the robot's 3d rotation (roll, pitch, yaw)
-    */
-    const std::vector<double> getRobotRotation() const;
-    /**
-     * @brief Returns the fiducial ids of tags being used for the generated pose
-    */
-    const std::vector<int> getPoseTargetsFiducialIds() const;
 
+  Vision() {
+    photonEstimator.SetMultiTagFallbackStrategy(
+        photon::PoseStrategy::LOWEST_AMBIGUITY);
 
+    if (frc::RobotBase::IsSimulation()) {
+      visionSim = std::make_unique<photon::VisionSystemSim>("main");
 
-private:
-    // Makes a apriltag feild layout for our shop 
-    frc::AprilTag tag1 = frc::AprilTag(1, frc::Pose3d(frc::Translation3d(15.513558_m, 1.02743_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag2 = frc::AprilTag(2, frc::Pose3d(frc::Translation3d(15.513558_m, 2.748026_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag3 = frc::AprilTag(3, frc::Pose3d(frc::Translation3d(15.513558_m, 4.424426_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag4 = frc::AprilTag(4, frc::Pose3d(frc::Translation3d(16.513558_m, 6.749796_m, 0.695452_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag5 = frc::AprilTag(5, frc::Pose3d(frc::Translation3d(0.36195_m, 6.749796_m, 0.695452_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag6 = frc::AprilTag(6, frc::Pose3d(frc::Translation3d(1.02743_m, 4.424426_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag7 = frc::AprilTag(7, frc::Pose3d(frc::Translation3d(1.02743_m, 2.748026_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
-    frc::AprilTag tag8 = frc::AprilTag(8, frc::Pose3d(frc::Translation3d(1.02743_m, 1.02743_m, 0.462788_m), frc::Rotation3d(0_rad, 0_rad, 0_rad)));
+      visionSim->AddAprilTags(constants::Vision::kTagLayout);
 
-    std::vector<frc::AprilTag> AprilTagList{tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8};
-    frc::AprilTagFieldLayout AprilTagFieldLayout = frc::AprilTagFieldLayout(AprilTagList, 16.54175_m, 8.0137_m);
+      cameraProp = std::make_unique<photon::SimCameraProperties>();
 
+      cameraProp->SetCalibration(960, 720, frc::Rotation2d{90_deg});
+      cameraProp->SetCalibError(.35, .10);
+      cameraProp->SetFPS(15_Hz);
+      cameraProp->SetAvgLatency(50_ms);
+      cameraProp->SetLatencyStdDev(15_ms);
+
+      cameraSim = std::make_shared<photon::PhotonCameraSim>(camera.get(),
+                                                            *cameraProp.get());
+
+      visionSim->AddCamera(cameraSim.get(), robotToCam);
+      cameraSim->EnableDrawWireframe(true);
+    }
+  }
+
+  photon::PhotonPipelineResult GetLatestResult() {
+    return camera->GetLatestResult();
+  }
+
+  std::optional<photon::EstimatedRobotPose> GetEstimatedGlobalPose() {
+    auto visionEst = photonEstimator.Update();
+    units::second_t latestTimestamp = camera->GetLatestResult().GetTimestamp();
+    bool newResult =
+        units::math::abs(latestTimestamp - lastEstTimestamp) > 1e-5_s;
+    if (frc::RobotBase::IsSimulation()) {
+      if (visionEst.has_value()) {
+        GetSimDebugField()
+            .GetObject("VisionEstimation")
+            ->SetPose(visionEst.value().estimatedPose.ToPose2d());
+      } else {
+        if (newResult) {
+          GetSimDebugField().GetObject("VisionEstimation")->SetPoses({});
+        }
+      }
+    }
+    if (newResult) {
+      lastEstTimestamp = latestTimestamp;
+    }
+    return visionEst;
+  }
+
+  Eigen::Matrix<double, 3, 1> GetEstimationStdDevs(frc::Pose2d estimatedPose) {
+    Eigen::Matrix<double, 3, 1> estStdDevs =
+        constants::Vision::kSingleTagStdDevs;
+    auto targets = GetLatestResult().GetTargets();
+    int numTags = 0;
+    units::meter_t avgDist = 0_m;
+    for (const auto& tgt : targets) {
+      auto tagPose =
+          photonEstimator.GetFieldLayout().GetTagPose(tgt.GetFiducialId());
+      if (tagPose.has_value()) {
+        numTags++;
+        avgDist += tagPose.value().ToPose2d().Translation().Distance(
+            estimatedPose.Translation());
+      }
+    }
+    if (numTags == 0) {
+      return estStdDevs;
+    }
+    avgDist /= numTags;
+    if (numTags > 1) {
+      estStdDevs = constants::Vision::kMultiTagStdDevs;
+    }
+    if (numTags == 1 && avgDist > 4_m) {
+      estStdDevs = (Eigen::MatrixXd(3, 1) << std::numeric_limits<double>::max(),
+                    std::numeric_limits<double>::max(),
+                    std::numeric_limits<double>::max())
+                       .finished();
+    } else {
+      estStdDevs = estStdDevs * (1 + (avgDist.value() * avgDist.value() / 30));
+    }
+    return estStdDevs;
+  }
+
+  void SimPeriodic(frc::Pose2d robotSimPose) {
+    visionSim->Update(robotSimPose);
+  }
+
+  void ResetSimPose(frc::Pose2d pose) {
+    if (frc::RobotBase::IsSimulation()) {
+      visionSim->ResetRobotPose(pose);
+    }
+  }
+
+  frc::Field2d& GetSimDebugField() { return visionSim->GetDebugField(); }
+
+ private:
     // Member variables to store data for each detected target
-    std::vector<double> distances{0.0};
     std::vector<double> yaws{0.0};
     std::vector<double> pitches{0.0};
     std::vector<int> fiducialIds{0};
     std::vector<double> poseAmbiguities{0.0};
-
-    // A list of the target heights for finding distance to the targets
-    std::vector<units::length::meter_t> targetHeight{0_m, 0.462788_m, 0.462788_m, 0.462788_m, 0.695452_m, 0.695452_m, 0.462788_m, 0.462788_m, 0.462788_m}; 
-
-    //Robot Pose Estimator
-    frc::Transform3d robotToCamera = frc::Transform3d(frc::Translation3d(0.5_m, -0.25_m, CAMERA_HEIGHT), frc::Rotation3d(0_rad, CAMERA_PITCH, 0_rad));
-    /**
-     * @note I do not know exactly why I need std::move() in the constructor but it works so im running with it. Kill me if you want. *shrugs*
-    */
-    photonlib::PhotonPoseEstimator poseEstimator = photonlib::PhotonPoseEstimator(AprilTagFieldLayout, photonlib::MULTI_TAG_PNP, std::move(photonlib::PhotonCamera("OV5647")), robotToCamera);
-
-    frc::Pose3d estimatedPose;
-
-    units::second_t timestamp;
-
-    wpi::SmallVector<photonlib::PhotonTrackedTarget, 10> poseTargets;
-
-    // Constants with preset values
-    static constexpr units::meter_t CAMERA_HEIGHT{0.25}; // meters
-    static constexpr units::radian_t CAMERA_PITCH{0_rad}; // degrees (rad)
+    
+  frc::Transform3d robotToCam{frc::Translation3d{0.5_m, 0.5_m, 0.5_m},
+                              frc::Rotation3d{}};
+  photon::PhotonPoseEstimator photonEstimator{
+      LoadAprilTagLayoutField(frc::AprilTagField::k2023ChargedUp),
+      photon::PoseStrategy::MULTI_TAG_PNP_ON_COPROCESSOR,
+      photon::PhotonCamera{"OV5647"}, robotToCam};
+  std::shared_ptr<photon::PhotonCamera> camera{photonEstimator.GetCamera()};
+  std::unique_ptr<photon::VisionSystemSim> visionSim;
+  std::unique_ptr<photon::SimCameraProperties> cameraProp;
+  std::shared_ptr<photon::PhotonCameraSim> cameraSim;
+  units::second_t lastEstTimestamp{0_s};
 };

@@ -8,18 +8,51 @@ void PhotonVisionInterface::PreStep() {
 }
 
 void PhotonVisionInterface::PostStep() {
-    printFiducialIds();
 }
 
 void PhotonVisionInterface::SmartDashboardCallback() {
-    for(int x = 0; x < yaws.size(); x++) {
-        frc::SmartDashboard::PutNumber(("yaw " + x), yaws.at(x));
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 1"), yaws.at(0));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 1"), 0);
     }
-    
-}
-
-const std::vector<double>& PhotonVisionInterface::getDistances() const{
-    return distances;
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 2"), yaws.at(1));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 2"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 3"), yaws.at(2));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 3"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 4"), yaws.at(3));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 4"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 5"), yaws.at(4));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 5"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 6"), yaws.at(5));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 6"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 7"), yaws.at(6));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 7"), 0);
+    }
+    if (yaws.size() == 1) {
+        frc::SmartDashboard::PutNumber(("yaw 8"), yaws.at(7));
+    } else {
+        frc::SmartDashboard::PutNumber(("yaw 8"), 0);
+    }   
+    frc::SmartDashboard::PutNumber("Robot X", estPose.X());
+    frc::SmartDashBoard::PutNumber("Robot Y", estPose.Y());
 }
 
 const std::vector<double>& PhotonVisionInterface::getYaws() const {
@@ -38,65 +71,29 @@ const std::vector<double>& PhotonVisionInterface::getPoseAmbiguities() const {
     return poseAmbiguities;
 }
 
-const void PhotonVisionInterface::printFiducialIds() const {
-    if (fiducialIds.size() > 0) {
-        for(const auto& target : fiducialIds) {
-            std::cout << target << std::endl;
-        }
-    }
-}
-
-const units::time::second_t PhotonVisionInterface::getCameraTimestamp() const {
-    return timestamp;
-}
-
-const std::vector<double> PhotonVisionInterface::get3dTranslation() const {
-    std::vector<double> translation{static_cast<double>(estimatedPose.X()), static_cast<double>(estimatedPose.Y()), static_cast<double>(estimatedPose.Z())};
-    return translation;
-}
-
-const std::vector<double> PhotonVisionInterface::getRobotRotation() const {
-    std::vector<double> rotation{static_cast<double>(estimatedPose.Rotation().X()), static_cast<double>(estimatedPose.Rotation().Y()), static_cast<double>(estimatedPose.Rotation().Z())};
-    return rotation;
-}
-
-const std::vector<int> PhotonVisionInterface::getPoseTargetsFiducialIds() const {
-    std::vector<int> listOfIds;
-    for (const auto& target : poseTargets) {
-        listOfIds.push_back(target.GetFiducialId());
-    }
-    return listOfIds;
-}
-
-
 void PhotonVisionInterface::updatePhotonVision() {
-    photonlib::PhotonPipelineResult latestPipelineResult = poseEstimator.GetCamera().GetLatestResult();
+    auto visionEst = vision.GetEstimatedGlobalPose();
+    if (visionEst.has_value()) {
+        auto est = visionEst.value();
+        auto estPose = est.estimatedPose.ToPose2d();
+        auto estStdDevs = vision.GetEstimationStdDevs(estPose);
+        drivetrain.AddVisionMeasurement(est.estimatedPose.ToPose2d(), est.timestamp,
+                                        estStdDevs);
+    }
+    photonlib::PhotonPipelineResult latestPipelineResult = photonEstimator.GetCamera().GetLatestResult();
     bool hasTargets = latestPipelineResult.HasTargets();
 
     // Clear the vectors to avoid double initialization
-    distances.clear();
     yaws.clear();
     pitches.clear();
     fiducialIds.clear();
     poseAmbiguities.clear();
 
     if (hasTargets) {
-        
-        auto estimatedRobotPose = poseEstimator.Update(latestPipelineResult);
-        if (estimatedRobotPose.has_value()) {
-            estimatedPose = estimatedRobotPose.value().estimatedPose;
-            timestamp = estimatedRobotPose.value().timestamp;
-            poseTargets = estimatedRobotPose.value().targetsUsed;
-        }
         const auto& photonVisionTrackedTargets = latestPipelineResult.GetTargets();
 
         // Populate the vectors with data from each detected target
         for (const auto& target : photonVisionTrackedTargets) {
-            distances.push_back(static_cast<double>(photonlib::PhotonUtils::CalculateDistanceToTarget(
-                CAMERA_HEIGHT, 
-                targetHeight[static_cast<int>(target.GetFiducialId())], 
-                CAMERA_PITCH, 
-                units::degree_t{target.GetPitch()})));
             yaws.push_back(static_cast<double>(target.GetYaw()));
             pitches.push_back(static_cast<double>(target.GetPitch()));
             fiducialIds.push_back(static_cast<int>(target.GetFiducialId()));
