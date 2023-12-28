@@ -77,6 +77,26 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Odometry_X_Y_TEAR__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_X_Y_TEAR = event.GetValueEventData()->value.GetDouble();});
     __Odometry_X_Y_TEAR__Entry.SetDouble(0);
  
+    __Spline_Capture_Radius__Entry = NTtable_Tune->GetEntry("Spline_Capture_Radius");
+    NTinst.AddListener(__Spline_Capture_Radius__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Capture_Radius = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Capture_Radius__Entry.SetDouble(0.1);
+ 
+    __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry = NTtable_Tune->GetEntry("Spline_Last_Pose_Distance_to_Velocity_Gain");
+    NTinst.AddListener(__Spline_Last_Pose_Distance_to_Velocity_Gain__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Last_Pose_Distance_to_Velocity_Gain = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry.SetDouble(2);
+ 
+    __Spline_Lookahead_Dist__Entry = NTtable_Tune->GetEntry("Spline_Lookahead_Dist");
+    NTinst.AddListener(__Spline_Lookahead_Dist__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Lookahead_Dist = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Lookahead_Dist__Entry.SetDouble(0.2);
+ 
+    __Spline_Max_Centripital_Acceleration__Entry = NTtable_Tune->GetEntry("Spline_Max_Centripital_Acceleration");
+    NTinst.AddListener(__Spline_Max_Centripital_Acceleration__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Max_Centripital_Acceleration = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Max_Centripital_Acceleration__Entry.SetDouble(2);
+ 
+    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry = NTtable_Tune->GetEntry("Spline_Pose_Num_Before_End_Reduce_Speed");
+    NTinst.AddListener(__Spline_Pose_Num_Before_End_Reduce_Speed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Pose_Num_Before_End_Reduce_Speed = event.GetValueEventData()->value.GetDouble();});
+    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry.SetDouble(2);
+ 
     __Steering_Abs_Deadband_Range__Entry = NTtable_Tune->GetEntry("Steering_Abs_Deadband_Range");
     NTinst.AddListener(__Steering_Abs_Deadband_Range__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Steering_Abs_Deadband_Range = event.GetValueEventData()->value.GetDouble();});
     __Steering_Abs_Deadband_Range__Entry.SetDouble(0.7);
@@ -201,10 +221,6 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Translation_Speed_NonZero_Final_Scale_Factor__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_NonZero_Final_Scale_Factor = event.GetValueEventData()->value.GetDouble();});
     __Translation_Speed_NonZero_Final_Scale_Factor__Entry.SetDouble(0.05);
  
-    __Translation_Speed_Rate_Limit_Dec__Entry = NTtable_Tune->GetEntry("Translation_Speed_Rate_Limit_Dec");
-    NTinst.AddListener(__Translation_Speed_Rate_Limit_Dec__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_Rate_Limit_Dec = event.GetValueEventData()->value.GetDouble();});
-    __Translation_Speed_Rate_Limit_Dec__Entry.SetDouble(-0.2);
- 
     __Translation_Speed_Rate_Limit_Inc__Entry = NTtable_Tune->GetEntry("Translation_Speed_Rate_Limit_Inc");
     NTinst.AddListener(__Translation_Speed_Rate_Limit_Inc__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Translation_Speed_Rate_Limit_Inc = event.GetValueEventData()->value.GetDouble();});
     __Translation_Speed_Rate_Limit_Inc__Entry.SetDouble(0.085714);
@@ -251,29 +267,47 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     __FR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Steer_Module_Angle");
     __BL_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Steer_Module_Angle");
     __BR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BR_Steer_Module_Angle");
-    __Odometry_X_global_est_m__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_est_m");
-    __Odometry_Y_global_est_m__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_est_m");
-    __Translation_Speed__Entry = NTtable_TPoint->GetEntry("Translation_Speed");
-    __Translation_Speed_o__Entry = NTtable_TPoint->GetEntry("Translation_Speed_o");
-    __Translation_Angle__Entry = NTtable_TPoint->GetEntry("Translation_Angle");
-    __Translation_Steering_Cmd__Entry = NTtable_TPoint->GetEntry("Translation_Steering_Cmd");
-    __Steering_Rel_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Rel_Cmd");
+    __Odom_Position_X_global__Entry = NTtable_TPoint->GetEntry("Odom_Position_X_global");
+    __Odom_Position_Y_global__Entry = NTtable_TPoint->GetEntry("Odom_Position_Y_global");
+    __Spline_Num_Poses__Entry = NTtable_TPoint->GetEntry("Spline_Num_Poses");
     __Steering_Abs_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Abs_Cmd");
-    __Gyro_Angle_Adjusted__Entry = NTtable_TPoint->GetEntry("Gyro_Angle_Adjusted");
+    __Steering_Rel_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Rel_Cmd");
+    __Translation_Speed__Entry = NTtable_TPoint->GetEntry("Translation_Speed");
+    __Translation_Angle__Entry = NTtable_TPoint->GetEntry("Translation_Angle");
+    __Translation_Speed_SPF__Entry = NTtable_TPoint->GetEntry("Translation_Speed_SPF");
+    __Translation_Speed_RL__Entry = NTtable_TPoint->GetEntry("Translation_Speed_RL");
+    __Translation_Angle_SPF__Entry = NTtable_TPoint->GetEntry("Translation_Angle_SPF");
+    __Translation_Steering_Cmd__Entry = NTtable_TPoint->GetEntry("Translation_Steering_Cmd");
+    __Steering_Rel_Cmd_SPF__Entry = NTtable_TPoint->GetEntry("Steering_Rel_Cmd_SPF");
+    __Steering_Abs_Cmd_SPF__Entry = NTtable_TPoint->GetEntry("Steering_Abs_Cmd_SPF");
+    __Gyro_Angle_Adjustment_SPF__Entry = NTtable_TPoint->GetEntry("Gyro_Angle_Adjustment_SPF");
     __Steering_Localized_PID__Entry = NTtable_TPoint->GetEntry("Steering_Localized_PID");
     __Steering_Localized_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Localized_Cmd");
+    __Switch1__Entry = NTtable_TPoint->GetEntry("Switch1");
+    __Switch1_m__Entry = NTtable_TPoint->GetEntry("Switch1_m");
+    __Switch1_o__Entry = NTtable_TPoint->GetEntry("Switch1_o");
+    __Switch1_p__Entry = NTtable_TPoint->GetEntry("Switch1_p");
     __BR_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("BR_Desired_Wheel_Speed");
     __BR_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("BR_Desired_Module_Angle");
-    __BL_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("BL_Desired_Wheel_Speed");
-    __BL_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Desired_Module_Angle");
-    __FR_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("FR_Desired_Wheel_Speed");
-    __FR_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Desired_Module_Angle");
     __FL_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("FL_Desired_Wheel_Speed");
     __FL_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("FL_Desired_Module_Angle");
+    __FR_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("FR_Desired_Wheel_Speed");
+    __FR_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Desired_Module_Angle");
+    __BL_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("BL_Desired_Wheel_Speed");
+    __BL_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Desired_Module_Angle");
     __Odometry_Y_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_est_ft");
     __Odometry_Y_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_TEAR_ft");
     __Odometry_X_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_est_ft");
     __Odometry_X_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_TEAR_ft");
+    __Spline_Index__Entry = NTtable_TPoint->GetEntry("Spline_Index");
+    __Spline_Target_Y__Entry = NTtable_TPoint->GetEntry("Spline_Target_Y");
+    __Spline_Target_X__Entry = NTtable_TPoint->GetEntry("Spline_Target_X");
+    __WhileIterator__Entry = NTtable_TPoint->GetEntry("WhileIterator");
+    __Spline_Enable__Entry = NTtable_TPoint->GetEntry("Spline_Enable");
+    __Is_Absolute_Translation_SPF__Entry = NTtable_TPoint->GetEntry("Is_Absolute_Translation_SPF");
+    __Is_Absolute_Steering_SPF__Entry = NTtable_TPoint->GetEntry("Is_Absolute_Steering_SPF");
+    __Robot_Reached_Destination__Entry = NTtable_TPoint->GetEntry("Robot_Reached_Destination");
+    __Spline_Out_Of_Bounds__Entry = NTtable_TPoint->GetEntry("Spline_Out_Of_Bounds");
 }
  
 void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
@@ -317,27 +351,45 @@ void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
     __FR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Steer_Module_Angle);
     __BL_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Steer_Module_Angle);
     __BR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BR_Steer_Module_Angle);
-    __Odometry_X_global_est_m__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_est_m);
-    __Odometry_Y_global_est_m__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_est_m);
-    __Translation_Speed__Entry.SetDouble(Code_Gen_Model_B.Translation_Speed);
-    __Translation_Speed_o__Entry.SetDouble(Code_Gen_Model_B.Translation_Speed_o);
-    __Translation_Angle__Entry.SetDouble(Code_Gen_Model_B.Translation_Angle);
-    __Translation_Steering_Cmd__Entry.SetDouble(Code_Gen_Model_B.Translation_Steering_Cmd);
-    __Steering_Rel_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Rel_Cmd);
+    __Odom_Position_X_global__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_X_global);
+    __Odom_Position_Y_global__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_Y_global);
+    __Spline_Num_Poses__Entry.SetDouble(Code_Gen_Model_B.Spline_Num_Poses);
     __Steering_Abs_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Abs_Cmd);
-    __Gyro_Angle_Adjusted__Entry.SetDouble(Code_Gen_Model_B.Gyro_Angle_Adjusted);
+    __Steering_Rel_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Rel_Cmd);
+    __Translation_Speed__Entry.SetDouble(Code_Gen_Model_B.Translation_Speed);
+    __Translation_Angle__Entry.SetDouble(Code_Gen_Model_B.Translation_Angle);
+    __Translation_Speed_SPF__Entry.SetDouble(Code_Gen_Model_B.Translation_Speed_SPF);
+    __Translation_Speed_RL__Entry.SetDouble(Code_Gen_Model_B.Translation_Speed_RL);
+    __Translation_Angle_SPF__Entry.SetDouble(Code_Gen_Model_B.Translation_Angle_SPF);
+    __Translation_Steering_Cmd__Entry.SetDouble(Code_Gen_Model_B.Translation_Steering_Cmd);
+    __Steering_Rel_Cmd_SPF__Entry.SetDouble(Code_Gen_Model_B.Steering_Rel_Cmd_SPF);
+    __Steering_Abs_Cmd_SPF__Entry.SetDouble(Code_Gen_Model_B.Steering_Abs_Cmd_SPF);
+    __Gyro_Angle_Adjustment_SPF__Entry.SetDouble(Code_Gen_Model_B.Gyro_Angle_Adjustment_SPF);
     __Steering_Localized_PID__Entry.SetDouble(Code_Gen_Model_B.Steering_Localized_PID);
     __Steering_Localized_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Localized_Cmd);
+    __Switch1__Entry.SetDouble(Code_Gen_Model_B.Switch1);
+    __Switch1_m__Entry.SetDouble(Code_Gen_Model_B.Switch1_m);
+    __Switch1_o__Entry.SetDouble(Code_Gen_Model_B.Switch1_o);
+    __Switch1_p__Entry.SetDouble(Code_Gen_Model_B.Switch1_p);
     __BR_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.BR_Desired_Wheel_Speed);
     __BR_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BR_Desired_Module_Angle);
-    __BL_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Wheel_Speed);
-    __BL_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Module_Angle);
-    __FR_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.FR_Desired_Wheel_Speed);
-    __FR_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Desired_Module_Angle);
     __FL_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.FL_Desired_Wheel_Speed);
     __FL_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FL_Desired_Module_Angle);
+    __FR_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.FR_Desired_Wheel_Speed);
+    __FR_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Desired_Module_Angle);
+    __BL_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Wheel_Speed);
+    __BL_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Module_Angle);
     __Odometry_Y_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_est_ft);
     __Odometry_Y_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_TEAR_ft);
     __Odometry_X_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_est_ft);
     __Odometry_X_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_TEAR_ft);
+    __Spline_Index__Entry.SetDouble(Code_Gen_Model_B.Spline_Index);
+    __Spline_Target_Y__Entry.SetDouble(Code_Gen_Model_B.Spline_Target_Y);
+    __Spline_Target_X__Entry.SetDouble(Code_Gen_Model_B.Spline_Target_X);
+    __WhileIterator__Entry.SetDouble(Code_Gen_Model_B.WhileIterator);
+    __Spline_Enable__Entry.SetDouble(Code_Gen_Model_B.Spline_Enable);
+    __Is_Absolute_Translation_SPF__Entry.SetDouble(Code_Gen_Model_B.Is_Absolute_Translation_SPF);
+    __Is_Absolute_Steering_SPF__Entry.SetDouble(Code_Gen_Model_B.Is_Absolute_Steering_SPF);
+    __Robot_Reached_Destination__Entry.SetDouble(Code_Gen_Model_B.Robot_Reached_Destination);
+    __Spline_Out_Of_Bounds__Entry.SetDouble(Code_Gen_Model_B.Spline_Out_Of_Bounds);
 }

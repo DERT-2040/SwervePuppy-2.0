@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.24
+ * Model version                  : 2.26
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 09:01:25 2023
+ * C/C++ source code generated on : Thu Dec 28 13:10:43 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -46,7 +46,6 @@ typedef struct {
   real_T BR_Steer_Module_Angle;        /* '<S89>/Add1' */
   real_T Odom_Position_X_global;       /* '<S7>/Accumulator2' */
   real_T Odom_Position_Y_global;       /* '<S7>/Accumulator' */
-  real_T Spline_Ref_Poses[76];         /* '<S6>/Merge8' */
   real_T Spline_Num_Poses;             /* '<S6>/Merge9' */
   real_T Steering_Abs_Cmd;             /* '<S6>/Merge1' */
   real_T Steering_Rel_Cmd;             /* '<S6>/Merge2' */
@@ -83,8 +82,6 @@ typedef struct {
   real_T Assignment[450];              /* '<S53>/Assignment' */
   uint16_T WhileIterator;              /* '<S78>/While Iterator' */
   boolean_T Spline_Enable;             /* '<S6>/Merge7' */
-  boolean_T Is_Absolute_Translation;   /* '<S6>/Merge5' */
-  boolean_T Is_Absolute_Steering;      /* '<S6>/Merge6' */
   boolean_T Is_Absolute_Translation_SPF;/* '<S8>/Merge4' */
   boolean_T Is_Absolute_Steering_SPF;  /* '<S8>/Merge5' */
   boolean_T Robot_Reached_Destination; /* '<S8>/Merge7' */

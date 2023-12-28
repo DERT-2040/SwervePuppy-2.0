@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.24
+ * Model version                  : 2.26
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 09:01:25 2023
+ * C/C++ source code generated on : Thu Dec 28 13:10:43 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -650,6 +650,7 @@ void Code_Gen_Model_step(void)
   real_T distance_from_robot[150];
   real_T rtb_Assignment_d[150];
   real_T rtb_MatrixConcatenate_h[100];
+  real_T rtb_Spline_Ref_Poses[76];
   real_T rtb_Assignment[42];
   real_T rtb_Selector4[42];
   real_T rtb_Ref_Poses[38];
@@ -696,9 +697,9 @@ void Code_Gen_Model_step(void)
   uint16_T s78_iter;
   int8_T rtAction;
   int8_T rtPrevAction;
-  boolean_T Robot_Reached_Destination_m;
   boolean_T exitg1;
-  boolean_T rtb_AND_h5;
+  boolean_T rtb_Is_Absolute_Steering;
+  boolean_T rtb_Is_Absolute_Translation;
   boolean_T rtb_OR_ao;
   boolean_T rtb_Switch_b1;
 
@@ -977,10 +978,9 @@ void Code_Gen_Model_step(void)
      */
     Code_Gen_Model_Disabled(&rtb_UnitDelay_f, &Code_Gen_Model_B.Steering_Abs_Cmd,
       &Code_Gen_Model_B.Steering_Rel_Cmd, &Code_Gen_Model_B.Translation_Angle,
-      &Code_Gen_Model_B.Translation_Speed,
-      &Code_Gen_Model_B.Is_Absolute_Translation,
-      &Code_Gen_Model_B.Is_Absolute_Steering, &Code_Gen_Model_B.Spline_Enable,
-      Code_Gen_Model_B.Spline_Ref_Poses, &Code_Gen_Model_B.Spline_Num_Poses);
+      &Code_Gen_Model_B.Translation_Speed, &rtb_Is_Absolute_Translation,
+      &rtb_Is_Absolute_Steering, &Code_Gen_Model_B.Spline_Enable,
+      rtb_Spline_Ref_Poses, &Code_Gen_Model_B.Spline_Num_Poses);
 
     /* End of Outputs for SubSystem: '<S1>/Disabled' */
     break;
@@ -1001,12 +1001,12 @@ void Code_Gen_Model_step(void)
     /* Outputs for IfAction SubSystem: '<S1>/Autonomous' incorporates:
      *  ActionPort: '<S2>/Action Port'
      */
-    /* Merge: '<S6>/Merge8' incorporates:
+    /* SignalConversion generated from: '<S2>/Spline_Ref_Poses' incorporates:
      *  Constant: '<S2>/Constant4'
-     *  SignalConversion generated from: '<S2>/Spline_Ref_Poses'
+     *  Merge: '<S6>/Merge8'
      */
-    memcpy(&Code_Gen_Model_B.Spline_Ref_Poses[0],
-           &Code_Gen_Model_ConstP.Constant4_Value[0], 76U * sizeof(real_T));
+    memcpy(&rtb_Spline_Ref_Poses[0], &Code_Gen_Model_ConstP.Constant4_Value[0],
+           76U * sizeof(real_T));
 
     /* SignalConversion generated from: '<S2>/Gyro_Angle_Adjustment' incorporates:
      *  Constant: '<S2>/Constant1'
@@ -1052,17 +1052,15 @@ void Code_Gen_Model_step(void)
     Code_Gen_Model_B.Translation_Angle = rt_atan2d_snf
       (rtb_POSEexponentialmatrixfori_3, rtb_Init_e);
 
-    /* Merge: '<S6>/Merge5' incorporates:
+    /* SignalConversion generated from: '<S2>/Is_Absolute_Translation' incorporates:
      *  Constant: '<S2>/Constant5'
-     *  SignalConversion generated from: '<S2>/Is_Absolute_Translation'
      */
-    Code_Gen_Model_B.Is_Absolute_Translation = true;
+    rtb_Is_Absolute_Translation = true;
 
-    /* Merge: '<S6>/Merge6' incorporates:
+    /* SignalConversion generated from: '<S2>/Is_Absolute_Steering' incorporates:
      *  Constant: '<S2>/Constant6'
-     *  SignalConversion generated from: '<S2>/Is_Absolute_Steering'
      */
-    Code_Gen_Model_B.Is_Absolute_Steering = true;
+    rtb_Is_Absolute_Steering = true;
 
     /* Switch: '<S2>/Switch1' incorporates:
      *  Constant: '<S2>/Constant11'
@@ -1106,10 +1104,10 @@ void Code_Gen_Model_step(void)
     /* Outputs for IfAction SubSystem: '<S1>/Teleop' incorporates:
      *  ActionPort: '<S11>/Action Port'
      */
-    /* Merge: '<S6>/Merge8' incorporates:
-     *  SignalConversion generated from: '<S11>/Spline_Ref_Poses'
+    /* SignalConversion generated from: '<S11>/Spline_Ref_Poses' incorporates:
+     *  Merge: '<S6>/Merge8'
      */
-    memset(&Code_Gen_Model_B.Spline_Ref_Poses[0], 0, 76U * sizeof(real_T));
+    memset(&rtb_Spline_Ref_Poses[0], 0, 76U * sizeof(real_T));
 
     /* Switch: '<S235>/Switch1' incorporates:
      *  Constant: '<S235>/Constant'
@@ -1161,7 +1159,7 @@ void Code_Gen_Model_step(void)
     /* RelationalOperator: '<S240>/Compare' incorporates:
      *  Constant: '<S240>/Constant'
      */
-    rtb_AND_h5 = rtb_Switch2 < 0.0;
+    rtb_Is_Absolute_Translation = rtb_Switch2 < 0.0;
 
     /* Switch: '<S236>/Switch' incorporates:
      *  Constant: '<S236>/Constant'
@@ -1174,7 +1172,7 @@ void Code_Gen_Model_step(void)
      *  UnitDelay: '<S236>/Unit Delay'
      */
     if (rtb_Init_e < 0.0 && Code_Gen_Model_DW.UnitDelay_DSTATE_h >= 0.0 &&
-        rtb_AND_h5) {
+        rtb_Is_Absolute_Translation) {
       rtb_Add_ec = 6.2831853071795862;
     } else {
       rtb_Add_ec = 0.0;
@@ -1191,7 +1189,7 @@ void Code_Gen_Model_step(void)
      *  UnitDelay: '<S236>/Unit Delay'
      */
     if (Code_Gen_Model_DW.UnitDelay_DSTATE_h < 0.0 && rtb_Init_e >= 0.0 &&
-        rtb_AND_h5) {
+        rtb_Is_Absolute_Translation) {
       rtb_Add_cz = -6.2831853071795862;
     } else {
       rtb_Add_cz = 0.0;
@@ -1341,19 +1339,15 @@ void Code_Gen_Model_step(void)
      */
     Code_Gen_Model_B.Spline_Num_Poses = 19.0;
 
-    /* Merge: '<S6>/Merge5' incorporates:
+    /* SignalConversion generated from: '<S11>/Is_Absolute_Translation_In' incorporates:
      *  Inport: '<Root>/Is_Absolute_Translation'
-     *  SignalConversion generated from: '<S11>/Is_Absolute_Translation_In'
      */
-    Code_Gen_Model_B.Is_Absolute_Translation =
-      Code_Gen_Model_U.Is_Absolute_Translation;
+    rtb_Is_Absolute_Translation = Code_Gen_Model_U.Is_Absolute_Translation;
 
-    /* Merge: '<S6>/Merge6' incorporates:
+    /* SignalConversion generated from: '<S11>/Is_Absolute_Steering_In' incorporates:
      *  Inport: '<Root>/Is_Absolute_Steering'
-     *  SignalConversion generated from: '<S11>/Is_Absolute_Steering_In'
      */
-    Code_Gen_Model_B.Is_Absolute_Steering =
-      Code_Gen_Model_U.Is_Absolute_Steering;
+    rtb_Is_Absolute_Steering = Code_Gen_Model_U.Is_Absolute_Steering;
 
     /* Update for UnitDelay: '<S237>/Unit Delay1' */
     Code_Gen_Model_DW.UnitDelay1_DSTATE_d2 = rtb_Init_e;
@@ -1390,10 +1384,9 @@ void Code_Gen_Model_step(void)
      */
     Code_Gen_Model_Disabled(&rtb_UnitDelay_f, &Code_Gen_Model_B.Steering_Abs_Cmd,
       &Code_Gen_Model_B.Steering_Rel_Cmd, &Code_Gen_Model_B.Translation_Angle,
-      &Code_Gen_Model_B.Translation_Speed,
-      &Code_Gen_Model_B.Is_Absolute_Translation,
-      &Code_Gen_Model_B.Is_Absolute_Steering, &Code_Gen_Model_B.Spline_Enable,
-      Code_Gen_Model_B.Spline_Ref_Poses, &Code_Gen_Model_B.Spline_Num_Poses);
+      &Code_Gen_Model_B.Translation_Speed, &rtb_Is_Absolute_Translation,
+      &rtb_Is_Absolute_Steering, &Code_Gen_Model_B.Spline_Enable,
+      rtb_Spline_Ref_Poses, &Code_Gen_Model_B.Spline_Num_Poses);
 
     /* End of Outputs for SubSystem: '<S1>/Test' */
     break;
@@ -1461,8 +1454,8 @@ void Code_Gen_Model_step(void)
      *  Merge: '<S6>/Merge8'
      */
     for (i = 0; i < 19; i++) {
-      rtb_Ref_Poses[i] = Code_Gen_Model_B.Spline_Ref_Poses[i];
-      rtb_Ref_Poses[i + 19] = Code_Gen_Model_B.Spline_Ref_Poses[i + 19];
+      rtb_Ref_Poses[i] = rtb_Spline_Ref_Poses[i];
+      rtb_Ref_Poses[i + 19] = rtb_Spline_Ref_Poses[i + 19];
     }
 
     /* End of Selector: '<S26>/Selector1' */
@@ -1549,7 +1542,7 @@ void Code_Gen_Model_step(void)
       rtb_UnitDelay_f = rt_hypotd_snf(rtb_Minus_n[0], rtb_Minus_n[1]);
 
       /* RelationalOperator: '<S33>/Equal' */
-      Robot_Reached_Destination_m = Code_Gen_Model_B.Spline_Num_Poses ==
+      rtb_Is_Absolute_Steering = Code_Gen_Model_B.Spline_Num_Poses ==
         Code_Gen_Model_DW.UnitDelay_DSTATE_gh;
 
       /* Switch: '<S33>/Switch' incorporates:
@@ -1559,13 +1552,13 @@ void Code_Gen_Model_step(void)
        *  RelationalOperator: '<S36>/Compare'
        *  UnitDelay: '<S33>/Unit Delay'
        */
-      rtb_AND_h5 = Code_Gen_Model_DW.UnitDelay_DSTATE_e4 ||
-        Robot_Reached_Destination_m && rtb_UnitDelay_f <= Spline_Capture_Radius;
+      rtb_Is_Absolute_Translation = Code_Gen_Model_DW.UnitDelay_DSTATE_e4 ||
+        rtb_Is_Absolute_Steering && rtb_UnitDelay_f <= Spline_Capture_Radius;
 
       /* If: '<S33>/If' */
       rtPrevAction = Code_Gen_Model_DW.If_ActiveSubsystem_o;
-      if (!rtb_AND_h5) {
-        if (!Robot_Reached_Destination_m) {
+      if (!rtb_Is_Absolute_Translation) {
+        if (!rtb_Is_Absolute_Steering) {
           rtAction = 1;
         } else {
           rtAction = 2;
@@ -1623,7 +1616,7 @@ void Code_Gen_Model_step(void)
              *  Constant: '<S42>/Constant'
              *  SignalConversion generated from: '<S42>/Robot_Reached_Destination'
              */
-            Robot_Reached_Destination_m = true;
+            rtb_Is_Absolute_Steering = true;
 
             /* SignalConversion generated from: '<S42>/Make_Staight_Line_To_End' incorporates:
              *  Constant: '<S42>/Constant1'
@@ -1639,7 +1632,7 @@ void Code_Gen_Model_step(void)
              *  Constant: '<S43>/Constant'
              *  SignalConversion generated from: '<S43>/Robot_Reached_Destination'
              */
-            Robot_Reached_Destination_m = false;
+            rtb_Is_Absolute_Steering = false;
 
             /* SignalConversion generated from: '<S43>/Make_Staight_Line_To_End' incorporates:
              *  Constant: '<S43>/Constant1'
@@ -1668,7 +1661,7 @@ void Code_Gen_Model_step(void)
            *  Constant: '<S38>/Constant'
            *  SignalConversion generated from: '<S38>/Robot_Reached_Destination'
            */
-          Robot_Reached_Destination_m = false;
+          rtb_Is_Absolute_Steering = false;
 
           /* SignalConversion generated from: '<S38>/Make_Staight_Line_To_End' incorporates:
            *  Constant: '<S38>/Constant1'
@@ -1837,7 +1830,7 @@ void Code_Gen_Model_step(void)
         /* RelationalOperator: '<S46>/Compare' incorporates:
          *  Constant: '<S46>/Constant'
          */
-        Robot_Reached_Destination_m = rtb_POSEexponentialmatrixfori_3 >= 0.0;
+        rtb_Is_Absolute_Steering = rtb_POSEexponentialmatrixfori_3 >= 0.0;
 
         /* RelationalOperator: '<S45>/LessThanOrEqual' incorporates:
          *  DotProduct: '<S45>/Dot Product1'
@@ -1863,7 +1856,7 @@ void Code_Gen_Model_step(void)
          *  Sum: '<S37>/Add'
          *  Sum: '<S45>/Minus4'
          */
-        Code_Gen_Model_B.Spline_Index = (real_T)(Robot_Reached_Destination_m &&
+        Code_Gen_Model_B.Spline_Index = (real_T)(rtb_Is_Absolute_Steering &&
           rtb_OR_ao && rtb_POSEexponentialmatrixfori_3 >= 0.0 &&
           rtb_POSEexponentialmatrixfori_3 <= rtb_Switch1_p2 * rtb_Switch1_p2 +
           rtb_Magnitude) + Code_Gen_Model_DW.UnitDelay_DSTATE_gh;
@@ -1872,7 +1865,7 @@ void Code_Gen_Model_step(void)
          *  Constant: '<S37>/Constant2'
          *  SignalConversion generated from: '<S37>/Robot_Reached_Destination'
          */
-        Robot_Reached_Destination_m = false;
+        rtb_Is_Absolute_Steering = false;
 
         /* SignalConversion generated from: '<S37>/Make_Staight_Line_To_End' incorporates:
          *  Constant: '<S37>/Constant1'
@@ -1890,7 +1883,7 @@ void Code_Gen_Model_step(void)
          *  Constant: '<S34>/Constant2'
          *  SignalConversion generated from: '<S34>/Robot_Reached_Destination'
          */
-        Robot_Reached_Destination_m = false;
+        rtb_Is_Absolute_Steering = false;
 
         /* SignalConversion generated from: '<S34>/Make_Staight_Line_To_End' incorporates:
          *  Constant: '<S34>/Constant1'
@@ -1913,7 +1906,7 @@ void Code_Gen_Model_step(void)
       Code_Gen_Model_B.Spline_Out_Of_Bounds = false;
 
       /* Update for UnitDelay: '<S33>/Unit Delay' */
-      Code_Gen_Model_DW.UnitDelay_DSTATE_e4 = rtb_AND_h5;
+      Code_Gen_Model_DW.UnitDelay_DSTATE_e4 = rtb_Is_Absolute_Translation;
 
       /* End of Outputs for SubSystem: '<S30>/Robot_Index_Is_Valid' */
     } else {
@@ -1930,7 +1923,7 @@ void Code_Gen_Model_step(void)
        *  Constant: '<S32>/Constant1'
        *  SignalConversion generated from: '<S32>/Robot_Reached_Destination'
        */
-      Robot_Reached_Destination_m = false;
+      rtb_Is_Absolute_Steering = false;
 
       /* SignalConversion generated from: '<S32>/Make_Staight_Line_To_End' incorporates:
        *  Constant: '<S32>/Constant2'
@@ -2290,9 +2283,8 @@ void Code_Gen_Model_step(void)
        *  Selector: '<S82>/Selector11'
        *  Selector: '<S82>/Selector12'
        */
-      rtb_Minus_n[0] = Code_Gen_Model_B.Spline_Ref_Poses[(int32_T)
-        rtb_UnitDelay_f + 37];
-      rtb_Minus_n[1] = Code_Gen_Model_B.Spline_Ref_Poses[(int32_T)
+      rtb_Minus_n[0] = rtb_Spline_Ref_Poses[(int32_T)rtb_UnitDelay_f + 37];
+      rtb_Minus_n[1] = rtb_Spline_Ref_Poses[(int32_T)
         Code_Gen_Model_B.Spline_Index + 37];
 
       /* SignalConversion generated from: '<S82>/Lookup Table Dynamic1' incorporates:
@@ -2300,9 +2292,8 @@ void Code_Gen_Model_step(void)
        *  Selector: '<S82>/Selector1'
        *  Selector: '<S82>/Selector2'
        */
-      rtb_Add2_f[0] = Code_Gen_Model_B.Spline_Ref_Poses[(int32_T)rtb_UnitDelay_f
-        + 56];
-      rtb_Add2_f[1] = Code_Gen_Model_B.Spline_Ref_Poses[(int32_T)
+      rtb_Add2_f[0] = rtb_Spline_Ref_Poses[(int32_T)rtb_UnitDelay_f + 56];
+      rtb_Add2_f[1] = rtb_Spline_Ref_Poses[(int32_T)
         Code_Gen_Model_B.Spline_Index + 56];
 
       /* S-Function (sfix_look1_dyn): '<S82>/Lookup Table Dynamic' */
@@ -2355,13 +2346,14 @@ void Code_Gen_Model_step(void)
      *  WhileIterator: '<S78>/While Iterator'
      */
     s78_iter = 1U;
-    rtb_AND_h5 = true;
-    while (rtb_AND_h5 && s78_iter <= 150) {
+    rtb_Is_Absolute_Translation = true;
+    while (rtb_Is_Absolute_Translation && s78_iter <= 150) {
       /* Outputs for Iterator SubSystem: '<S27>/Find first index that meets distance target' incorporates:
        *  WhileIterator: '<S78>/While Iterator'
        */
       Code_Gen_Model_B.WhileIterator = s78_iter;
-      rtb_AND_h5 = rtb_Assignment_d[Code_Gen_Model_B.WhileIterator - 1] <=
+      rtb_Is_Absolute_Translation =
+        rtb_Assignment_d[Code_Gen_Model_B.WhileIterator - 1] <=
         rtb_Assignment_d[s53_iter] + Spline_Lookahead_Dist &&
         Code_Gen_Model_B.WhileIterator < (real_T)rtb_Num_Segments * 50.0;
       s78_iter++;
@@ -2381,7 +2373,7 @@ void Code_Gen_Model_step(void)
      *  Selector: '<S78>/Selector1'
      *  Sum: '<S78>/Add'
      */
-    rtb_OR_ao = Robot_Reached_Destination_m ||
+    rtb_OR_ao = rtb_Is_Absolute_Steering ||
       Code_Gen_Model_B.Spline_Out_Of_Bounds;
 
     /* Switch: '<S28>/Switch1' incorporates:
@@ -2421,10 +2413,8 @@ void Code_Gen_Model_step(void)
          *  Switch: '<S81>/Switch'
          */
         Code_Gen_Model_B.Translation_Speed_SPF = fmin(rt_hypotd_snf
-          (Code_Gen_Model_B.Spline_Ref_Poses[18] -
-           Code_Gen_Model_B.Odom_Position_X_global,
-           Code_Gen_Model_B.Spline_Ref_Poses[37] -
-           Code_Gen_Model_B.Odom_Position_Y_global) *
+          (rtb_Spline_Ref_Poses[18] - Code_Gen_Model_B.Odom_Position_X_global,
+           rtb_Spline_Ref_Poses[37] - Code_Gen_Model_B.Odom_Position_Y_global) *
           Spline_Last_Pose_Distance_to_Velocity_Gain, fmin(rtb_UnitDelay_f, sqrt
           (Spline_Max_Centripital_Acceleration /
            rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299])));
@@ -2493,7 +2483,7 @@ void Code_Gen_Model_step(void)
     /* Merge: '<S8>/Merge7' incorporates:
      *  SignalConversion: '<S25>/Signal Copy'
      */
-    Code_Gen_Model_B.Robot_Reached_Destination = Robot_Reached_Destination_m;
+    Code_Gen_Model_B.Robot_Reached_Destination = rtb_Is_Absolute_Steering;
 
     /* Merge: '<S8>/Merge1' incorporates:
      *  Constant: '<S28>/Constant2'
@@ -2568,14 +2558,12 @@ void Code_Gen_Model_step(void)
     /* Merge: '<S8>/Merge4' incorporates:
      *  SignalConversion generated from: '<S24>/Is_Absolute_Translation_In'
      */
-    Code_Gen_Model_B.Is_Absolute_Translation_SPF =
-      Code_Gen_Model_B.Is_Absolute_Translation;
+    Code_Gen_Model_B.Is_Absolute_Translation_SPF = rtb_Is_Absolute_Translation;
 
     /* Merge: '<S8>/Merge5' incorporates:
      *  SignalConversion generated from: '<S24>/Is_Absolute_Steering_In'
      */
-    Code_Gen_Model_B.Is_Absolute_Steering_SPF =
-      Code_Gen_Model_B.Is_Absolute_Steering;
+    Code_Gen_Model_B.Is_Absolute_Steering_SPF = rtb_Is_Absolute_Steering;
 
     /* Merge: '<S8>/Merge6' incorporates:
      *  SignalConversion generated from: '<S24>/Gyro_Angle_Adjustment_In'
@@ -2655,12 +2643,12 @@ void Code_Gen_Model_step(void)
   /* RelationalOperator: '<S186>/Compare' incorporates:
    *  Constant: '<S186>/Constant'
    */
-  rtb_AND_h5 = rtb_Switch2_p == 0.0;
+  rtb_Is_Absolute_Translation = rtb_Switch2_p == 0.0;
 
   /* RelationalOperator: '<S187>/Compare' incorporates:
    *  Constant: '<S187>/Constant'
    */
-  Robot_Reached_Destination_m = rtb_Switch2_p > 0.0;
+  rtb_Is_Absolute_Steering = rtb_Switch2_p > 0.0;
 
   /* Abs: '<S179>/Abs' incorporates:
    *  Sum: '<S179>/Subtract'
@@ -2672,7 +2660,7 @@ void Code_Gen_Model_step(void)
   /* Switch: '<S179>/Switch5' incorporates:
    *  Switch: '<S179>/Switch1'
    */
-  if (rtb_AND_h5) {
+  if (rtb_Is_Absolute_Translation) {
     /* SignalConversion generated from: '<S179>/Lookup Table Dynamic' incorporates:
      *  Constant: '<S179>/Constant4'
      *  Constant: '<S179>/Constant6'
@@ -2731,7 +2719,7 @@ void Code_Gen_Model_step(void)
     /* Switch: '<S179>/Switch3' incorporates:
      *  Constant: '<S179>/Constant3'
      */
-    if (Robot_Reached_Destination_m) {
+    if (rtb_Is_Absolute_Steering) {
       rtb_Add_ec = Translation_Speed_Rate_Limit_Inc;
     } else {
       rtb_Add_ec = Code_Gen_Model_ConstB.UnaryMinus;
@@ -2758,9 +2746,9 @@ void Code_Gen_Model_step(void)
      *  Constant: '<S179>/Constant1'
      *  Switch: '<S179>/Switch4'
      */
-    if (rtb_AND_h5) {
+    if (rtb_Is_Absolute_Translation) {
       rtb_POSEexponentialmatrixfori_3 = -0.2;
-    } else if (Robot_Reached_Destination_m) {
+    } else if (rtb_Is_Absolute_Steering) {
       /* Switch: '<S179>/Switch4' incorporates:
        *  Constant: '<S179>/Constant1'
        */
@@ -3024,12 +3012,12 @@ void Code_Gen_Model_step(void)
   /* RelationalOperator: '<S195>/Compare' incorporates:
    *  Constant: '<S195>/Constant'
    */
-  rtb_AND_h5 = rtb_Switch1_p2 == 0.0;
+  rtb_Is_Absolute_Translation = rtb_Switch1_p2 == 0.0;
 
   /* RelationalOperator: '<S196>/Compare' incorporates:
    *  Constant: '<S196>/Constant'
    */
-  Robot_Reached_Destination_m = rtb_Switch1_p2 > 0.0;
+  rtb_Is_Absolute_Steering = rtb_Switch1_p2 > 0.0;
 
   /* Abs: '<S191>/Abs' incorporates:
    *  Sum: '<S191>/Subtract'
@@ -3043,7 +3031,7 @@ void Code_Gen_Model_step(void)
    *  Switch: '<S191>/Switch1'
    *  UnaryMinus: '<S191>/Unary Minus'
    */
-  if (rtb_AND_h5) {
+  if (rtb_Is_Absolute_Translation) {
     /* SignalConversion generated from: '<S191>/Lookup Table Dynamic' incorporates:
      *  Constant: '<S191>/Constant4'
      *  Constant: '<S191>/Constant6'
@@ -3104,7 +3092,7 @@ void Code_Gen_Model_step(void)
      *  Constant: '<S191>/Constant3'
      *  UnaryMinus: '<S191>/Unary Minus'
      */
-    if (Robot_Reached_Destination_m) {
+    if (rtb_Is_Absolute_Steering) {
       rtb_Add_ec = Steering_Localized_Cmd_Rate_Limit_Inc;
     } else {
       rtb_Add_ec = -Steering_Localized_Cmd_Rate_Limit_Dec;
@@ -3133,9 +3121,9 @@ void Code_Gen_Model_step(void)
      *  Switch: '<S191>/Switch4'
      *  UnaryMinus: '<S191>/Unary Minus1'
      */
-    if (rtb_AND_h5) {
+    if (rtb_Is_Absolute_Translation) {
       rtb_Add_ec = Steering_Localized_Cmd_Rate_Limit_Dec;
-    } else if (Robot_Reached_Destination_m) {
+    } else if (rtb_Is_Absolute_Steering) {
       /* Switch: '<S191>/Switch4' incorporates:
        *  Constant: '<S191>/Constant1'
        */
@@ -3227,10 +3215,10 @@ void Code_Gen_Model_step(void)
   /* RelationalOperator: '<S231>/Compare' incorporates:
    *  Constant: '<S231>/Constant'
    */
-  rtb_AND_h5 = rtb_Init_e == 0.0;
+  rtb_Is_Absolute_Translation = rtb_Init_e == 0.0;
 
   /* Switch: '<S227>/Switch1' */
-  if (rtb_AND_h5) {
+  if (rtb_Is_Absolute_Translation) {
     /* Switch: '<S227>/Switch1' incorporates:
      *  Constant: '<S227>/Constant'
      */
@@ -3248,10 +3236,10 @@ void Code_Gen_Model_step(void)
   /* RelationalOperator: '<S216>/Compare' incorporates:
    *  Constant: '<S216>/Constant'
    */
-  Robot_Reached_Destination_m = rtb_Init_e == 0.0;
+  rtb_Is_Absolute_Steering = rtb_Init_e == 0.0;
 
   /* Switch: '<S212>/Switch1' */
-  if (Robot_Reached_Destination_m) {
+  if (rtb_Is_Absolute_Steering) {
     /* Switch: '<S212>/Switch1' incorporates:
      *  Constant: '<S212>/Constant'
      */
@@ -3322,7 +3310,7 @@ void Code_Gen_Model_step(void)
     rtb_Init_e;
 
   /* Switch: '<S227>/Switch' */
-  if (!rtb_AND_h5) {
+  if (!rtb_Is_Absolute_Translation) {
     /* Switch: '<S227>/Switch' incorporates:
      *  Fcn: '<S228>/x->theta'
      */
@@ -3734,7 +3722,7 @@ void Code_Gen_Model_step(void)
     rtb_Init_e;
 
   /* Switch: '<S212>/Switch' */
-  if (!Robot_Reached_Destination_m) {
+  if (!rtb_Is_Absolute_Steering) {
     /* Switch: '<S212>/Switch' incorporates:
      *  Fcn: '<S213>/x->theta'
      */

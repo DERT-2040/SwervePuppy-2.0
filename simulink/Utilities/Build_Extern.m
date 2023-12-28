@@ -97,8 +97,17 @@ try
     ListOfTestPoints = cell(length(ListOfTestPoints_w_semicolen), 1);
     for i = 1:length(ListOfTestPoints_w_semicolen)
         str = ListOfTestPoints_w_semicolen{i};
-        ListOfTestPoints{i} = str(1:end-1);
+        indices_of_Semicolens = strfind(str, ';');
+        ListOfTestPoints{i} = str(1:indices_of_Semicolens(1)-1);
     end
+
+    for i = 1:length(ListOfTestPoints)
+        if contains(ListOfTestPoints{i}, '[')
+            ListOfTestPoints{i} = [];
+        end
+    end
+    ListOfTestPoints = ListOfTestPoints(~cellfun('isempty', ListOfTestPoints));
+
 catch
     ListOfTestPoints = cell(0,0);
 end
