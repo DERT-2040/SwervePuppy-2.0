@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.26
+ * Model version                  : 2.27
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 13:10:43 2023
+ * C/C++ source code generated on : Thu Dec 28 16:17:13 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -146,6 +146,8 @@ typedef struct {
   boolean_T UnitDelay_DSTATE_ll;       /* '<S5>/Unit Delay' */
   boolean_T UnitDelay_DSTATE_e4;       /* '<S33>/Unit Delay' */
   boolean_T UnitDelay_DSTATE_n;        /* '<S39>/Unit Delay' */
+  int8_T Accumulator2_PrevResetState;  /* '<S7>/Accumulator2' */
+  int8_T Accumulator_PrevResetState;   /* '<S7>/Accumulator' */
   int8_T SwitchCase_ActiveSubsystem;   /* '<S1>/Switch Case' */
   int8_T If_ActiveSubsystem;           /* '<S8>/If' */
   int8_T If_ActiveSubsystem_h;         /* '<S30>/If' */
@@ -188,14 +190,14 @@ typedef struct {
    *   '<S234>/Modulation_Drv_X'
    *   '<S234>/Modulation_Drv_Y'
    */
-  real_T pooled16[21];
+  real_T pooled17[21];
 
   /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
    * Referenced by:
    *   '<S234>/Modulation_Drv_X'
    *   '<S234>/Modulation_Drv_Y'
    */
-  real_T pooled17[21];
+  real_T pooled18[21];
 
   /* Expression: Steering_Mod_Str_Rel_out
    * Referenced by: '<S233>/Modulation_Str_X_Rel'
@@ -219,7 +221,7 @@ typedef struct {
    *   '<S140>/1-D Lookup Table'
    *   '<S161>/1-D Lookup Table'
    */
-  real_T pooled22[2];
+  real_T pooled23[2];
 
   /* Pooled Parameter (Expression: Drive_Motor_Control_Module_Angle_Error)
    * Referenced by:
@@ -228,7 +230,7 @@ typedef struct {
    *   '<S140>/1-D Lookup Table'
    *   '<S161>/1-D Lookup Table'
    */
-  real_T pooled23[2];
+  real_T pooled24[2];
 } ConstP_Code_Gen_Model_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -396,6 +398,9 @@ extern real_T Odometry_Desired_X;      /* Variable: Odometry_Desired_X
 extern real_T Odometry_Desired_Y;      /* Variable: Odometry_Desired_Y
                                         * Referenced by: '<S2>/Constant8'
                                         */
+extern real_T Odometry_Reset_IC;       /* Variable: Odometry_Reset_IC
+                                        * Referenced by: '<S7>/Constant'
+                                        */
 extern real_T Odometry_X_Y_TEAR;       /* Variable: Odometry_X_Y_TEAR
                                         * Referenced by: '<S22>/Constant'
                                         */
@@ -419,6 +424,10 @@ extern real_T Spline_Pose_Num_Before_End_Reduce_Speed;
                             /* Variable: Spline_Pose_Num_Before_End_Reduce_Speed
                              * Referenced by: '<S27>/Constant'
                              */
+extern real_T Spline_Velocity_Multiplier_TEST;
+                                    /* Variable: Spline_Velocity_Multiplier_TEST
+                                     * Referenced by: '<S81>/Constant3'
+                                     */
 extern real_T Steering_Abs_Deadband_Range;/* Variable: Steering_Abs_Deadband_Range
                                            * Referenced by: '<S235>/Constant2'
                                            */
@@ -583,8 +592,6 @@ extern RT_MODEL_Code_Gen_Model_T *const Code_Gen_Model_M;
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<S7>/To Workspace2' : Unused code path elimination
- * Block '<S7>/To Workspace3' : Unused code path elimination
  * Block '<S40>/FixPt Data Type Duplicate' : Unused code path elimination
  * Block '<S44>/FixPt Data Type Duplicate' : Unused code path elimination
  * Block '<S50>/FixPt Data Type Duplicate' : Unused code path elimination

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.26
+ * Model version                  : 2.27
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 13:10:43 2023
+ * C/C++ source code generated on : Thu Dec 28 16:17:13 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -121,6 +121,9 @@ real_T Odometry_Desired_X = 0.0;       /* Variable: Odometry_Desired_X
 real_T Odometry_Desired_Y = 0.0;       /* Variable: Odometry_Desired_Y
                                         * Referenced by: '<S2>/Constant8'
                                         */
+real_T Odometry_Reset_IC = 0.0;        /* Variable: Odometry_Reset_IC
+                                        * Referenced by: '<S7>/Constant'
+                                        */
 real_T Odometry_X_Y_TEAR = 0.0;        /* Variable: Odometry_X_Y_TEAR
                                         * Referenced by: '<S22>/Constant'
                                         */
@@ -136,7 +139,7 @@ real_T Spline_Last_Pose_Distance_to_Velocity_Gain = 2.0;
 real_T Spline_Lookahead_Dist = 0.2;    /* Variable: Spline_Lookahead_Dist
                                         * Referenced by: '<S27>/Lookahead Distance'
                                         */
-real_T Spline_Max_Centripital_Acceleration = 2.0;
+real_T Spline_Max_Centripital_Acceleration = 3.0;
                                 /* Variable: Spline_Max_Centripital_Acceleration
                                  * Referenced by: '<S81>/Constant1'
                                  */
@@ -144,6 +147,10 @@ real_T Spline_Pose_Num_Before_End_Reduce_Speed = 2.0;
                             /* Variable: Spline_Pose_Num_Before_End_Reduce_Speed
                              * Referenced by: '<S27>/Constant'
                              */
+real_T Spline_Velocity_Multiplier_TEST = 1.0;
+                                    /* Variable: Spline_Velocity_Multiplier_TEST
+                                     * Referenced by: '<S81>/Constant3'
+                                     */
 real_T Steering_Abs_Deadband_Range = 0.7;/* Variable: Steering_Abs_Deadband_Range
                                           * Referenced by: '<S235>/Constant2'
                                           */
@@ -928,9 +935,25 @@ void Code_Gen_Model_step(void)
     rtb_POSEexponentialmatrixfori_2 + rtb_Init_e *
     rtb_POSEexponentialmatrixfori_3;
 
+  /* DiscreteIntegrator: '<S7>/Accumulator2' incorporates:
+   *  Constant: '<S7>/Constant'
+   */
+  if (Odometry_Reset_IC > 0.0 && Code_Gen_Model_DW.Accumulator2_PrevResetState <=
+      0) {
+    Code_Gen_Model_DW.Accumulator2_DSTATE = Code_Gen_Model_ConstB.Constant;
+  }
+
   /* DiscreteIntegrator: '<S7>/Accumulator2' */
   Code_Gen_Model_B.Odom_Position_X_global =
     Code_Gen_Model_DW.Accumulator2_DSTATE;
+
+  /* DiscreteIntegrator: '<S7>/Accumulator' incorporates:
+   *  Constant: '<S7>/Constant'
+   */
+  if (Odometry_Reset_IC > 0.0 && Code_Gen_Model_DW.Accumulator_PrevResetState <=
+      0) {
+    Code_Gen_Model_DW.Accumulator_DSTATE = Code_Gen_Model_ConstB.Constant1;
+  }
 
   /* DiscreteIntegrator: '<S7>/Accumulator' */
   Code_Gen_Model_B.Odom_Position_Y_global = Code_Gen_Model_DW.Accumulator_DSTATE;
@@ -1207,15 +1230,15 @@ void Code_Gen_Model_step(void)
      *  Inport: '<Root>/Drive_Joystick_X'
      */
     rtb_Steer_Joystick_X_Rel_Mod = look1_binlcpw
-      (Code_Gen_Model_U.Drive_Joystick_X, Code_Gen_Model_ConstP.pooled17,
-       Code_Gen_Model_ConstP.pooled16, 20U);
+      (Code_Gen_Model_U.Drive_Joystick_X, Code_Gen_Model_ConstP.pooled18,
+       Code_Gen_Model_ConstP.pooled17, 20U);
 
     /* Lookup_n-D: '<S234>/Modulation_Drv_Y' incorporates:
      *  Inport: '<Root>/Drive_Joystick_Y'
      */
     rtb_POSEexponentialmatrixfori_3 = look1_binlcpw
-      (Code_Gen_Model_U.Drive_Joystick_Y, Code_Gen_Model_ConstP.pooled17,
-       Code_Gen_Model_ConstP.pooled16, 20U);
+      (Code_Gen_Model_U.Drive_Joystick_Y, Code_Gen_Model_ConstP.pooled18,
+       Code_Gen_Model_ConstP.pooled17, 20U);
 
     /* Switch: '<S246>/Switch1' incorporates:
      *  Constant: '<S251>/Constant'
@@ -1404,6 +1427,7 @@ void Code_Gen_Model_step(void)
    *  RelationalOperator: '<S78>/Relational Operator1'
    *  Selector: '<S78>/Selector'
    *  Selector: '<S78>/Selector1'
+   *  Selector: '<S79>/Selector'
    *  Sum: '<S78>/Add'
    */
   rtPrevAction = Code_Gen_Model_DW.If_ActiveSubsystem;
@@ -2203,6 +2227,7 @@ void Code_Gen_Model_step(void)
      *  Concatenate: '<S27>/Matrix Concatenate'
      *  Selector: '<S27>/Selector4'
      *  Selector: '<S27>/Selector5'
+     *  Selector: '<S79>/Selector'
      */
     for (s53_iter = 0; s53_iter < 150; s53_iter++) {
       /* Outputs for Iterator SubSystem: '<S49>/Sampling_Loop' incorporates:
@@ -2245,11 +2270,11 @@ void Code_Gen_Model_step(void)
       }
     }
 
-    s53_iter = 0;
+    s53_iter = 1;
     rtb_Bias1_p = 0;
     exitg1 = false;
     while (!exitg1 && rtb_Bias1_p < 150) {
-      s53_iter = rtb_Bias1_p;
+      s53_iter = rtb_Bias1_p + 1;
       if (distance_from_robot[rtb_Bias1_p] == rtb_UnitDelay_f) {
         exitg1 = true;
       } else {
@@ -2258,9 +2283,12 @@ void Code_Gen_Model_step(void)
     }
 
     /* Selector: '<S79>/Selector' incorporates:
+     *  Constant: '<S79>/Constant'
      *  MATLAB Function: '<S27>/Find closest index to curve'
+     *  MinMax: '<S79>/Min'
      */
-    rtb_POSEexponentialmatrixfori_3 = rtb_Assignment_d[s53_iter];
+    rtb_POSEexponentialmatrixfori_3 = rtb_Assignment_d[(int32_T)fmin(50.0,
+      s53_iter) - 1];
 
     /* If: '<S79>/If' incorporates:
      *  RelationalOperator: '<S79>/Relational Operator'
@@ -2354,7 +2382,7 @@ void Code_Gen_Model_step(void)
       Code_Gen_Model_B.WhileIterator = s78_iter;
       rtb_Is_Absolute_Translation =
         rtb_Assignment_d[Code_Gen_Model_B.WhileIterator - 1] <=
-        rtb_Assignment_d[s53_iter] + Spline_Lookahead_Dist &&
+        rtb_Assignment_d[s53_iter - 1] + Spline_Lookahead_Dist &&
         Code_Gen_Model_B.WhileIterator < (real_T)rtb_Num_Segments * 50.0;
       s78_iter++;
     }
@@ -2371,6 +2399,7 @@ void Code_Gen_Model_step(void)
      *  RelationalOperator: '<S78>/Relational Operator1'
      *  Selector: '<S78>/Selector'
      *  Selector: '<S78>/Selector1'
+     *  Selector: '<S79>/Selector'
      *  Sum: '<S78>/Add'
      */
     rtb_OR_ao = rtb_Is_Absolute_Steering ||
@@ -2397,12 +2426,14 @@ void Code_Gen_Model_step(void)
          *  Concatenate: '<S27>/Matrix Concatenate'
          *  Constant: '<S81>/Constant1'
          *  Constant: '<S81>/Constant2'
+         *  Constant: '<S81>/Constant3'
          *  Math: '<S81>/Hypot'
          *  Merge: '<S6>/Merge8'
          *  MinMax: '<S81>/Min'
          *  MinMax: '<S81>/Min1'
          *  Product: '<S81>/Divide'
          *  Product: '<S81>/Product'
+         *  Product: '<S81>/Product1'
          *  Selector: '<S27>/Selector10'
          *  Selector: '<S27>/Selector7'
          *  Selector: '<S27>/Selector8'
@@ -2415,21 +2446,25 @@ void Code_Gen_Model_step(void)
         Code_Gen_Model_B.Translation_Speed_SPF = fmin(rt_hypotd_snf
           (rtb_Spline_Ref_Poses[18] - Code_Gen_Model_B.Odom_Position_X_global,
            rtb_Spline_Ref_Poses[37] - Code_Gen_Model_B.Odom_Position_Y_global) *
-          Spline_Last_Pose_Distance_to_Velocity_Gain, fmin(rtb_UnitDelay_f, sqrt
+          Spline_Last_Pose_Distance_to_Velocity_Gain, fmin(rtb_UnitDelay_f *
+          Spline_Velocity_Multiplier_TEST, sqrt
           (Spline_Max_Centripital_Acceleration /
            rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299])));
       } else {
         /* Merge: '<S8>/Merge2' incorporates:
          *  Concatenate: '<S27>/Matrix Concatenate'
          *  Constant: '<S81>/Constant1'
+         *  Constant: '<S81>/Constant3'
          *  MinMax: '<S81>/Min1'
          *  Product: '<S81>/Divide'
+         *  Product: '<S81>/Product1'
          *  Selector: '<S27>/Selector10'
          *  Selector: '<S27>/Selector7'
          *  Sqrt: '<S81>/Sqrt'
          *  Switch: '<S81>/Switch'
          */
-        Code_Gen_Model_B.Translation_Speed_SPF = fmin(rtb_UnitDelay_f, sqrt
+        Code_Gen_Model_B.Translation_Speed_SPF = fmin(rtb_UnitDelay_f *
+          Spline_Velocity_Multiplier_TEST, sqrt
           (Spline_Max_Centripital_Acceleration /
            rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299]));
       }
@@ -3493,7 +3528,7 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband) * rtb_Switch2_p * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled23, Code_Gen_Model_ConstP.pooled22, 1U);
+     Code_Gen_Model_ConstP.pooled24, Code_Gen_Model_ConstP.pooled23, 1U);
 
   /* Gain: '<S159>/Gain' */
   rtb_POSEexponentialmatrixfori_0 = Drive_Motor_Control_FF * rtb_Switch2_p;
@@ -3903,7 +3938,7 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband) * rtb_Switch2_p * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled23, Code_Gen_Model_ConstP.pooled22, 1U);
+     Code_Gen_Model_ConstP.pooled24, Code_Gen_Model_ConstP.pooled23, 1U);
 
   /* Gain: '<S96>/Gain' */
   rtb_Subtract_i = Drive_Motor_Control_FF * rtb_Switch2_p;
@@ -4314,7 +4349,7 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband) * rtb_Switch2_p * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled23, Code_Gen_Model_ConstP.pooled22, 1U);
+     Code_Gen_Model_ConstP.pooled24, Code_Gen_Model_ConstP.pooled23, 1U);
 
   /* Gain: '<S117>/Gain' */
   rtb_Optimized_Module_Angle = Drive_Motor_Control_FF * rtb_Switch2_p;
@@ -4729,7 +4764,7 @@ void Code_Gen_Model_step(void)
                         Drive_Motor_Control_Sign_Change_Deadband) * rtb_Init_e *
     look1_binlcpw(fabs(rt_modd_snf(rtb_Optimized_Module_Angle +
     1.5707963267948966, 3.1415926535897931) - 1.5707963267948966),
-                  Code_Gen_Model_ConstP.pooled23, Code_Gen_Model_ConstP.pooled22,
+                  Code_Gen_Model_ConstP.pooled24, Code_Gen_Model_ConstP.pooled23,
                   1U);
 
   /* Gain: '<S138>/Gain' */
@@ -5050,9 +5085,33 @@ void Code_Gen_Model_step(void)
   Code_Gen_Model_DW.UD_DSTATE_d = rtb_thetay;
 
   /* Update for DiscreteIntegrator: '<S7>/Accumulator2' incorporates:
+   *  Constant: '<S7>/Constant'
+   *  DiscreteIntegrator: '<S7>/Accumulator'
    *  Product: '<S7>/Product6'
    */
   Code_Gen_Model_DW.Accumulator2_DSTATE += rtb_POSEexponentialmatrixfori_1;
+  if (Odometry_Reset_IC > 0.0) {
+    Code_Gen_Model_DW.Accumulator2_PrevResetState = 1;
+    Code_Gen_Model_DW.Accumulator_PrevResetState = 1;
+  } else {
+    if (Odometry_Reset_IC < 0.0) {
+      Code_Gen_Model_DW.Accumulator2_PrevResetState = -1;
+    } else if (Odometry_Reset_IC == 0.0) {
+      Code_Gen_Model_DW.Accumulator2_PrevResetState = 0;
+    } else {
+      Code_Gen_Model_DW.Accumulator2_PrevResetState = 2;
+    }
+
+    if (Odometry_Reset_IC < 0.0) {
+      Code_Gen_Model_DW.Accumulator_PrevResetState = -1;
+    } else if (Odometry_Reset_IC == 0.0) {
+      Code_Gen_Model_DW.Accumulator_PrevResetState = 0;
+    } else {
+      Code_Gen_Model_DW.Accumulator_PrevResetState = 2;
+    }
+  }
+
+  /* End of Update for DiscreteIntegrator: '<S7>/Accumulator2' */
 
   /* Update for DiscreteIntegrator: '<S7>/Accumulator' incorporates:
    *  Product: '<S7>/Product6'
@@ -5222,9 +5281,11 @@ void Code_Gen_Model_initialize(void)
 
   /* InitializeConditions for DiscreteIntegrator: '<S7>/Accumulator2' */
   Code_Gen_Model_DW.Accumulator2_DSTATE = Code_Gen_Model_ConstB.Constant;
+  Code_Gen_Model_DW.Accumulator2_PrevResetState = 2;
 
   /* InitializeConditions for DiscreteIntegrator: '<S7>/Accumulator' */
   Code_Gen_Model_DW.Accumulator_DSTATE = Code_Gen_Model_ConstB.Constant1;
+  Code_Gen_Model_DW.Accumulator_PrevResetState = 2;
 
   /* InitializeConditions for UnitDelay: '<S190>/FixPt Unit Delay2' */
   Code_Gen_Model_DW.FixPtUnitDelay2_DSTATE = 1U;

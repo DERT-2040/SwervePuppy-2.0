@@ -105,6 +105,10 @@ temp = pinv(Rotation_Local);
 % only keep first two rows since we don't need to estimate Theta
 Rotation_Local_Inv = temp(1:2,:);
 
+% reset the odometry estimate to the IC
+% write to this in Smart Dashboard to reset (rising edge)
+Odometry_Reset_IC = 0;
+
 % only used for validation testing
 % set to 1 to tear the X and Y measurement
 % set to 0 to let the X and Y measurements accumulate since the last tear
@@ -200,32 +204,34 @@ Spline_Num_Poses_default = Spline_Max_Num_RefPoses;
 Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,4);
 radius = 1;
+velocity_gain = 3.5;
 Spline_Ref_Poses_auto = [% x, y, velocity, heading
-    radius*0                        radius*0                        1.0     2*22.5*pi/180
-    radius*0.3*cos(2*22.5*pi/180)   radius*0.3*sin(2*22.5*pi/180)   1.0     2*22.5*pi/180
-    radius*0.7*cos(2*22.5*pi/180)   radius*0.7*sin(2*22.5*pi/180)   0.7     2*22.5*pi/180
-    radius*cos(2*22.5*pi/180)       radius*sin(2*22.5*pi/180)       0.5     2*22.5*pi/180
-    radius*cos(3*22.5*pi/180)       radius*sin(3*22.5*pi/180)       1.0     3*22.5*pi/180
-    radius*cos(4*22.5*pi/180)       radius*sin(4*22.5*pi/180)       1.0     4*22.5*pi/180 
-    radius*cos(5*22.5*pi/180)       radius*sin(5*22.5*pi/180)       1.0     5*22.5*pi/180
-    radius*cos(6*22.5*pi/180)       radius*sin(6*22.5*pi/180)       1.0     6*22.5*pi/180
-    radius*cos(7*22.5*pi/180)       radius*sin(7*22.5*pi/180)       1.0     7*22.5*pi/180   
-    radius*cos(8*22.5*pi/180)       radius*sin(8*22.5*pi/180)       1.0     8*22.5*pi/180 
-    radius*cos(9*22.5*pi/180)       radius*sin(9*22.5*pi/180)       1.0     9*22.5*pi/180
-    radius*cos(10*22.5*pi/180)      radius*sin(10*22.5*pi/180)      1.0     10*22.5*pi/180
-    radius*cos(11*22.5*pi/180)      radius*sin(11*22.5*pi/180)      1.0     11*22.5*pi/180
-    radius*cos(12*22.5*pi/180)      radius*sin(12*22.5*pi/180)      1.0     12*22.5*pi/180
-    radius*cos(13*22.5*pi/180)      radius*sin(13*22.5*pi/180)      0.7     13*22.5*pi/180
-    radius*cos(14*22.5*pi/180)      radius*sin(14*22.5*pi/180)      0.5     14*22.5*pi/180
-    radius*0.7*cos(14*22.5*pi/180)  radius*0.7*sin(14*22.5*pi/180)  1.0     14*22.5*pi/180
-    radius*0.3*cos(14*22.5*pi/180)  radius*0.3*sin(14*22.5*pi/180)  1.0     14*22.5*pi/180    
-    radius*0                        radius*0                        0.1     14*22.5*pi/180];
-clear radius
+    radius*0                        radius*0                        velocity_gain*1.0     2*22.5*pi/180
+    radius*0.3*cos(2*22.5*pi/180)   radius*0.3*sin(2*22.5*pi/180)   velocity_gain*1.0     2*22.5*pi/180
+    radius*0.7*cos(2*22.5*pi/180)   radius*0.7*sin(2*22.5*pi/180)   velocity_gain*0.7     2*22.5*pi/180
+    radius*cos(2*22.5*pi/180)       radius*sin(2*22.5*pi/180)       velocity_gain*0.5     2*22.5*pi/180
+    radius*cos(3*22.5*pi/180)       radius*sin(3*22.5*pi/180)       velocity_gain*1.0     3*22.5*pi/180
+    radius*cos(4*22.5*pi/180)       radius*sin(4*22.5*pi/180)       velocity_gain*1.0     4*22.5*pi/180 
+    radius*cos(5*22.5*pi/180)       radius*sin(5*22.5*pi/180)       velocity_gain*1.0     5*22.5*pi/180
+    radius*cos(6*22.5*pi/180)       radius*sin(6*22.5*pi/180)       velocity_gain*1.0     6*22.5*pi/180
+    radius*cos(7*22.5*pi/180)       radius*sin(7*22.5*pi/180)       velocity_gain*1.0     7*22.5*pi/180   
+    radius*cos(8*22.5*pi/180)       radius*sin(8*22.5*pi/180)       velocity_gain*1.0     8*22.5*pi/180 
+    radius*cos(9*22.5*pi/180)       radius*sin(9*22.5*pi/180)       velocity_gain*1.0     9*22.5*pi/180
+    radius*cos(10*22.5*pi/180)      radius*sin(10*22.5*pi/180)      velocity_gain*1.0     10*22.5*pi/180
+    radius*cos(11*22.5*pi/180)      radius*sin(11*22.5*pi/180)      velocity_gain*1.0     11*22.5*pi/180
+    radius*cos(12*22.5*pi/180)      radius*sin(12*22.5*pi/180)      velocity_gain*1.0     12*22.5*pi/180
+    radius*cos(13*22.5*pi/180)      radius*sin(13*22.5*pi/180)      velocity_gain*0.7     13*22.5*pi/180
+    radius*cos(14*22.5*pi/180)      radius*sin(14*22.5*pi/180)      velocity_gain*0.5     14*22.5*pi/180
+    radius*0.7*cos(14*22.5*pi/180)  radius*0.7*sin(14*22.5*pi/180)  velocity_gain*1.0     14*22.5*pi/180
+    radius*0.3*cos(14*22.5*pi/180)  radius*0.3*sin(14*22.5*pi/180)  velocity_gain*1.0     14*22.5*pi/180    
+    radius*0                        radius*0                        velocity_gain*0.1     14*22.5*pi/180];
+clear radius velocity_gain
 
 % Tunable while running
-Spline_Capture_Radius = 0.1;
-Spline_Stop_Radius = 0.05;
-Spline_Lookahead_Dist = 0.2;
-Spline_Max_Centripital_Acceleration = 2;        % m/sec^2
-Spline_Pose_Num_Before_End_Reduce_Speed = 2;
+Spline_Capture_Radius = 0.1; % m
+Spline_Stop_Radius = 0.05; % m
+Spline_Lookahead_Dist = 0.2;  % m
+Spline_Max_Centripital_Acceleration = 3; % m/sec^2
+Spline_Pose_Num_Before_End_Reduce_Speed = 2;  % index count
 Spline_Last_Pose_Distance_to_Velocity_Gain = 2; % (m/sec) / (m)
+Spline_Velocity_Multiplier_TEST = 1.0;  % velocity scaling for test purposes only

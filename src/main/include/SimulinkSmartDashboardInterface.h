@@ -28,12 +28,14 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Drive_Motor_Control_Sign_Change_Deadband__Entry;
         nt::NetworkTableEntry __Odometry_Desired_X__Entry;
         nt::NetworkTableEntry __Odometry_Desired_Y__Entry;
+        nt::NetworkTableEntry __Odometry_Reset_IC__Entry;
         nt::NetworkTableEntry __Odometry_X_Y_TEAR__Entry;
         nt::NetworkTableEntry __Spline_Capture_Radius__Entry;
         nt::NetworkTableEntry __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry;
         nt::NetworkTableEntry __Spline_Lookahead_Dist__Entry;
         nt::NetworkTableEntry __Spline_Max_Centripital_Acceleration__Entry;
         nt::NetworkTableEntry __Spline_Pose_Num_Before_End_Reduce_Speed__Entry;
+        nt::NetworkTableEntry __Spline_Velocity_Multiplier_TEST__Entry;
         nt::NetworkTableEntry __Steering_Abs_Deadband_Range__Entry;
         nt::NetworkTableEntry __Steering_Heading_Control_D__Entry;
         nt::NetworkTableEntry __Steering_Heading_Control_D_FilterCoeff__Entry;

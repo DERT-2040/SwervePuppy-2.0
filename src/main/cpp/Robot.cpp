@@ -11,6 +11,7 @@ void Robot::RobotInit() {
   m_SwerveDrive.BrakeMode(); //set all motors to coast mode
   m_IMU.Reset();
   m_SimulinkSmartDashboardInterface.InitSmartDashboardInterface();
+  BindSDCallbacks();
 }
 void Robot::RobotPeriodic() { 
   m_Tracer.ResetTimer();
@@ -34,7 +35,7 @@ void Robot::RobotPeriodic() {
   PostStep(); //Robot wide PostStep
   m_Tracer.AddEpoch("After PostStep");
 
-  m_Tracer.PrintEpochs();
+  // m_Tracer.PrintEpochs();
 }
 
 void Robot::AutonomousInit() { Code_Gen_Model_U.GameState = 1; GameInitValues();}
