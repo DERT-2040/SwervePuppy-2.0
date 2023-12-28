@@ -3,15 +3,6 @@
 #include <string>
 class Constants {
 public:
-static constexpr std::string_view kCameraName{"OV5647"};
-    static const frc::Transform3d kRobotToCam{
-        frc::Translation3d{0.5_m, 0.0_m, 0.5_m},
-        frc::Rotation3d{0_rad, 0_rad, 0_rad}};
-    static const frc::AprilTagFieldLayout kTagLayout{
-        frc::LoadAprilTagLayoutField(frc::AprilTagField::k2023ChargedUp)};
-
-    static const Eigen::Matrix<double, 3, 1> kSingleTagStdDevs{4, 4, 8};
-    static const Eigen::Matrix<double, 3, 1> kMultiTagStdDevs{0.5, 0.5, 1}; // namespace Vision
 //HID Ports
     static constexpr int k_Gamepad_Port = 0;
     static constexpr int k_Drive_Joystick_Port = 1;
