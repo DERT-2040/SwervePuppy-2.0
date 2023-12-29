@@ -1,6 +1,6 @@
 % Parameters to exclude from being tunable.
 % This is used in the 'Build_Extern.m' file
-Not_Tunable_List = ['t_sample',...
+Not_Tunable_List = ['t_sample','t_sample_camera',...
     'Distance_FL_x','DistancAe_FL_y','Distance_FR_x','Distance_FR_y',...
     'Distance_BL_x','Distance_BL_y','Distance_BR_x','Distance_BR_y',...
     'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance','Drive_Wheel_Max_Speed',...
@@ -12,6 +12,7 @@ Not_Tunable_List = ['t_sample',...
 
 % sample time model
 t_sample = 0.02;
+t_sample_camera = 0.12;
 
 %% Joystick Command Profiling
 
@@ -57,6 +58,8 @@ Drive_Wheel_Max_Speed = Drive_Motor_Max_Speed/Wheel_Speed_to_Motor_Speed; % m/se
 %   physical measurement = 177.33 feet
 %   odometry estimate    = 186.44 feet
 adjustment_factor = 0.951;  % 177.33/186.44
+% set the above factor to 1.0 for simulation (don't for get to change it back!)
+% adjustment_factor = 1.0;
 
 Motor_Rev_to_Wheel_Distance = wheel_diameter*pi/gear_ratio*adjustment_factor; % m/rev
 
