@@ -20,6 +20,6 @@ frc::Pose2d PhotonVisionInterface::GetEstimatedGlobalPose() {
     return robot2dPose;
 }
 
- PhotonVisionInterface::PhotonVisionInterface() {
+PhotonVisionInterface::PhotonVisionInterface() {
     photonEstimator.SetMultiTagFallbackStrategy(photonlib::PoseStrategy::LOWEST_AMBIGUITY);
 }

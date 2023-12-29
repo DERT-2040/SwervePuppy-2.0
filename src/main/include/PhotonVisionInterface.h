@@ -19,7 +19,7 @@ class PhotonVisionInterface {
     void PostStep();
     void SmartDashboardCallback();
     PhotonVisionInterface();
-    frc::Pose2d PhotonVisionInterface::GetEstimatedGlobalPose();
+    frc::Pose2d GetEstimatedGlobalPose();
 
   private:
   double m_pi = 3.1415926535897;
