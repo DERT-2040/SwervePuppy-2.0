@@ -2,10 +2,12 @@
 
 //local
 #include "include/Constants.h"
+#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
 //frc
 #include <frc/Joystick.h>
 #include <frc/GenericHID.h>
 // #include <frc/XboxController.h>
+
 
 class HIDs {
 public:

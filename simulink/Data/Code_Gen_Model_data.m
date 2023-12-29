@@ -123,6 +123,11 @@ Odometry_Desired_Y = 0;
 
 clear temp
 
+%% Extended Kalman Filter
+% EKF_Odom_Covariance = 0.001;
+% EKF_Vision_Covariance = 0.1;
+% EKF_Vision_Ambiguity_Thresh = 0.3;  % above this threshold trust the vision estimate
+
 %% Drive Motor PID
 Drive_Motor_Control_FF= 1/Drive_Motor_Max_Speed;  % 1 DC / Max Speed RPM;
 Drive_Motor_Control_P = 0.000005;

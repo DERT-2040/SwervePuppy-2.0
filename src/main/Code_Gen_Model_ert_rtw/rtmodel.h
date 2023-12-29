@@ -3,7 +3,7 @@
  * sponsored by MathWorks.  Not for government, commercial or other
  * non-sponsored organizational use.
  *
- * File: rtGetNaN.h
+ * File: rtmodel.h
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
@@ -17,15 +17,15 @@
  * Validation result: Not run
  */
 
-#ifndef RTW_HEADER_rtGetNaN_h_
-#define RTW_HEADER_rtGetNaN_h_
-#include "rt_nonfinite.h"
-#include "rtwtypes.h"
+#ifndef RTW_HEADER_rtmodel_h_
+#define RTW_HEADER_rtmodel_h_
+#include "Code_Gen_Model.h"
 
-extern real_T rtGetNaN(void);
-extern real32_T rtGetNaNF(void);
-
-#endif                                 /* RTW_HEADER_rtGetNaN_h_ */
+/* Macros generated for backwards compatibility  */
+#ifndef rtmGetStopRequested
+#define rtmGetStopRequested(rtm)       ((void*) 0)
+#endif
+#endif                                 /* RTW_HEADER_rtmodel_h_ */
 
 /*
  * File trailer for generated code.

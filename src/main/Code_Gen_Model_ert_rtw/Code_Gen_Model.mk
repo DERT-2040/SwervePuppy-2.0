@@ -2,7 +2,7 @@
 ## Makefile generated for component 'Code_Gen_Model'. 
 ## 
 ## Makefile     : Code_Gen_Model.mk
-## Generated on : Thu Dec 28 12:28:38 2023
+## Generated on : Fri Dec 29 17:05:47 2023
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/Code_Gen_Model.exe
 ## Product type : executable
 ## 
@@ -23,7 +23,7 @@ MAKEFILE                  = Code_Gen_Model.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2023b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2023b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/FIRSTMentor/Documents/SwervePuppy-2.0/src/main
+START_DIR                 = C:/Users/ander/OneDrive/Documents/GitHub/SwervePuppy-2.0/src/main
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
@@ -185,7 +185,7 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STAN
 
 SRCS = $(START_DIR)/Code_Gen_Model_ert_rtw/Code_Gen_Model.c $(START_DIR)/Code_Gen_Model_ert_rtw/Code_Gen_Model_data.c $(START_DIR)/Code_Gen_Model_ert_rtw/rtGetInf.c $(START_DIR)/Code_Gen_Model_ert_rtw/rtGetNaN.c $(START_DIR)/Code_Gen_Model_ert_rtw/rt_nonfinite.c
 
-MAIN_SRC = $(START_DIR)/Code_Gen_Model_ert_rtw/ert_main.c
+MAIN_SRC = $(MATLAB_ROOT)/rtw/c/src/common/rt_main.c
 
 ALL_SRCS = $(SRCS) $(MAIN_SRC)
 
@@ -195,7 +195,7 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 
 OBJS = Code_Gen_Model.obj Code_Gen_Model_data.obj rtGetInf.obj rtGetNaN.obj rt_nonfinite.obj
 
-MAIN_OBJ = ert_main.obj
+MAIN_OBJ = rt_main.obj
 
 ALL_OBJS = $(OBJS) $(MAIN_OBJ)
 
@@ -519,10 +519,6 @@ Code_Gen_Model_data.obj : $(START_DIR)/Code_Gen_Model_ert_rtw/Code_Gen_Model_dat
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-ert_main.obj : $(START_DIR)/Code_Gen_Model_ert_rtw/ert_main.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
 rtGetInf.obj : $(START_DIR)/Code_Gen_Model_ert_rtw/rtGetInf.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
@@ -532,6 +528,10 @@ rtGetNaN.obj : $(START_DIR)/Code_Gen_Model_ert_rtw/rtGetNaN.c
 
 
 rt_nonfinite.obj : $(START_DIR)/Code_Gen_Model_ert_rtw/rt_nonfinite.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
+
+
+rt_main.obj : $(MATLAB_ROOT)/rtw/c/src/common/rt_main.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 

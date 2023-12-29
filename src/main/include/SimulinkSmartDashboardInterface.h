@@ -95,6 +95,9 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __FrontRight_Drive_Motor_Rev__Entry;
         nt::NetworkTableEntry __BackLeft_Drive_Motor_Rev__Entry;
         nt::NetworkTableEntry __BackRight_Drive_Motor_Rev__Entry;
+        nt::NetworkTableEntry __Photon_Est_Pose_X__Entry;
+        nt::NetworkTableEntry __Photon_Est_Pose_Y__Entry;
+        nt::NetworkTableEntry __Photon_Est_Pose_Ambiguity__Entry;
         // Outports
         nt::NetworkTableEntry __FrontLeft_Drive_DutyCycle__Entry;
         nt::NetworkTableEntry __FrontLeft_Steer_DutyCycle__Entry;
@@ -110,8 +113,8 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __FR_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BL_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BR_Steer_Module_Angle__Entry;
-        nt::NetworkTableEntry __Odom_Position_X_global__Entry;
-        nt::NetworkTableEntry __Odom_Position_Y_global__Entry;
+        nt::NetworkTableEntry __Odom_Position_X__Entry;
+        nt::NetworkTableEntry __Odom_Position_Y__Entry;
         nt::NetworkTableEntry __Spline_Num_Poses__Entry;
         nt::NetworkTableEntry __Steering_Abs_Cmd__Entry;
         nt::NetworkTableEntry __Steering_Rel_Cmd__Entry;

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.27
+ * Model version                  : 2.29
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 16:17:13 2023
+ * C/C++ source code generated on : Fri Dec 29 17:48:36 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -44,8 +44,8 @@ typedef struct {
   real_T FR_Steer_Module_Angle;        /* '<S87>/Add1' */
   real_T BL_Steer_Module_Angle;        /* '<S88>/Add1' */
   real_T BR_Steer_Module_Angle;        /* '<S89>/Add1' */
-  real_T Odom_Position_X_global;       /* '<S7>/Accumulator2' */
-  real_T Odom_Position_Y_global;       /* '<S7>/Accumulator' */
+  real_T Odom_Position_X;              /* '<S7>/Accumulator2' */
+  real_T Odom_Position_Y;              /* '<S7>/Accumulator' */
   real_T Spline_Num_Poses;             /* '<S6>/Merge9' */
   real_T Steering_Abs_Cmd;             /* '<S6>/Merge1' */
   real_T Steering_Rel_Cmd;             /* '<S6>/Merge2' */
@@ -261,6 +261,9 @@ typedef struct {
   real_T FrontRight_Drive_Motor_Rev;   /* '<Root>/FrontRight_Drive_Motor_Rev' */
   real_T BackLeft_Drive_Motor_Rev;     /* '<Root>/BackLeft_Drive_Motor_Rev' */
   real_T BackRight_Drive_Motor_Rev;    /* '<Root>/BackRight_Drive_Motor_Rev' */
+  real_T Photon_Est_Pose_X;            /* '<Root>/Photon_Est_Pose_X' */
+  real_T Photon_Est_Pose_Y;            /* '<Root>/Photon_Est_Pose_Y' */
+  real_T Photon_Est_Pose_Ambiguity;    /* '<Root>/Photon_Est_Pose_Ambiguity' */
 } ExtU_Code_Gen_Model_T;
 
 /* External outputs (root outports fed by signals with default storage) */

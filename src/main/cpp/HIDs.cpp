@@ -1,8 +1,5 @@
 //local
 #include "include\HIDs.h"
-#include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
-//FRC
-#include <frc/event/BooleanEvent.h>
 
 void HIDs::PreStep() {
     // Steer and Drive Joysticks

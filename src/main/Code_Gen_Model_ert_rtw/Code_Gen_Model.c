@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.27
+ * Model version                  : 2.29
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Dec 28 16:17:13 2023
+ * C/C++ source code generated on : Fri Dec 29 17:48:36 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -944,8 +944,7 @@ void Code_Gen_Model_step(void)
   }
 
   /* DiscreteIntegrator: '<S7>/Accumulator2' */
-  Code_Gen_Model_B.Odom_Position_X_global =
-    Code_Gen_Model_DW.Accumulator2_DSTATE;
+  Code_Gen_Model_B.Odom_Position_X = Code_Gen_Model_DW.Accumulator2_DSTATE;
 
   /* DiscreteIntegrator: '<S7>/Accumulator' incorporates:
    *  Constant: '<S7>/Constant'
@@ -956,7 +955,7 @@ void Code_Gen_Model_step(void)
   }
 
   /* DiscreteIntegrator: '<S7>/Accumulator' */
-  Code_Gen_Model_B.Odom_Position_Y_global = Code_Gen_Model_DW.Accumulator_DSTATE;
+  Code_Gen_Model_B.Odom_Position_Y = Code_Gen_Model_DW.Accumulator_DSTATE;
 
   /* SwitchCase: '<S1>/Switch Case' incorporates:
    *  Inport: '<Root>/GameState'
@@ -1052,12 +1051,12 @@ void Code_Gen_Model_step(void)
      *  Constant: '<S2>/Constant8'
      */
     rtb_POSEexponentialmatrixfori_3 = Odometry_Desired_Y -
-      Code_Gen_Model_B.Odom_Position_Y_global;
+      Code_Gen_Model_B.Odom_Position_Y;
 
     /* Sum: '<S2>/Subtract1' incorporates:
      *  Constant: '<S2>/Constant7'
      */
-    rtb_Init_e = Odometry_Desired_X - Code_Gen_Model_B.Odom_Position_X_global;
+    rtb_Init_e = Odometry_Desired_X - Code_Gen_Model_B.Odom_Position_X;
 
     /* Merge: '<S6>/Merge4' incorporates:
      *  Constant: '<S2>/Constant'
@@ -1485,10 +1484,10 @@ void Code_Gen_Model_step(void)
     /* End of Selector: '<S26>/Selector1' */
 
     /* SignalConversion generated from: '<S26>/Matrix Concatenate2' */
-    rtb_Product7[0] = Code_Gen_Model_B.Odom_Position_X_global;
+    rtb_Product7[0] = Code_Gen_Model_B.Odom_Position_X;
 
     /* SignalConversion generated from: '<S26>/Matrix Concatenate2' */
-    rtb_Product7[1] = Code_Gen_Model_B.Odom_Position_Y_global;
+    rtb_Product7[1] = Code_Gen_Model_B.Odom_Position_Y;
 
     /* If: '<S30>/If' incorporates:
      *  RelationalOperator: '<S30>/ '
@@ -2234,10 +2233,9 @@ void Code_Gen_Model_step(void)
        *  WhileIterator: '<S53>/While Iterator'
        */
       distance_from_robot[s53_iter] = rt_hypotd_snf
-        (rtb_MatrixConcatenate_o[s53_iter] -
-         Code_Gen_Model_B.Odom_Position_X_global,
+        (rtb_MatrixConcatenate_o[s53_iter] - Code_Gen_Model_B.Odom_Position_X,
          rtb_MatrixConcatenate_o[s53_iter + 150] -
-         Code_Gen_Model_B.Odom_Position_Y_global);
+         Code_Gen_Model_B.Odom_Position_Y);
 
       /* End of Outputs for SubSystem: '<S49>/Sampling_Loop' */
     }
@@ -2444,8 +2442,8 @@ void Code_Gen_Model_step(void)
          *  Switch: '<S81>/Switch'
          */
         Code_Gen_Model_B.Translation_Speed_SPF = fmin(rt_hypotd_snf
-          (rtb_Spline_Ref_Poses[18] - Code_Gen_Model_B.Odom_Position_X_global,
-           rtb_Spline_Ref_Poses[37] - Code_Gen_Model_B.Odom_Position_Y_global) *
+          (rtb_Spline_Ref_Poses[18] - Code_Gen_Model_B.Odom_Position_X,
+           rtb_Spline_Ref_Poses[37] - Code_Gen_Model_B.Odom_Position_Y) *
           Spline_Last_Pose_Distance_to_Velocity_Gain, fmin(rtb_UnitDelay_f *
           Spline_Velocity_Multiplier_TEST, sqrt
           (Spline_Max_Centripital_Acceleration /
@@ -2503,9 +2501,8 @@ void Code_Gen_Model_step(void)
       rtb_Init_e = Code_Gen_Model_DW.UnitDelay1_DSTATE_kc;
     } else {
       rtb_Init_e = rt_atan2d_snf(Code_Gen_Model_B.Spline_Target_Y -
-        Code_Gen_Model_B.Odom_Position_Y_global,
-        Code_Gen_Model_B.Spline_Target_X -
-        Code_Gen_Model_B.Odom_Position_X_global);
+        Code_Gen_Model_B.Odom_Position_Y, Code_Gen_Model_B.Spline_Target_X -
+        Code_Gen_Model_B.Odom_Position_X);
     }
 
     /* End of Switch: '<S28>/Switch2' */
@@ -4998,7 +4995,7 @@ void Code_Gen_Model_step(void)
 
   /* Gain: '<S22>/meters to feet1' */
   Code_Gen_Model_B.Odometry_Y_global_est_ft = 3.28084 *
-    Code_Gen_Model_B.Odom_Position_Y_global;
+    Code_Gen_Model_B.Odom_Position_Y;
 
   /* RelationalOperator: '<S23>/Compare' incorporates:
    *  Constant: '<S22>/Constant'
@@ -5023,7 +5020,7 @@ void Code_Gen_Model_step(void)
 
   /* Gain: '<S22>/meters to feet' */
   Code_Gen_Model_B.Odometry_X_global_est_ft = 3.28084 *
-    Code_Gen_Model_B.Odom_Position_X_global;
+    Code_Gen_Model_B.Odom_Position_X;
 
   /* Switch: '<S22>/Switch' incorporates:
    *  UnitDelay: '<S22>/Unit Delay'
