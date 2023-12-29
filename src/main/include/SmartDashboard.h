@@ -2,6 +2,7 @@
 #include <vector>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "Code_Gen_Model_ert_rtw\Code_Gen_Model.h"
+#include "include\PhotonVisionInterface.h"
 #include <vector>
 #include <functional>
 

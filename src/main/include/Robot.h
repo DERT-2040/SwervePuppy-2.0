@@ -11,10 +11,13 @@
 #include "include/SwerveDrive.h"
 #include "include/SmartDashboard.h"
 #include "include/SimulinkSmartDashboardInterface.h"
+#include "include/PhotonVisionInterface.h"
+
 //frc
 #include <frc/TimedRobot.h>
 //std
 #include <iostream>
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -130,7 +133,8 @@ private:
    * Component for all Smart Dashboard objects
    */
   SmartDashboard m_SmartDashboard;
-
+  PhotonVisionInterface m_PhotonVisionInterface;
+  TunableSmartDashboard m_TunableSmartDashboard;
   /**
    * Monitor code execution time
    */
