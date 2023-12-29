@@ -134,7 +134,6 @@ private:
    */
   SmartDashboard m_SmartDashboard;
   PhotonVisionInterface m_PhotonVisionInterface;
-  TunableSmartDashboard m_TunableSmartDashboard;
   /**
    * Monitor code execution time
    */
