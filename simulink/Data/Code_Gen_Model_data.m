@@ -124,9 +124,9 @@ Odometry_Desired_Y = 0;
 clear temp
 
 %% Extended Kalman Filter
-% EKF_Odom_Covariance = 0.001;
-% EKF_Vision_Covariance = 0.1;
-% EKF_Vision_Ambiguity_Thresh = 0.3;  % above this threshold trust the vision estimate
+KF_Odom_Covariance = 0.001;
+KF_Vision_Covariance = 0.1;
+KF_Vision_Ambiguity_Thresh = 0.3;  % above this threshold trust the vision estimate
 
 %% Drive Motor PID
 Drive_Motor_Control_FF= 1/Drive_Motor_Max_Speed;  % 1 DC / Max Speed RPM;
@@ -211,9 +211,10 @@ Spline_Tension = 0.5;
 Spline_Num_Poses_default = Spline_Max_Num_RefPoses;
 Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,4);
+
 radius = 1;
-velocity_gain = 3.5;
-Spline_Ref_Poses_auto = [% x, y, velocity, heading
+velocity_gain = 1.0;
+Spline_Ref_Poses_auto = [% x, y, velocity, field-oriented heading
     radius*0                        radius*0                        velocity_gain*1.0     2*22.5*pi/180
     radius*0.3*cos(2*22.5*pi/180)   radius*0.3*sin(2*22.5*pi/180)   velocity_gain*1.0     2*22.5*pi/180
     radius*0.7*cos(2*22.5*pi/180)   radius*0.7*sin(2*22.5*pi/180)   velocity_gain*0.7     2*22.5*pi/180

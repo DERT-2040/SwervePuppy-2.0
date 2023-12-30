@@ -26,6 +26,9 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Drive_Motor_Control_I_UL__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_P__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_Sign_Change_Deadband__Entry;
+        nt::NetworkTableEntry __KF_Odom_Covariance__Entry;
+        nt::NetworkTableEntry __KF_Vision_Ambiguity_Thresh__Entry;
+        nt::NetworkTableEntry __KF_Vision_Covariance__Entry;
         nt::NetworkTableEntry __Odometry_Desired_X__Entry;
         nt::NetworkTableEntry __Odometry_Desired_Y__Entry;
         nt::NetworkTableEntry __Odometry_Reset_IC__Entry;
@@ -113,8 +116,6 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __FR_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BL_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BR_Steer_Module_Angle__Entry;
-        nt::NetworkTableEntry __Odom_Position_X__Entry;
-        nt::NetworkTableEntry __Odom_Position_Y__Entry;
         nt::NetworkTableEntry __Spline_Num_Poses__Entry;
         nt::NetworkTableEntry __Steering_Abs_Cmd__Entry;
         nt::NetworkTableEntry __Steering_Rel_Cmd__Entry;
@@ -141,10 +142,12 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __FR_Desired_Module_Angle__Entry;
         nt::NetworkTableEntry __BL_Desired_Wheel_Speed__Entry;
         nt::NetworkTableEntry __BL_Desired_Module_Angle__Entry;
-        nt::NetworkTableEntry __Odometry_Y_global_est_ft__Entry;
-        nt::NetworkTableEntry __Odometry_Y_global_TEAR_ft__Entry;
+        nt::NetworkTableEntry __Odom_Position_X__Entry;
         nt::NetworkTableEntry __Odometry_X_global_est_ft__Entry;
         nt::NetworkTableEntry __Odometry_X_global_TEAR_ft__Entry;
+        nt::NetworkTableEntry __Odom_Position_Y__Entry;
+        nt::NetworkTableEntry __Odometry_Y_global_est_ft__Entry;
+        nt::NetworkTableEntry __Odometry_Y_global_TEAR_ft__Entry;
         nt::NetworkTableEntry __Spline_Index__Entry;
         nt::NetworkTableEntry __Spline_Target_Y__Entry;
         nt::NetworkTableEntry __Spline_Target_X__Entry;

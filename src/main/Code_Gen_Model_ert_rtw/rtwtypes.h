@@ -7,12 +7,12 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.29
+ * Model version                  : 2.33
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Fri Dec 29 17:48:36 2023
+ * C/C++ source code generated on : Fri Dec 29 20:04:56 2023
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: Intel->x86-64 (Windows64)
+ * Embedded hardware selection: ARM Compatible->ARM 7
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
@@ -33,10 +33,10 @@
 
 /*=======================================================================*
  * Target hardware information
- *   Device type: Intel->x86-64 (Windows64)
+ *   Device type: ARM Compatible->ARM 7
  *   Number of bits:     char:   8    short:   16    int:  32
  *                       long:  32
- *                       native word size:  64
+ *                       native word size:  32
  *   Byte ordering: LittleEndian
  *   Signed integer division rounds to: Zero
  *   Shift right on a signed integer as arithmetic shift: on

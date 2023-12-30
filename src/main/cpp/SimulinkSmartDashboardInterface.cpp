@@ -65,6 +65,18 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Drive_Motor_Control_Sign_Change_Deadband__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_Sign_Change_Deadband = event.GetValueEventData()->value.GetDouble();});
     __Drive_Motor_Control_Sign_Change_Deadband__Entry.SetDouble(1500);
  
+    __KF_Odom_Covariance__Entry = NTtable_Tune->GetEntry("KF_Odom_Covariance");
+    NTinst.AddListener(__KF_Odom_Covariance__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Odom_Covariance = event.GetValueEventData()->value.GetDouble();});
+    __KF_Odom_Covariance__Entry.SetDouble(0.001);
+ 
+    __KF_Vision_Ambiguity_Thresh__Entry = NTtable_Tune->GetEntry("KF_Vision_Ambiguity_Thresh");
+    NTinst.AddListener(__KF_Vision_Ambiguity_Thresh__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Ambiguity_Thresh = event.GetValueEventData()->value.GetDouble();});
+    __KF_Vision_Ambiguity_Thresh__Entry.SetDouble(0.3);
+ 
+    __KF_Vision_Covariance__Entry = NTtable_Tune->GetEntry("KF_Vision_Covariance");
+    NTinst.AddListener(__KF_Vision_Covariance__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Covariance = event.GetValueEventData()->value.GetDouble();});
+    __KF_Vision_Covariance__Entry.SetDouble(0.1);
+ 
     __Odometry_Desired_X__Entry = NTtable_Tune->GetEntry("Odometry_Desired_X");
     NTinst.AddListener(__Odometry_Desired_X__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_Desired_X = event.GetValueEventData()->value.GetDouble();});
     __Odometry_Desired_X__Entry.SetDouble(0);
@@ -278,8 +290,6 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     __FR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Steer_Module_Angle");
     __BL_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Steer_Module_Angle");
     __BR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BR_Steer_Module_Angle");
-    __Odom_Position_X__Entry = NTtable_TPoint->GetEntry("Odom_Position_X");
-    __Odom_Position_Y__Entry = NTtable_TPoint->GetEntry("Odom_Position_Y");
     __Spline_Num_Poses__Entry = NTtable_TPoint->GetEntry("Spline_Num_Poses");
     __Steering_Abs_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Abs_Cmd");
     __Steering_Rel_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Rel_Cmd");
@@ -306,10 +316,12 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     __FR_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Desired_Module_Angle");
     __BL_Desired_Wheel_Speed__Entry = NTtable_TPoint->GetEntry("BL_Desired_Wheel_Speed");
     __BL_Desired_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Desired_Module_Angle");
-    __Odometry_Y_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_est_ft");
-    __Odometry_Y_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_TEAR_ft");
+    __Odom_Position_X__Entry = NTtable_TPoint->GetEntry("Odom_Position_X");
     __Odometry_X_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_est_ft");
     __Odometry_X_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_X_global_TEAR_ft");
+    __Odom_Position_Y__Entry = NTtable_TPoint->GetEntry("Odom_Position_Y");
+    __Odometry_Y_global_est_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_est_ft");
+    __Odometry_Y_global_TEAR_ft__Entry = NTtable_TPoint->GetEntry("Odometry_Y_global_TEAR_ft");
     __Spline_Index__Entry = NTtable_TPoint->GetEntry("Spline_Index");
     __Spline_Target_Y__Entry = NTtable_TPoint->GetEntry("Spline_Target_Y");
     __Spline_Target_X__Entry = NTtable_TPoint->GetEntry("Spline_Target_X");
@@ -365,8 +377,6 @@ void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
     __FR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Steer_Module_Angle);
     __BL_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Steer_Module_Angle);
     __BR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BR_Steer_Module_Angle);
-    __Odom_Position_X__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_X);
-    __Odom_Position_Y__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_Y);
     __Spline_Num_Poses__Entry.SetDouble(Code_Gen_Model_B.Spline_Num_Poses);
     __Steering_Abs_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Abs_Cmd);
     __Steering_Rel_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Rel_Cmd);
@@ -393,10 +403,12 @@ void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
     __FR_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Desired_Module_Angle);
     __BL_Desired_Wheel_Speed__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Wheel_Speed);
     __BL_Desired_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Desired_Module_Angle);
-    __Odometry_Y_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_est_ft);
-    __Odometry_Y_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_TEAR_ft);
+    __Odom_Position_X__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_X);
     __Odometry_X_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_est_ft);
     __Odometry_X_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_X_global_TEAR_ft);
+    __Odom_Position_Y__Entry.SetDouble(Code_Gen_Model_B.Odom_Position_Y);
+    __Odometry_Y_global_est_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_est_ft);
+    __Odometry_Y_global_TEAR_ft__Entry.SetDouble(Code_Gen_Model_B.Odometry_Y_global_TEAR_ft);
     __Spline_Index__Entry.SetDouble(Code_Gen_Model_B.Spline_Index);
     __Spline_Target_Y__Entry.SetDouble(Code_Gen_Model_B.Spline_Target_Y);
     __Spline_Target_X__Entry.SetDouble(Code_Gen_Model_B.Spline_Target_X);
