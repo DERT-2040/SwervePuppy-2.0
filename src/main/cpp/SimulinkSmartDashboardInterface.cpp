@@ -9,6 +9,14 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     auto NTtable_Outport = NTinst.GetTable("Simulink Top Level Ports");
     auto NTtable_TPoint = NTinst.GetTable("Simulink Test Points");
  
+    __Autonomous_Desired_X__Entry = NTtable_Tune->GetEntry("Autonomous_Desired_X");
+    NTinst.AddListener(__Autonomous_Desired_X__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Autonomous_Desired_X = event.GetValueEventData()->value.GetDouble();});
+    __Autonomous_Desired_X__Entry.SetDouble(2.5876);
+ 
+    __Autonomous_Desired_Y__Entry = NTtable_Tune->GetEntry("Autonomous_Desired_Y");
+    NTinst.AddListener(__Autonomous_Desired_Y__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Autonomous_Desired_Y = event.GetValueEventData()->value.GetDouble();});
+    __Autonomous_Desired_Y__Entry.SetDouble(2.4042);
+ 
     __Boost_Trigger_Decreasing_Limit__Entry = NTtable_Tune->GetEntry("Boost_Trigger_Decreasing_Limit");
     NTinst.AddListener(__Boost_Trigger_Decreasing_Limit__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Boost_Trigger_Decreasing_Limit = event.GetValueEventData()->value.GetDouble();});
     __Boost_Trigger_Decreasing_Limit__Entry.SetDouble(-0.044444);
@@ -71,19 +79,19 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
  
     __KF_Vision_Ambiguity_Thresh__Entry = NTtable_Tune->GetEntry("KF_Vision_Ambiguity_Thresh");
     NTinst.AddListener(__KF_Vision_Ambiguity_Thresh__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Ambiguity_Thresh = event.GetValueEventData()->value.GetDouble();});
-    __KF_Vision_Ambiguity_Thresh__Entry.SetDouble(0.3);
+    __KF_Vision_Ambiguity_Thresh__Entry.SetDouble(0.25);
  
     __KF_Vision_Covariance__Entry = NTtable_Tune->GetEntry("KF_Vision_Covariance");
     NTinst.AddListener(__KF_Vision_Covariance__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Covariance = event.GetValueEventData()->value.GetDouble();});
     __KF_Vision_Covariance__Entry.SetDouble(0.1);
  
-    __Odometry_Desired_X__Entry = NTtable_Tune->GetEntry("Odometry_Desired_X");
-    NTinst.AddListener(__Odometry_Desired_X__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_Desired_X = event.GetValueEventData()->value.GetDouble();});
-    __Odometry_Desired_X__Entry.SetDouble(0);
+    __Odometry_IC_X__Entry = NTtable_Tune->GetEntry("Odometry_IC_X");
+    NTinst.AddListener(__Odometry_IC_X__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_IC_X = event.GetValueEventData()->value.GetDouble();});
+    __Odometry_IC_X__Entry.SetDouble(2.5876);
  
-    __Odometry_Desired_Y__Entry = NTtable_Tune->GetEntry("Odometry_Desired_Y");
-    NTinst.AddListener(__Odometry_Desired_Y__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_Desired_Y = event.GetValueEventData()->value.GetDouble();});
-    __Odometry_Desired_Y__Entry.SetDouble(0);
+    __Odometry_IC_Y__Entry = NTtable_Tune->GetEntry("Odometry_IC_Y");
+    NTinst.AddListener(__Odometry_IC_Y__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_IC_Y = event.GetValueEventData()->value.GetDouble();});
+    __Odometry_IC_Y__Entry.SetDouble(2.4042);
  
     __Odometry_Reset_IC__Entry = NTtable_Tune->GetEntry("Odometry_Reset_IC");
     NTinst.AddListener(__Odometry_Reset_IC__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_Reset_IC = event.GetValueEventData()->value.GetDouble();});
@@ -95,7 +103,7 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
  
     __Spline_Capture_Radius__Entry = NTtable_Tune->GetEntry("Spline_Capture_Radius");
     NTinst.AddListener(__Spline_Capture_Radius__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Capture_Radius = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Capture_Radius__Entry.SetDouble(0.1);
+    __Spline_Capture_Radius__Entry.SetDouble(0.5);
  
     __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry = NTtable_Tune->GetEntry("Spline_Last_Pose_Distance_to_Velocity_Gain");
     NTinst.AddListener(__Spline_Last_Pose_Distance_to_Velocity_Gain__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Last_Pose_Distance_to_Velocity_Gain = event.GetValueEventData()->value.GetDouble();});
@@ -103,15 +111,15 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
  
     __Spline_Lookahead_Dist__Entry = NTtable_Tune->GetEntry("Spline_Lookahead_Dist");
     NTinst.AddListener(__Spline_Lookahead_Dist__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Lookahead_Dist = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Lookahead_Dist__Entry.SetDouble(0.2);
+    __Spline_Lookahead_Dist__Entry.SetDouble(0.4);
  
     __Spline_Max_Centripital_Acceleration__Entry = NTtable_Tune->GetEntry("Spline_Max_Centripital_Acceleration");
     NTinst.AddListener(__Spline_Max_Centripital_Acceleration__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Max_Centripital_Acceleration = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Max_Centripital_Acceleration__Entry.SetDouble(3);
+    __Spline_Max_Centripital_Acceleration__Entry.SetDouble(10);
  
     __Spline_Pose_Num_Before_End_Reduce_Speed__Entry = NTtable_Tune->GetEntry("Spline_Pose_Num_Before_End_Reduce_Speed");
     NTinst.AddListener(__Spline_Pose_Num_Before_End_Reduce_Speed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Pose_Num_Before_End_Reduce_Speed = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry.SetDouble(2);
+    __Spline_Pose_Num_Before_End_Reduce_Speed__Entry.SetDouble(1);
  
     __Spline_Velocity_Multiplier_TEST__Entry = NTtable_Tune->GetEntry("Spline_Velocity_Multiplier_TEST");
     NTinst.AddListener(__Spline_Velocity_Multiplier_TEST__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Velocity_Multiplier_TEST = event.GetValueEventData()->value.GetDouble();});
@@ -290,6 +298,8 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     __FR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("FR_Steer_Module_Angle");
     __BL_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BL_Steer_Module_Angle");
     __BR_Steer_Module_Angle__Entry = NTtable_TPoint->GetEntry("BR_Steer_Module_Angle");
+    __KF_Position_X__Entry = NTtable_TPoint->GetEntry("KF_Position_X");
+    __KF_Position_Y__Entry = NTtable_TPoint->GetEntry("KF_Position_Y");
     __Spline_Num_Poses__Entry = NTtable_TPoint->GetEntry("Spline_Num_Poses");
     __Steering_Abs_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Abs_Cmd");
     __Steering_Rel_Cmd__Entry = NTtable_TPoint->GetEntry("Steering_Rel_Cmd");
@@ -377,6 +387,8 @@ void SimulinkSmartDashboardInterface::SmartDashboardCallback() {
     __FR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.FR_Steer_Module_Angle);
     __BL_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BL_Steer_Module_Angle);
     __BR_Steer_Module_Angle__Entry.SetDouble(Code_Gen_Model_B.BR_Steer_Module_Angle);
+    __KF_Position_X__Entry.SetDouble(Code_Gen_Model_B.KF_Position_X);
+    __KF_Position_Y__Entry.SetDouble(Code_Gen_Model_B.KF_Position_Y);
     __Spline_Num_Poses__Entry.SetDouble(Code_Gen_Model_B.Spline_Num_Poses);
     __Steering_Abs_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Abs_Cmd);
     __Steering_Rel_Cmd__Entry.SetDouble(Code_Gen_Model_B.Steering_Rel_Cmd);

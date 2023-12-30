@@ -5,9 +5,9 @@ Not_Tunable_List = ['t_sample','t_sample_camera',...
     'Distance_BL_x','Distance_BL_y','Distance_BR_x','Distance_BR_y',...
     'Wheel_Speed_to_Motor_Speed','Motor_Rev_to_Wheel_Distance','Drive_Wheel_Max_Speed',...
     'Spline_Num_Samples','Spline_Num_Samples_3x','Spline_Samples_Per_Pass',...
-    'Spline_Max_Num_RefPoses','Spline_Tension','Spline_Num_Poses_default',...
-    'Spline_Num_Poses_auto','Spline_Num_Poses_auto','Spline_Ref_Poses_default',...
-    'Spline_Ref_Poses_auto',...
+    'Spline_Max_Num_RefPoses','Spline_Tension',...
+    'Spline_Num_Poses_default','Spline_Num_Poses_auto',...
+    'Spline_Ref_Poses_default','Spline_Ref_Poses_auto',...
 ];
 
 % sample time model
@@ -117,16 +117,12 @@ Odometry_Reset_IC = 0;
 % set to 0 to let the X and Y measurements accumulate since the last tear
 Odometry_X_Y_TEAR = 0;
 
-% Coordinates for testing
-Odometry_Desired_X = 0;
-Odometry_Desired_Y = 0;
-
 clear temp
 
 %% Extended Kalman Filter
 KF_Odom_Covariance = 0.001;
 KF_Vision_Covariance = 0.1;
-KF_Vision_Ambiguity_Thresh = 0.3;  % above this threshold trust the vision estimate
+KF_Vision_Ambiguity_Thresh = 0.25;  % below this threshold trust the vision estimate
 
 %% Drive Motor PID
 Drive_Motor_Control_FF= 1/Drive_Motor_Max_Speed;  % 1 DC / Max Speed RPM;
@@ -201,6 +197,14 @@ Steering_Localized_Cmd_Approach_Zero_Final_Thresh = 0.01;
 Steering_Localized_Cmd_NonZero_Error_Thresh = 0.2;
 Steering_Localized_Cmd_NonZero_Final_Scale_Factor = 0.1;
 
+%% Autonomous Testing
+% Coordinates for testing
+Autonomous_Desired_X = 2.587625;
+Autonomous_Desired_Y = 2.254250 + 0.15;
+
+Odometry_IC_X = Autonomous_Desired_X;
+Odometry_IC_Y = Autonomous_Desired_Y;
+
 %% Spline Path Following
 % Not tunable while running
 Spline_Num_Samples = 50;
@@ -212,8 +216,8 @@ Spline_Num_Poses_default = Spline_Max_Num_RefPoses;
 Spline_Num_Poses_auto = Spline_Max_Num_RefPoses;
 Spline_Ref_Poses_default = zeros(Spline_Max_Num_RefPoses,4);
 
-radius = 1;
-velocity_gain = 1.0;
+radius = 1.5;
+velocity_gain = 3.5;
 Spline_Ref_Poses_auto = [% x, y, velocity, field-oriented heading
     radius*0                        radius*0                        velocity_gain*1.0     2*22.5*pi/180
     radius*0.3*cos(2*22.5*pi/180)   radius*0.3*sin(2*22.5*pi/180)   velocity_gain*1.0     2*22.5*pi/180
@@ -236,11 +240,16 @@ Spline_Ref_Poses_auto = [% x, y, velocity, field-oriented heading
     radius*0                        radius*0                        velocity_gain*0.1     14*22.5*pi/180];
 clear radius velocity_gain
 
+% Initial Condition Offset
+Spline_Ref_Poses_auto(:,1) = Spline_Ref_Poses_auto(:,1) + Autonomous_Desired_X;
+Spline_Ref_Poses_auto(:,2) = Spline_Ref_Poses_auto(:,2) + Autonomous_Desired_Y;
+
 % Tunable while running
-Spline_Capture_Radius = 0.1; % m
-Spline_Stop_Radius = 0.05; % m
-Spline_Lookahead_Dist = 0.2;  % m
-Spline_Max_Centripital_Acceleration = 3; % m/sec^2
-Spline_Pose_Num_Before_End_Reduce_Speed = 2;  % index count
+Spline_Capture_Radius = 0.5; % m
+Spline_Lookahead_Dist = min(0.4, Spline_Capture_Radius);  % m
+Spline_Stop_Radius = 0.1; % m
+Spline_Max_Centripital_Acceleration = 10; % m/sec^2
+Spline_Pose_Num_Before_End_Reduce_Speed = 1;  % index count
 Spline_Last_Pose_Distance_to_Velocity_Gain = 2; % (m/sec) / (m)
 Spline_Velocity_Multiplier_TEST = 1.0;  % velocity scaling for test purposes only
+

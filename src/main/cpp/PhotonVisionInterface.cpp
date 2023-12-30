@@ -9,6 +9,7 @@ void PhotonVisionInterface::PreStep() {
     auto latestPipelineResult = camera.GetLatestResult();
     const auto& photonTrackedTargets = latestPipelineResult.GetTargets();
     // This will average all of the individual PoseAmbiguitys that we get from the tags, so we can use the average in the Kalman Filter.
+    averageRobotPoseAmbiguity = 1;
     if (latestPipelineResult.HasTargets()) {
         double tmp_totalRobotPoseAmbiguity = 0;
         for (const auto& target : photonTrackedTargets) {

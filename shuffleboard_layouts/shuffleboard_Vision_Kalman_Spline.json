@@ -1,0 +1,304 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RobotGlobalPoseAmbiguity",
+              "_title": "RobotGlobalPoseAmbiguity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/KF_Vision_Ambiguity_Thresh",
+              "_title": "Simulink Tunable Params/KF_Vision_Ambiguity_Thresh",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,2": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Simulink Top Level Ports/Photon_Est_Pose_X",
+              "_source1": "network_table:///Simulink Test Points/KF_Position_X",
+              "_source2": "network_table:///Simulink Test Points/Odom_Position_X",
+              "_source3": "network_table:///Simulink Test Points/Spline_Target_X",
+              "_title": "Simulink Test Points/Odom_Position_X",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/Simulink Test Points/KF_Position_X": true,
+              "Visible data/Simulink Test Points/Odom_Position_X": true,
+              "Visible data/Simulink Test Points/Spline_Target_X": true,
+              "Visible data/Simulink Top Level Ports/Photon_Est_Pose_X": true
+            }
+          },
+          "7,2": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Simulink Top Level Ports/Photon_Est_Pose_Y",
+              "_source1": "network_table:///Simulink Test Points/KF_Position_Y",
+              "_source2": "network_table:///Simulink Test Points/Odom_Position_Y",
+              "_source3": "network_table:///Simulink Test Points/Spline_Target_Y",
+              "_title": "Simulink Test Points/Odom_Position_Y",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/Simulink Test Points/KF_Position_Y": true,
+              "Visible data/Simulink Test Points/Odom_Position_Y": true,
+              "Visible data/Simulink Test Points/Spline_Target_Y": true,
+              "Visible data/Simulink Top Level Ports/Photon_Est_Pose_Y": true
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Top Level Ports/Photon_Est_Pose_X",
+              "_title": "Simulink Top Level Ports/Photon_Est_Pose_X",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Top Level Ports/Photon_Est_Pose_Y",
+              "_title": "Simulink Top Level Ports/Photon_Est_Pose_Y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Test Points/Odom_Position_X",
+              "_title": "Simulink Test Points/Odom_Position_X",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Test Points/Odom_Position_Y",
+              "_title": "Simulink Test Points/Odom_Position_Y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Test Points/KF_Position_X",
+              "_title": "Simulink Test Points/KF_Position_X",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Test Points/KF_Position_Y",
+              "_title": "Simulink Test Points/KF_Position_Y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/Odometry_Reset_IC",
+              "_title": "Simulink Tunable Params/Odometry_Reset_IC",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,2": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///Simulink Top Level Ports/Photon_Est_Pose_Ambiguity",
+              "_title": "Simulink Top Level Ports/Photon_Est_Pose_Ambiguity",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/Simulink Top Level Ports/Photon_Est_Pose_Ambiguity": true
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/Spline_Capture_Radius",
+              "_title": "Simulink Tunable Params/Spline_Capture_Radius",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/Spline_Max_Centripital_Acceleration",
+              "_title": "/Simulink Tunable Params/Spline_Max_Centripital_Acceleration",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/Spline_Velocity_Multiplier_TEST",
+              "_title": "/Simulink Tunable Params/Spline_Velocity_Multiplier_TEST",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Simulink Tunable Params/Spline_Pose_Num_Before_End_Reduce_Speed",
+              "_title": "/Simulink Tunable Params/Spline_Pose_Num_Before_End_Reduce_Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RobotX",
+              "_title": "RobotX",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RobotY",
+              "_title": "RobotY",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": -7.199999809265137,
+    "y": -7.199999809265137,
+    "width": 1550.4000244140625,
+    "height": 830.4000244140625
+  }
+}

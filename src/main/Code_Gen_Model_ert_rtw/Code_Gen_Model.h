@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Code_Gen_Model'.
  *
- * Model version                  : 2.33
+ * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Fri Dec 29 20:04:56 2023
+ * C/C++ source code generated on : Sat Dec 30 14:58:43 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -44,7 +44,8 @@ typedef struct {
   real_T FR_Steer_Module_Angle;        /* '<S138>/Add1' */
   real_T BL_Steer_Module_Angle;        /* '<S139>/Add1' */
   real_T BR_Steer_Module_Angle;        /* '<S140>/Add1' */
-  real_T Reshapexhat[2];               /* '<S14>/Reshapexhat' */
+  real_T KF_Position_X;                /* '<S6>/Signal Copy' */
+  real_T KF_Position_Y;                /* '<S6>/Signal Copy1' */
   real_T Spline_Num_Poses;             /* '<S7>/Merge9' */
   real_T Steering_Abs_Cmd;             /* '<S7>/Merge1' */
   real_T Steering_Rel_Cmd;             /* '<S7>/Merge2' */
@@ -166,8 +167,6 @@ typedef struct {
 
 /* Invariant block signals (default storage) */
 typedef struct {
-  const real_T Constant;               /* '<S1>/Constant' */
-  const real_T Constant1;              /* '<S1>/Constant1' */
   const real_T Cos5;                   /* '<S158>/Cos5' */
   const real_T Sin5;                   /* '<S158>/Sin5' */
   const real_T Cos5_g;                 /* '<S179>/Cos5' */
@@ -327,6 +326,12 @@ extern const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP;
  * these parameters and exports their symbols.
  *
  */
+extern real_T Autonomous_Desired_X;    /* Variable: Autonomous_Desired_X
+                                        * Referenced by: '<S2>/Constant7'
+                                        */
+extern real_T Autonomous_Desired_Y;    /* Variable: Autonomous_Desired_Y
+                                        * Referenced by: '<S2>/Constant8'
+                                        */
 extern real_T Boost_Trigger_Decreasing_Limit;
                                      /* Variable: Boost_Trigger_Decreasing_Limit
                                       * Referenced by: '<S298>/Constant1'
@@ -424,11 +429,11 @@ extern real_T KF_Vision_Ambiguity_Thresh;/* Variable: KF_Vision_Ambiguity_Thresh
 extern real_T KF_Vision_Covariance;    /* Variable: KF_Vision_Covariance
                                         * Referenced by: '<S6>/Constant4'
                                         */
-extern real_T Odometry_Desired_X;      /* Variable: Odometry_Desired_X
-                                        * Referenced by: '<S2>/Constant7'
+extern real_T Odometry_IC_X;           /* Variable: Odometry_IC_X
+                                        * Referenced by: '<S1>/Constant'
                                         */
-extern real_T Odometry_Desired_Y;      /* Variable: Odometry_Desired_Y
-                                        * Referenced by: '<S2>/Constant8'
+extern real_T Odometry_IC_Y;           /* Variable: Odometry_IC_Y
+                                        * Referenced by: '<S1>/Constant1'
                                         */
 extern real_T Odometry_Reset_IC;       /* Variable: Odometry_Reset_IC
                                         * Referenced by: '<S8>/Constant'
@@ -694,6 +699,7 @@ extern RT_MODEL_Code_Gen_Model_T *const Code_Gen_Model_M;
  * Block '<S33>/Reshape' : Reshape block reduction
  * Block '<S14>/ReshapeX0' : Reshape block reduction
  * Block '<S14>/Reshapeu' : Reshape block reduction
+ * Block '<S14>/Reshapexhat' : Reshape block reduction
  * Block '<S8>/Signal Copy' : Eliminate redundant signal conversion block
  * Block '<S8>/Signal Copy1' : Eliminate redundant signal conversion block
  * Block '<S8>/Signal Copy2' : Eliminate redundant signal conversion block

@@ -12,6 +12,8 @@ class SimulinkSmartDashboardInterface {
         void SmartDashboardCallback();
     private:
         // Parameters
+        nt::NetworkTableEntry __Autonomous_Desired_X__Entry;
+        nt::NetworkTableEntry __Autonomous_Desired_Y__Entry;
         nt::NetworkTableEntry __Boost_Trigger_Decreasing_Limit__Entry;
         nt::NetworkTableEntry __Boost_Trigger_High_Speed__Entry;
         nt::NetworkTableEntry __Boost_Trigger_Increasing_Limit__Entry;
@@ -29,8 +31,8 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __KF_Odom_Covariance__Entry;
         nt::NetworkTableEntry __KF_Vision_Ambiguity_Thresh__Entry;
         nt::NetworkTableEntry __KF_Vision_Covariance__Entry;
-        nt::NetworkTableEntry __Odometry_Desired_X__Entry;
-        nt::NetworkTableEntry __Odometry_Desired_Y__Entry;
+        nt::NetworkTableEntry __Odometry_IC_X__Entry;
+        nt::NetworkTableEntry __Odometry_IC_Y__Entry;
         nt::NetworkTableEntry __Odometry_Reset_IC__Entry;
         nt::NetworkTableEntry __Odometry_X_Y_TEAR__Entry;
         nt::NetworkTableEntry __Spline_Capture_Radius__Entry;
@@ -116,6 +118,8 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __FR_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BL_Steer_Module_Angle__Entry;
         nt::NetworkTableEntry __BR_Steer_Module_Angle__Entry;
+        nt::NetworkTableEntry __KF_Position_X__Entry;
+        nt::NetworkTableEntry __KF_Position_Y__Entry;
         nt::NetworkTableEntry __Spline_Num_Poses__Entry;
         nt::NetworkTableEntry __Steering_Abs_Cmd__Entry;
         nt::NetworkTableEntry __Steering_Rel_Cmd__Entry;
