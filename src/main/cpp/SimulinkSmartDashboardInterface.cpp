@@ -33,25 +33,9 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Boost_Trigger_Low_Speed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Boost_Trigger_Low_Speed = event.GetValueEventData()->value.GetDouble();});
     __Boost_Trigger_Low_Speed__Entry.SetDouble(1.5);
  
-    __Drive_Motor_Control_D__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_D");
-    NTinst.AddListener(__Drive_Motor_Control_D__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_D = event.GetValueEventData()->value.GetDouble();});
-    __Drive_Motor_Control_D__Entry.SetDouble(0.0001);
- 
-    __Drive_Motor_Control_D_FilterCoeff__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_D_FilterCoeff");
-    NTinst.AddListener(__Drive_Motor_Control_D_FilterCoeff__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_D_FilterCoeff = event.GetValueEventData()->value.GetDouble();});
-    __Drive_Motor_Control_D_FilterCoeff__Entry.SetDouble(0.22223);
- 
-    __Drive_Motor_Control_D_LL__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_D_LL");
-    NTinst.AddListener(__Drive_Motor_Control_D_LL__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_D_LL = event.GetValueEventData()->value.GetDouble();});
-    __Drive_Motor_Control_D_LL__Entry.SetDouble(-0.2);
- 
     __Drive_Motor_Control_D_UL__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_D_UL");
     NTinst.AddListener(__Drive_Motor_Control_D_UL__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_D_UL = event.GetValueEventData()->value.GetDouble();});
     __Drive_Motor_Control_D_UL__Entry.SetDouble(0.2);
- 
-    __Drive_Motor_Control_FF__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_FF");
-    NTinst.AddListener(__Drive_Motor_Control_FF__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_FF = event.GetValueEventData()->value.GetDouble();});
-    __Drive_Motor_Control_FF__Entry.SetDouble(0.00018182);
  
     __Drive_Motor_Control_I__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_I");
     NTinst.AddListener(__Drive_Motor_Control_I__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_I = event.GetValueEventData()->value.GetDouble();});
@@ -65,25 +49,13 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Drive_Motor_Control_I_UL__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_I_UL = event.GetValueEventData()->value.GetDouble();});
     __Drive_Motor_Control_I_UL__Entry.SetDouble(0);
  
-    __Drive_Motor_Control_P__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_P");
-    NTinst.AddListener(__Drive_Motor_Control_P__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_P = event.GetValueEventData()->value.GetDouble();});
-    __Drive_Motor_Control_P__Entry.SetDouble(5e-06);
- 
     __Drive_Motor_Control_Sign_Change_Deadband__Entry = NTtable_Tune->GetEntry("Drive_Motor_Control_Sign_Change_Deadband");
     NTinst.AddListener(__Drive_Motor_Control_Sign_Change_Deadband__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Drive_Motor_Control_Sign_Change_Deadband = event.GetValueEventData()->value.GetDouble();});
     __Drive_Motor_Control_Sign_Change_Deadband__Entry.SetDouble(1500);
  
-    __KF_Odom_Covariance__Entry = NTtable_Tune->GetEntry("KF_Odom_Covariance");
-    NTinst.AddListener(__KF_Odom_Covariance__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Odom_Covariance = event.GetValueEventData()->value.GetDouble();});
-    __KF_Odom_Covariance__Entry.SetDouble(0.001);
- 
     __KF_Vision_Ambiguity_Thresh__Entry = NTtable_Tune->GetEntry("KF_Vision_Ambiguity_Thresh");
     NTinst.AddListener(__KF_Vision_Ambiguity_Thresh__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Ambiguity_Thresh = event.GetValueEventData()->value.GetDouble();});
     __KF_Vision_Ambiguity_Thresh__Entry.SetDouble(0.25);
- 
-    __KF_Vision_Covariance__Entry = NTtable_Tune->GetEntry("KF_Vision_Covariance");
-    NTinst.AddListener(__KF_Vision_Covariance__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {KF_Vision_Covariance = event.GetValueEventData()->value.GetDouble();});
-    __KF_Vision_Covariance__Entry.SetDouble(0.1);
  
     __Odometry_IC_X__Entry = NTtable_Tune->GetEntry("Odometry_IC_X");
     NTinst.AddListener(__Odometry_IC_X__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_IC_X = event.GetValueEventData()->value.GetDouble();});
@@ -101,21 +73,9 @@ void SimulinkSmartDashboardInterface::InitSmartDashboardInterface() {
     NTinst.AddListener(__Odometry_X_Y_TEAR__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Odometry_X_Y_TEAR = event.GetValueEventData()->value.GetDouble();});
     __Odometry_X_Y_TEAR__Entry.SetDouble(0);
  
-    __Spline_Capture_Radius__Entry = NTtable_Tune->GetEntry("Spline_Capture_Radius");
-    NTinst.AddListener(__Spline_Capture_Radius__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Capture_Radius = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Capture_Radius__Entry.SetDouble(0.5);
- 
     __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry = NTtable_Tune->GetEntry("Spline_Last_Pose_Distance_to_Velocity_Gain");
     NTinst.AddListener(__Spline_Last_Pose_Distance_to_Velocity_Gain__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Last_Pose_Distance_to_Velocity_Gain = event.GetValueEventData()->value.GetDouble();});
     __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry.SetDouble(2);
- 
-    __Spline_Lookahead_Dist__Entry = NTtable_Tune->GetEntry("Spline_Lookahead_Dist");
-    NTinst.AddListener(__Spline_Lookahead_Dist__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Lookahead_Dist = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Lookahead_Dist__Entry.SetDouble(0.4);
- 
-    __Spline_Max_Centripital_Acceleration__Entry = NTtable_Tune->GetEntry("Spline_Max_Centripital_Acceleration");
-    NTinst.AddListener(__Spline_Max_Centripital_Acceleration__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Max_Centripital_Acceleration = event.GetValueEventData()->value.GetDouble();});
-    __Spline_Max_Centripital_Acceleration__Entry.SetDouble(10);
  
     __Spline_Pose_Num_Before_End_Reduce_Speed__Entry = NTtable_Tune->GetEntry("Spline_Pose_Num_Before_End_Reduce_Speed");
     NTinst.AddListener(__Spline_Pose_Num_Before_End_Reduce_Speed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Spline_Pose_Num_Before_End_Reduce_Speed = event.GetValueEventData()->value.GetDouble();});
