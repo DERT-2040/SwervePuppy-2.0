@@ -5,6 +5,9 @@
 clear
 evalin('base', 'Code_Gen_Model_data');
 
+% Get Project Path for file referencing
+ProjectRoot = currentProject().RootFolder;
+
 % Create a structure 'T' with contents from the workspace
 T = whos;
 
@@ -46,7 +49,6 @@ end
 
 generate_controller_code;
 
-
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 % --- --- --- --- --- -- Scan Model For Names -- --- --- --- --- --- --- --
 % XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -77,7 +79,6 @@ for i = (1:size(Top_Level_Blocks, 1))
 end
 
 
-ProjectRoot = currentProject().RootFolder;
 C_File = fileread(append(ProjectRoot,'/../src/main/Code_Gen_Model_ert_rtw/Code_Gen_Model.h'));
 C_File_Split = split(C_File, newline);
 C_File_Trimmed = cellfun(@strtrim, C_File_Split, 'UniformOutput',false);
@@ -85,7 +86,7 @@ TF = contains(C_File_Trimmed, '/* Block signals (default storage) */');
 TF_Indexes = find(TF);
 try
     for i = 1 : TF_Indexes
-        if strcmp(C_File_Trimmed(1 + TF_Indexes(i)),'typedef struct {');
+        if strcmp(C_File_Trimmed(1 + TF_Indexes(i)),'typedef struct {')
             StartIndex = 2 + TF_Indexes(i);
             break;
         end
@@ -121,15 +122,21 @@ end
 % Janelyn Anderson
 % Edited December 2023 to make code that displays all model ports in
 % Network Tables as well as all test points
-
-CPPFileID = fopen('..\src\main\cpp\SimulinkSmartDashboardInterface.cpp', 'w');
-HFileID = fopen('..\src\main\include\SimulinkSmartDashboardInterface.h', 'w');
+CPPFileID = fopen(append(ProjectRoot,'/../src/main/cpp/SimulinkSmartDashboardInterface.cpp'), 'w');
+HFileID = fopen(append(ProjectRoot,'/../src/main/include/SimulinkSmartDashboardInterface.h'), 'w');
 if CPPFileID == -1
     error('Could not open .cpp file for writing');
 end
 if HFileID == -1
     error('Could not open .h file for writing');
 end
+
+ListOfTestPoints = sort(ListOfTestPoints);
+ListOfOutPorts = sort(ListOfOutPorts);
+ListOfInPorts = sort(ListOfInPorts);
+
+[Names, I] = sort(Names);
+Values = Values(I);
 
 % H File
 HFileContents = {...
