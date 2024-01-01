@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Dec 30 23:10:57 2023
+ * C/C++ source code generated on : Sun Dec 31 18:39:08 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -177,9 +177,6 @@ typedef struct {
   const real_T Sin5_e;                 /* '<S203>/Sin5' */
   const real_T Cos5_b;                 /* '<S224>/Cos5' */
   const real_T Sin5_c;                 /* '<S224>/Sin5' */
-  const real_T UnaryMinus;             /* '<S233>/Unary Minus' */
-  const real_T Atan2;                  /* '<S234>/Atan2' */
-  const real_T FL_Tangent_Angle;       /* '<S234>/Add' */
   const real_T Atan1;                  /* '<S234>/Atan1' */
   const real_T FR_Tangent_Angle;       /* '<S234>/Add1' */
   const real_T Atan3;                  /* '<S234>/Atan3' */
@@ -248,7 +245,7 @@ typedef struct {
    *   '<S194>/1-D Lookup Table'
    *   '<S215>/1-D Lookup Table'
    */
-  real_T pooled27[2];
+  real_T pooled25[2];
 
   /* Pooled Parameter (Expression: Drive_Motor_Control_Module_Angle_Error)
    * Referenced by:
@@ -257,7 +254,7 @@ typedef struct {
    *   '<S194>/1-D Lookup Table'
    *   '<S215>/1-D Lookup Table'
    */
-  real_T pooled28[2];
+  real_T pooled26[2];
 } ConstP_Code_Gen_Model_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -356,12 +353,44 @@ extern real_T Boost_Trigger_Increasing_Limit;
 extern real_T Boost_Trigger_Low_Speed; /* Variable: Boost_Trigger_Low_Speed
                                         * Referenced by: '<S299>/Constant1'
                                         */
+extern real_T Distance_FL_y;           /* Variable: Distance_FL_y
+                                        * Referenced by: '<S234>/Constant4'
+                                        */
+extern real_T Drive_Motor_Control_D;   /* Variable: Drive_Motor_Control_D
+                                        * Referenced by:
+                                        *   '<S150>/Constant3'
+                                        *   '<S171>/Constant3'
+                                        *   '<S192>/Constant3'
+                                        *   '<S213>/Constant3'
+                                        */
+extern real_T Drive_Motor_Control_D_FilterCoeff;
+                                  /* Variable: Drive_Motor_Control_D_FilterCoeff
+                                   * Referenced by:
+                                   *   '<S150>/Constant2'
+                                   *   '<S171>/Constant2'
+                                   *   '<S192>/Constant2'
+                                   *   '<S213>/Constant2'
+                                   */
+extern real_T Drive_Motor_Control_D_LL;/* Variable: Drive_Motor_Control_D_LL
+                                        * Referenced by:
+                                        *   '<S150>/Saturation'
+                                        *   '<S171>/Saturation'
+                                        *   '<S192>/Saturation'
+                                        *   '<S213>/Saturation'
+                                        */
 extern real_T Drive_Motor_Control_D_UL;/* Variable: Drive_Motor_Control_D_UL
                                         * Referenced by:
                                         *   '<S150>/Saturation'
                                         *   '<S171>/Saturation'
                                         *   '<S192>/Saturation'
                                         *   '<S213>/Saturation'
+                                        */
+extern real_T Drive_Motor_Control_FF;  /* Variable: Drive_Motor_Control_FF
+                                        * Referenced by:
+                                        *   '<S150>/Gain'
+                                        *   '<S171>/Gain'
+                                        *   '<S192>/Gain'
+                                        *   '<S213>/Gain'
                                         */
 extern real_T Drive_Motor_Control_I;   /* Variable: Drive_Motor_Control_I
                                         * Referenced by:
@@ -383,6 +412,13 @@ extern real_T Drive_Motor_Control_I_UL;/* Variable: Drive_Motor_Control_I_UL
                                         *   '<S171>/Saturation1'
                                         *   '<S192>/Saturation1'
                                         *   '<S213>/Saturation1'
+                                        */
+extern real_T Drive_Motor_Control_P;   /* Variable: Drive_Motor_Control_P
+                                        * Referenced by:
+                                        *   '<S150>/Gain1'
+                                        *   '<S171>/Gain1'
+                                        *   '<S192>/Gain1'
+                                        *   '<S213>/Gain1'
                                         */
 extern real_T Drive_Motor_Control_Sign_Change_Deadband;
                            /* Variable: Drive_Motor_Control_Sign_Change_Deadband
@@ -411,10 +447,17 @@ extern real_T Spline_Last_Pose_Distance_to_Velocity_Gain;
                          /* Variable: Spline_Last_Pose_Distance_to_Velocity_Gain
                           * Referenced by: '<S135>/Constant2'
                           */
+extern real_T Spline_Max_Centripital_Acceleration;
+                                /* Variable: Spline_Max_Centripital_Acceleration
+                                 * Referenced by: '<S135>/Constant1'
+                                 */
 extern real_T Spline_Pose_Num_Before_End_Reduce_Speed;
                             /* Variable: Spline_Pose_Num_Before_End_Reduce_Speed
                              * Referenced by: '<S82>/Constant'
                              */
+extern real_T Spline_Stop_Radius;      /* Variable: Spline_Stop_Radius
+                                        * Referenced by: '<S95>/Constant'
+                                        */
 extern real_T Spline_Velocity_Multiplier_TEST;
                                     /* Variable: Spline_Velocity_Multiplier_TEST
                                      * Referenced by: '<S135>/Constant3'
@@ -567,6 +610,10 @@ extern real_T Translation_Speed_NonZero_Final_Scale_Factor;
                        /* Variable: Translation_Speed_NonZero_Final_Scale_Factor
                         * Referenced by: '<S233>/Constant10'
                         */
+extern real_T Translation_Speed_Rate_Limit_Dec;
+                                   /* Variable: Translation_Speed_Rate_Limit_Dec
+                                    * Referenced by: '<S233>/Constant1'
+                                    */
 extern real_T Translation_Speed_Rate_Limit_Inc;
                                    /* Variable: Translation_Speed_Rate_Limit_Inc
                                     * Referenced by: '<S233>/Constant3'
