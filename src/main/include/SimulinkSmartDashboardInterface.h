@@ -18,10 +18,16 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Boost_Trigger_High_Speed__Entry;
         nt::NetworkTableEntry __Boost_Trigger_Increasing_Limit__Entry;
         nt::NetworkTableEntry __Boost_Trigger_Low_Speed__Entry;
+        nt::NetworkTableEntry __Distance_FL_y__Entry;
+        nt::NetworkTableEntry __Drive_Motor_Control_D__Entry;
+        nt::NetworkTableEntry __Drive_Motor_Control_D_FilterCoeff__Entry;
+        nt::NetworkTableEntry __Drive_Motor_Control_D_LL__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_D_UL__Entry;
+        nt::NetworkTableEntry __Drive_Motor_Control_FF__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_I__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_I_LL__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_I_UL__Entry;
+        nt::NetworkTableEntry __Drive_Motor_Control_P__Entry;
         nt::NetworkTableEntry __Drive_Motor_Control_Sign_Change_Deadband__Entry;
         nt::NetworkTableEntry __KF_Vision_Ambiguity_Thresh__Entry;
         nt::NetworkTableEntry __Odometry_IC_X__Entry;
@@ -29,7 +35,9 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Odometry_Reset_IC__Entry;
         nt::NetworkTableEntry __Odometry_X_Y_TEAR__Entry;
         nt::NetworkTableEntry __Spline_Last_Pose_Distance_to_Velocity_Gain__Entry;
+        nt::NetworkTableEntry __Spline_Max_Centripital_Acceleration__Entry;
         nt::NetworkTableEntry __Spline_Pose_Num_Before_End_Reduce_Speed__Entry;
+        nt::NetworkTableEntry __Spline_Stop_Radius__Entry;
         nt::NetworkTableEntry __Spline_Velocity_Multiplier_TEST__Entry;
         nt::NetworkTableEntry __Steering_Abs_Deadband_Range__Entry;
         nt::NetworkTableEntry __Steering_Heading_Control_D__Entry;
@@ -62,6 +70,7 @@ class SimulinkSmartDashboardInterface {
         nt::NetworkTableEntry __Translation_Speed_Approach_Zero_Final_Thresh__Entry;
         nt::NetworkTableEntry __Translation_Speed_NonZero_Error_Thresh__Entry;
         nt::NetworkTableEntry __Translation_Speed_NonZero_Final_Scale_Factor__Entry;
+        nt::NetworkTableEntry __Translation_Speed_Rate_Limit_Dec__Entry;
         nt::NetworkTableEntry __Translation_Speed_Rate_Limit_Inc__Entry;
  
         // Inports

@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Dec 30 23:10:57 2023
+ * C/C++ source code generated on : Sun Dec 31 18:39:08 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -49,6 +49,31 @@ real_T Boost_Trigger_Increasing_Limit = 0.04;
 real_T Boost_Trigger_Low_Speed = 1.5;  /* Variable: Boost_Trigger_Low_Speed
                                         * Referenced by: '<S299>/Constant1'
                                         */
+real_T Distance_FL_y = 0.18732;        /* Variable: Distance_FL_y
+                                        * Referenced by: '<S234>/Constant4'
+                                        */
+real_T Drive_Motor_Control_D = 0.0001; /* Variable: Drive_Motor_Control_D
+                                        * Referenced by:
+                                        *   '<S150>/Constant3'
+                                        *   '<S171>/Constant3'
+                                        *   '<S192>/Constant3'
+                                        *   '<S213>/Constant3'
+                                        */
+real_T Drive_Motor_Control_D_FilterCoeff = 0.22223;
+                                  /* Variable: Drive_Motor_Control_D_FilterCoeff
+                                   * Referenced by:
+                                   *   '<S150>/Constant2'
+                                   *   '<S171>/Constant2'
+                                   *   '<S192>/Constant2'
+                                   *   '<S213>/Constant2'
+                                   */
+real_T Drive_Motor_Control_D_LL = -0.2;/* Variable: Drive_Motor_Control_D_LL
+                                        * Referenced by:
+                                        *   '<S150>/Saturation'
+                                        *   '<S171>/Saturation'
+                                        *   '<S192>/Saturation'
+                                        *   '<S213>/Saturation'
+                                        */
 real_T Drive_Motor_Control_D_UL = 0.2; /* Variable: Drive_Motor_Control_D_UL
                                         * Referenced by:
                                         *   '<S150>/Saturation'
@@ -56,6 +81,13 @@ real_T Drive_Motor_Control_D_UL = 0.2; /* Variable: Drive_Motor_Control_D_UL
                                         *   '<S192>/Saturation'
                                         *   '<S213>/Saturation'
                                         */
+real_T Drive_Motor_Control_FF = 0.00018182;/* Variable: Drive_Motor_Control_FF
+                                            * Referenced by:
+                                            *   '<S150>/Gain'
+                                            *   '<S171>/Gain'
+                                            *   '<S192>/Gain'
+                                            *   '<S213>/Gain'
+                                            */
 real_T Drive_Motor_Control_I = 0.0;    /* Variable: Drive_Motor_Control_I
                                         * Referenced by:
                                         *   '<S150>/Gain2'
@@ -76,6 +108,13 @@ real_T Drive_Motor_Control_I_UL = 0.0; /* Variable: Drive_Motor_Control_I_UL
                                         *   '<S171>/Saturation1'
                                         *   '<S192>/Saturation1'
                                         *   '<S213>/Saturation1'
+                                        */
+real_T Drive_Motor_Control_P = 5.0E-6; /* Variable: Drive_Motor_Control_P
+                                        * Referenced by:
+                                        *   '<S150>/Gain1'
+                                        *   '<S171>/Gain1'
+                                        *   '<S192>/Gain1'
+                                        *   '<S213>/Gain1'
                                         */
 real_T Drive_Motor_Control_Sign_Change_Deadband = 1500.0;
                            /* Variable: Drive_Motor_Control_Sign_Change_Deadband
@@ -104,10 +143,17 @@ real_T Spline_Last_Pose_Distance_to_Velocity_Gain = 2.0;
                          /* Variable: Spline_Last_Pose_Distance_to_Velocity_Gain
                           * Referenced by: '<S135>/Constant2'
                           */
+real_T Spline_Max_Centripital_Acceleration = 10.0;
+                                /* Variable: Spline_Max_Centripital_Acceleration
+                                 * Referenced by: '<S135>/Constant1'
+                                 */
 real_T Spline_Pose_Num_Before_End_Reduce_Speed = 1.0;
                             /* Variable: Spline_Pose_Num_Before_End_Reduce_Speed
                              * Referenced by: '<S82>/Constant'
                              */
+real_T Spline_Stop_Radius = 0.1;       /* Variable: Spline_Stop_Radius
+                                        * Referenced by: '<S95>/Constant'
+                                        */
 real_T Spline_Velocity_Multiplier_TEST = 1.0;
                                     /* Variable: Spline_Velocity_Multiplier_TEST
                                      * Referenced by: '<S135>/Constant3'
@@ -260,6 +306,10 @@ real_T Translation_Speed_NonZero_Final_Scale_Factor = 0.05;
                        /* Variable: Translation_Speed_NonZero_Final_Scale_Factor
                         * Referenced by: '<S233>/Constant10'
                         */
+real_T Translation_Speed_Rate_Limit_Dec = -0.2;
+                                   /* Variable: Translation_Speed_Rate_Limit_Dec
+                                    * Referenced by: '<S233>/Constant1'
+                                    */
 real_T Translation_Speed_Rate_Limit_Inc = 0.085714;
                                    /* Variable: Translation_Speed_Rate_Limit_Inc
                                     * Referenced by: '<S233>/Constant3'
@@ -961,9 +1011,9 @@ void Code_Gen_Model_step(void)
      *  Product: '<S65>/D[k]*u[k]'
      *  Sum: '<S65>/Add1'
      */
-    rtb_Init_e = (0.0 * Code_Gen_Model_B.Product6[0]) + (0.0 *
-      Code_Gen_Model_B.Product6[1]);
-    rtb_Rotationmatrixfromlocalto_1 = rtb_Reshapey[0] - (rtb_Init_e +
+    rtb_Rotationmatrixfromlocalto_1 = (0.0 * Code_Gen_Model_B.Product6[0]) +
+      (0.0 * Code_Gen_Model_B.Product6[1]);
+    rtb_Init_e = rtb_Reshapey[0] - (rtb_Rotationmatrixfromlocalto_1 +
       rtb_Rotationmatrixfromlocalto_2);
 
     /* Product: '<S65>/C[k]*xhat[k|k-1]' incorporates:
@@ -981,14 +1031,15 @@ void Code_Gen_Model_step(void)
      *  Product: '<S65>/D[k]*u[k]'
      *  Sum: '<S65>/Add1'
      */
-    rtb_Init_e = rtb_Reshapey[1] - (rtb_Init_e + rtb_Rotationmatrixfromlocalto_2);
+    rtb_Rotationmatrixfromlocalto_1 = rtb_Reshapey[1] -
+      (rtb_Rotationmatrixfromlocalto_1 + rtb_Rotationmatrixfromlocalto_2);
     Code_Gen_Model_DW.EnabledSubsystem_MODE = true;
 
     /* Product: '<S65>/Product3' incorporates:
      *  Constant: '<S15>/KalmanGainL'
      */
-    Code_Gen_Model_B.Product3[0] = (0.0951249219725039 *
-      rtb_Rotationmatrixfromlocalto_1) + (-2.0601714451538746E-17 * rtb_Init_e);
+    Code_Gen_Model_B.Product3[0] = (0.0951249219725039 * rtb_Init_e) +
+      (-2.0601714451538746E-17 * rtb_Rotationmatrixfromlocalto_1);
 
     /* Sum: '<S67>/Add1' incorporates:
      *  Product: '<S67>/Product'
@@ -998,21 +1049,23 @@ void Code_Gen_Model_step(void)
     /* Product: '<S65>/Product3' incorporates:
      *  Constant: '<S15>/KalmanGainL'
      */
-    Code_Gen_Model_B.Product3[1] = (1.304610855474728E-16 *
-      rtb_Rotationmatrixfromlocalto_1) + (0.095124921972504 * rtb_Init_e);
+    Code_Gen_Model_B.Product3[1] = (1.304610855474728E-16 * rtb_Init_e) +
+      (0.095124921972504 * rtb_Rotationmatrixfromlocalto_1);
 
     /* Sum: '<S67>/Add1' incorporates:
      *  Product: '<S67>/Product'
      */
-    rtb_Init_e = rtb_Reshapey[1] - rtb_Minus_n[1];
+    rtb_Rotationmatrixfromlocalto_1 = rtb_Reshapey[1] - rtb_Minus_n[1];
 
     /* Product: '<S67>/Product2' incorporates:
      *  Constant: '<S15>/KalmanGainM'
      */
     Code_Gen_Model_B.Product2[0] = (0.09512492197250387 *
-      rtb_Rotationmatrixfromlocalto_2) + (5.9896845167210271E-17 * rtb_Init_e);
+      rtb_Rotationmatrixfromlocalto_2) + (5.9896845167210271E-17 *
+      rtb_Rotationmatrixfromlocalto_1);
     Code_Gen_Model_B.Product2[1] = (5.9896845167210271E-17 *
-      rtb_Rotationmatrixfromlocalto_2) + (0.095124921972503981 * rtb_Init_e);
+      rtb_Rotationmatrixfromlocalto_2) + (0.095124921972503981 *
+      rtb_Rotationmatrixfromlocalto_1);
   } else {
     if (Code_Gen_Model_DW.MeasurementUpdate_MODE) {
       /* Disable for Product: '<S65>/Product3' incorporates:
@@ -1731,7 +1784,8 @@ void Code_Gen_Model_step(void)
            *  UnitDelay: '<S93>/Unit Delay'
            */
           rtb_Switch_b1 = ((Code_Gen_Model_DW.UnitDelay_DSTATE_n) ||
-                           (rtb_Rotationmatrixfromlocalto_2 <= 0.1));
+                           (rtb_Rotationmatrixfromlocalto_2 <=
+                            Spline_Stop_Radius));
 
           /* If: '<S93>/If' */
           if (rtb_Switch_b1) {
@@ -2159,17 +2213,17 @@ void Code_Gen_Model_step(void)
        */
       s107_iter = 1;
       do {
-        rtb_Init_e = rtb_Assignment[s107_iter + 1];
-        rtb_Reshapey[0] = rtb_Init_e - rtb_Assignment[s107_iter - 1];
+        rtb_Switch2_p = rtb_Assignment[s107_iter + 1];
+        rtb_Reshapey[0] = rtb_Switch2_p - rtb_Assignment[s107_iter - 1];
         rtb_Minus_n[0] = rtb_Assignment[s107_iter] - rtb_Assignment[s107_iter +
           2];
-        rtb_Add2_f[0] = rtb_Init_e - rtb_Assignment[s107_iter];
-        rtb_Init_e = rtb_Assignment[s107_iter + 22];
-        rtb_Reshapey[1] = rtb_Init_e - rtb_Assignment[s107_iter + 20];
+        rtb_Add2_f[0] = rtb_Switch2_p - rtb_Assignment[s107_iter];
+        rtb_Switch2_p = rtb_Assignment[s107_iter + 22];
+        rtb_Reshapey[1] = rtb_Switch2_p - rtb_Assignment[s107_iter + 20];
         rtb_Optimized_Module_Angle = rtb_Assignment[s107_iter + 21];
         rtb_Minus_n[1] = rtb_Optimized_Module_Angle - rtb_Assignment[s107_iter +
           23];
-        rtb_Add2_f[1] = rtb_Init_e - rtb_Optimized_Module_Angle;
+        rtb_Add2_f[1] = rtb_Switch2_p - rtb_Optimized_Module_Angle;
         for (rtb_Bias1_p = 0; rtb_Bias1_p < 50; rtb_Bias1_p++) {
           rtb_Init_e = ((real_T)rtb_Bias1_p) / 49.0;
           rtb_Rotationmatrixfromlocalto_3 = rt_powd_snf(rtb_Init_e, 2.0);
@@ -2550,11 +2604,13 @@ void Code_Gen_Model_step(void)
         Code_Gen_Model_B.KF_Position_Y) *
         Spline_Last_Pose_Distance_to_Velocity_Gain, fmin
         (rtb_Rotationmatrixfromlocalto_2 * Spline_Velocity_Multiplier_TEST, sqrt
-         (10.0 / rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299])));
+         (Spline_Max_Centripital_Acceleration /
+          rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299])));
     } else {
       rtb_Rotationmatrixfromlocalto_1 = fmin(rtb_Rotationmatrixfromlocalto_2 *
-        Spline_Velocity_Multiplier_TEST, sqrt(10.0 /
-        rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299]));
+        Spline_Velocity_Multiplier_TEST, sqrt
+        (Spline_Max_Centripital_Acceleration /
+         rtb_MatrixConcatenate_o[Code_Gen_Model_B.WhileIterator + 299]));
     }
 
     /* End of Switch: '<S135>/Switch' */
@@ -2800,7 +2856,9 @@ void Code_Gen_Model_step(void)
   rtb_Merge1 = fabs(rtb_Init_e - Code_Gen_Model_B.Translation_Speed_SPF);
 
   /* Switch: '<S233>/Switch5' incorporates:
+   *  Constant: '<S233>/Constant1'
    *  Switch: '<S233>/Switch1'
+   *  UnaryMinus: '<S233>/Unary Minus'
    */
   if (rtb_Is_Absolute_Translation) {
     /* SignalConversion generated from: '<S233>/Lookup Table Dynamic' incorporates:
@@ -2829,7 +2887,7 @@ void Code_Gen_Model_step(void)
     LookUp_real_T_real_T( &(rtb_LookupTableDynamic_j), &rtb_Reshapey[0],
                          rtb_Merge1, &rtb_Minus_n[0], 1U);
     rtb_Merge1 = rtb_LookupTableDynamic_j;
-    rtb_Add_ie = Code_Gen_Model_ConstB.UnaryMinus;
+    rtb_Add_ie = -Translation_Speed_Rate_Limit_Dec;
   } else {
     /* SignalConversion generated from: '<S233>/Lookup Table Dynamic1' incorporates:
      *  Constant: '<S233>/Constant10'
@@ -2859,12 +2917,14 @@ void Code_Gen_Model_step(void)
     rtb_Merge1 = rtb_LookupTableDynamic1_i;
 
     /* Switch: '<S233>/Switch3' incorporates:
+     *  Constant: '<S233>/Constant1'
      *  Constant: '<S233>/Constant3'
+     *  UnaryMinus: '<S233>/Unary Minus'
      */
     if (rtb_Is_Absolute_Steering) {
       rtb_Add_ie = Translation_Speed_Rate_Limit_Inc;
     } else {
-      rtb_Add_ie = Code_Gen_Model_ConstB.UnaryMinus;
+      rtb_Add_ie = -Translation_Speed_Rate_Limit_Dec;
     }
 
     /* End of Switch: '<S233>/Switch3' */
@@ -2889,12 +2949,12 @@ void Code_Gen_Model_step(void)
      *  Switch: '<S233>/Switch4'
      */
     if (rtb_Is_Absolute_Translation) {
-      rtb_Rotationmatrixfromlocalto_2 = -0.2;
+      rtb_Rotationmatrixfromlocalto_2 = Translation_Speed_Rate_Limit_Dec;
     } else if (rtb_Is_Absolute_Steering) {
       /* Switch: '<S233>/Switch4' incorporates:
        *  Constant: '<S233>/Constant1'
        */
-      rtb_Rotationmatrixfromlocalto_2 = -0.2;
+      rtb_Rotationmatrixfromlocalto_2 = Translation_Speed_Rate_Limit_Dec;
     } else {
       /* Switch: '<S233>/Switch4' incorporates:
        *  Constant: '<S233>/Constant3'
@@ -3295,62 +3355,75 @@ void Code_Gen_Model_step(void)
   Code_Gen_Model_B.Steering_Localized_Cmd = rtb_Rotationmatrixfromlocalto_3 +
     rtb_Init_e;
 
+  /* Outputs for Atomic SubSystem: '<S148>/Initialize Function' */
+  /* Sum: '<S234>/Add' incorporates:
+   *  Constant: '<S234>/Constant'
+   *  Constant: '<S234>/Constant4'
+   *  Constant: '<S234>/Constant5'
+   *  Trigonometry: '<S234>/Atan2'
+   */
+  rtb_Init_e = rt_atan2d_snf(Distance_FL_y, 0.187325) + 1.5707963267948966;
+
+  /* End of Outputs for SubSystem: '<S148>/Initialize Function' */
+
   /* Fcn: '<S268>/r->x' incorporates:
    *  Fcn: '<S273>/r->x'
    *  Fcn: '<S278>/r->x'
    *  Fcn: '<S283>/r->x'
    */
-  rtb_Init_e = Code_Gen_Model_B.Translation_Speed_RL * cos
+  rtb_Switch2_p = Code_Gen_Model_B.Translation_Speed_RL * cos
     (Code_Gen_Model_B.Translation_Steering_Cmd);
 
   /* Sum: '<S262>/Add' incorporates:
    *  Fcn: '<S268>/r->x'
    *  Fcn: '<S269>/r->x'
    */
-  rtb_Reshapey[0] = (Code_Gen_Model_B.Steering_Localized_Cmd * cos
-                     (Code_Gen_Model_ConstB.FL_Tangent_Angle)) + rtb_Init_e;
+  rtb_Reshapey[0] = (Code_Gen_Model_B.Steering_Localized_Cmd * cos(rtb_Init_e))
+    + rtb_Switch2_p;
 
   /* Fcn: '<S268>/theta->y' incorporates:
    *  Fcn: '<S273>/theta->y'
    *  Fcn: '<S278>/theta->y'
    *  Fcn: '<S283>/theta->y'
    */
-  rtb_Switch2_p = Code_Gen_Model_B.Translation_Speed_RL * sin
+  rtb_Rotationmatrixfromlocalto_3 = Code_Gen_Model_B.Translation_Speed_RL * sin
     (Code_Gen_Model_B.Translation_Steering_Cmd);
 
   /* Sum: '<S262>/Add' incorporates:
    *  Fcn: '<S268>/theta->y'
    *  Fcn: '<S269>/theta->y'
    */
-  rtb_Reshapey[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin
-                     (Code_Gen_Model_ConstB.FL_Tangent_Angle)) + rtb_Switch2_p;
+  rtb_Reshapey[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin(rtb_Init_e))
+    + rtb_Rotationmatrixfromlocalto_3;
 
   /* Sum: '<S263>/Add' incorporates:
    *  Fcn: '<S274>/r->x'
    *  Fcn: '<S274>/theta->y'
    */
   rtb_Minus_n[0] = (Code_Gen_Model_B.Steering_Localized_Cmd * cos
-                    (Code_Gen_Model_ConstB.FR_Tangent_Angle)) + rtb_Init_e;
-  rtb_Minus_n[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin
                     (Code_Gen_Model_ConstB.FR_Tangent_Angle)) + rtb_Switch2_p;
+  rtb_Minus_n[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin
+                    (Code_Gen_Model_ConstB.FR_Tangent_Angle)) +
+    rtb_Rotationmatrixfromlocalto_3;
 
   /* Sum: '<S264>/Add' incorporates:
    *  Fcn: '<S279>/r->x'
    *  Fcn: '<S279>/theta->y'
    */
   rtb_Add2_f[0] = (Code_Gen_Model_B.Steering_Localized_Cmd * cos
-                   (Code_Gen_Model_ConstB.BL_Tangent_Angle)) + rtb_Init_e;
-  rtb_Add2_f[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin
                    (Code_Gen_Model_ConstB.BL_Tangent_Angle)) + rtb_Switch2_p;
+  rtb_Add2_f[1] = (Code_Gen_Model_B.Steering_Localized_Cmd * sin
+                   (Code_Gen_Model_ConstB.BL_Tangent_Angle)) +
+    rtb_Rotationmatrixfromlocalto_3;
 
   /* Sum: '<S265>/Add' incorporates:
    *  Fcn: '<S284>/r->x'
    *  Fcn: '<S284>/theta->y'
    */
   rtb_Rotationmatrixfromlocalto_0 = (Code_Gen_Model_B.Steering_Localized_Cmd *
-    cos(Code_Gen_Model_ConstB.BR_Tangent_Angle)) + rtb_Init_e;
-  rtb_Rotationmatrixfromlocalto_3 = (Code_Gen_Model_B.Steering_Localized_Cmd *
-    sin(Code_Gen_Model_ConstB.BR_Tangent_Angle)) + rtb_Switch2_p;
+    cos(Code_Gen_Model_ConstB.BR_Tangent_Angle)) + rtb_Switch2_p;
+  rtb_Rotationmatrixfromlocalto_3 += Code_Gen_Model_B.Steering_Localized_Cmd *
+    sin(Code_Gen_Model_ConstB.BR_Tangent_Angle);
 
   /* Fcn: '<S282>/x->r' */
   rtb_Init_e = rt_hypotd_snf(rtb_Rotationmatrixfromlocalto_0,
@@ -3639,10 +3712,10 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband))) * rtb_Switch2_p) * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled28, Code_Gen_Model_ConstP.pooled27, 1U);
+     Code_Gen_Model_ConstP.pooled26, Code_Gen_Model_ConstP.pooled25, 1U);
 
   /* Gain: '<S213>/Gain' */
-  rtb_Switch2_ef = 0.00018181818181818181 * rtb_Switch2_p;
+  rtb_Switch2_ef = Drive_Motor_Control_FF * rtb_Switch2_p;
 
   /* Sum: '<S213>/Sum' incorporates:
    *  Inport: '<Root>/BackRight_Drive_Motor_Speed'
@@ -3656,13 +3729,13 @@ void Code_Gen_Model_step(void)
    *  UnitDelay: '<S220>/Unit Delay1'
    */
   rtb_Rotationmatrixfromlocalto_3 = ((rtb_Switch2_p -
-    Code_Gen_Model_DW.UnitDelay1_DSTATE_k) * 0.22223232082821098) +
-    Code_Gen_Model_DW.UnitDelay1_DSTATE_k;
+    Code_Gen_Model_DW.UnitDelay1_DSTATE_k) * Drive_Motor_Control_D_FilterCoeff)
+    + Code_Gen_Model_DW.UnitDelay1_DSTATE_k;
 
   /* Product: '<S213>/Product' incorporates:
    *  Constant: '<S213>/Constant3'
    */
-  rtb_Switch1_p2 = rtb_Rotationmatrixfromlocalto_3 * 9.9999999999999991E-5;
+  rtb_Switch1_p2 = rtb_Rotationmatrixfromlocalto_3 * Drive_Motor_Control_D;
 
   /* Sum: '<S219>/Diff' incorporates:
    *  UnitDelay: '<S219>/UD'
@@ -3680,16 +3753,16 @@ void Code_Gen_Model_step(void)
   /* Saturate: '<S213>/Saturation' */
   if (rtb_Add_ls > Drive_Motor_Control_D_UL) {
     rtb_Add_ls = Drive_Motor_Control_D_UL;
-  } else if (rtb_Add_ls < -0.2) {
-    rtb_Add_ls = -0.2;
+  } else if (rtb_Add_ls < Drive_Motor_Control_D_LL) {
+    rtb_Add_ls = Drive_Motor_Control_D_LL;
   }
 
   /* Sum: '<S213>/Add' incorporates:
    *  Gain: '<S213>/Gain1'
    *  Saturate: '<S213>/Saturation'
    */
-  rtb_Rotationmatrixfromlocalto_0 = ((5.0E-6 * rtb_Switch2_p) + rtb_Switch2_ef)
-    + rtb_Add_ls;
+  rtb_Rotationmatrixfromlocalto_0 = ((Drive_Motor_Control_P * rtb_Switch2_p) +
+    rtb_Switch2_ef) + rtb_Add_ls;
 
   /* Sum: '<S213>/Subtract' incorporates:
    *  Constant: '<S213>/Constant'
@@ -4053,10 +4126,10 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband))) * rtb_Switch2_p) * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled28, Code_Gen_Model_ConstP.pooled27, 1U);
+     Code_Gen_Model_ConstP.pooled26, Code_Gen_Model_ConstP.pooled25, 1U);
 
   /* Gain: '<S150>/Gain' */
-  rtb_Subtract_i = 0.00018181818181818181 * rtb_Switch2_p;
+  rtb_Subtract_i = Drive_Motor_Control_FF * rtb_Switch2_p;
 
   /* Sum: '<S150>/Sum' incorporates:
    *  Inport: '<Root>/FrontLeft_Drive_Motor_Speed'
@@ -4070,12 +4143,13 @@ void Code_Gen_Model_step(void)
    *  UnitDelay: '<S157>/Unit Delay1'
    */
   rtb_Add_pw = ((rtb_Switch2_p - Code_Gen_Model_DW.UnitDelay1_DSTATE_a) *
-                0.22223232082821098) + Code_Gen_Model_DW.UnitDelay1_DSTATE_a;
+                Drive_Motor_Control_D_FilterCoeff) +
+    Code_Gen_Model_DW.UnitDelay1_DSTATE_a;
 
   /* Product: '<S150>/Product' incorporates:
    *  Constant: '<S150>/Constant3'
    */
-  rtb_Hypot_g5 = rtb_Add_pw * 9.9999999999999991E-5;
+  rtb_Hypot_g5 = rtb_Add_pw * Drive_Motor_Control_D;
 
   /* Sum: '<S156>/Diff' incorporates:
    *  UnitDelay: '<S156>/UD'
@@ -4093,15 +4167,16 @@ void Code_Gen_Model_step(void)
   /* Saturate: '<S150>/Saturation' */
   if (rtb_Add_ls > Drive_Motor_Control_D_UL) {
     rtb_Add_ls = Drive_Motor_Control_D_UL;
-  } else if (rtb_Add_ls < -0.2) {
-    rtb_Add_ls = -0.2;
+  } else if (rtb_Add_ls < Drive_Motor_Control_D_LL) {
+    rtb_Add_ls = Drive_Motor_Control_D_LL;
   }
 
   /* Sum: '<S150>/Add' incorporates:
    *  Gain: '<S150>/Gain1'
    *  Saturate: '<S150>/Saturation'
    */
-  rtb_Add_c4 = ((5.0E-6 * rtb_Switch2_p) + rtb_Subtract_i) + rtb_Add_ls;
+  rtb_Add_c4 = ((Drive_Motor_Control_P * rtb_Switch2_p) + rtb_Subtract_i) +
+    rtb_Add_ls;
 
   /* Sum: '<S150>/Subtract' incorporates:
    *  Constant: '<S150>/Constant'
@@ -4468,10 +4543,10 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband))) * rtb_Switch2_p) * look1_binlcpw
     (fabs(rt_modd_snf(rtb_uDLookupTable_l + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled28, Code_Gen_Model_ConstP.pooled27, 1U);
+     Code_Gen_Model_ConstP.pooled26, Code_Gen_Model_ConstP.pooled25, 1U);
 
   /* Gain: '<S171>/Gain' */
-  rtb_Optimized_Module_Angle = 0.00018181818181818181 * rtb_Switch2_p;
+  rtb_Optimized_Module_Angle = Drive_Motor_Control_FF * rtb_Switch2_p;
 
   /* Sum: '<S171>/Sum' incorporates:
    *  Inport: '<Root>/FrontRight_Drive_Motor_Speed'
@@ -4485,13 +4560,13 @@ void Code_Gen_Model_step(void)
    *  UnitDelay: '<S178>/Unit Delay1'
    */
   rtb_MatrixConcatenate_b_idx_1 = ((rtb_Switch2_p -
-    Code_Gen_Model_DW.UnitDelay1_DSTATE_b1) * 0.22223232082821098) +
-    Code_Gen_Model_DW.UnitDelay1_DSTATE_b1;
+    Code_Gen_Model_DW.UnitDelay1_DSTATE_b1) * Drive_Motor_Control_D_FilterCoeff)
+    + Code_Gen_Model_DW.UnitDelay1_DSTATE_b1;
 
   /* Product: '<S171>/Product' incorporates:
    *  Constant: '<S171>/Constant3'
    */
-  rtb_Subtract_gn = rtb_MatrixConcatenate_b_idx_1 * 9.9999999999999991E-5;
+  rtb_Subtract_gn = rtb_MatrixConcatenate_b_idx_1 * Drive_Motor_Control_D;
 
   /* Sum: '<S177>/Diff' incorporates:
    *  UnitDelay: '<S177>/UD'
@@ -4509,16 +4584,16 @@ void Code_Gen_Model_step(void)
   /* Saturate: '<S171>/Saturation' */
   if (rtb_Add_ls > Drive_Motor_Control_D_UL) {
     rtb_Add_ls = Drive_Motor_Control_D_UL;
-  } else if (rtb_Add_ls < -0.2) {
-    rtb_Add_ls = -0.2;
+  } else if (rtb_Add_ls < Drive_Motor_Control_D_LL) {
+    rtb_Add_ls = Drive_Motor_Control_D_LL;
   }
 
   /* Sum: '<S171>/Add' incorporates:
    *  Gain: '<S171>/Gain1'
    *  Saturate: '<S171>/Saturation'
    */
-  rtb_Add_pd = ((5.0E-6 * rtb_Switch2_p) + rtb_Optimized_Module_Angle) +
-    rtb_Add_ls;
+  rtb_Add_pd = ((Drive_Motor_Control_P * rtb_Switch2_p) +
+                rtb_Optimized_Module_Angle) + rtb_Add_ls;
 
   /* Sum: '<S171>/Subtract' incorporates:
    *  Constant: '<S171>/Constant'
@@ -4886,10 +4961,10 @@ void Code_Gen_Model_step(void)
     Drive_Motor_Control_Sign_Change_Deadband))) * rtb_Init_e) * look1_binlcpw
     (fabs(rt_modd_snf(rtb_Optimized_Module_Angle + 1.5707963267948966,
                       3.1415926535897931) - 1.5707963267948966),
-     Code_Gen_Model_ConstP.pooled28, Code_Gen_Model_ConstP.pooled27, 1U);
+     Code_Gen_Model_ConstP.pooled26, Code_Gen_Model_ConstP.pooled25, 1U);
 
   /* Gain: '<S192>/Gain' */
-  rtb_Switch2_p = 0.00018181818181818181 * rtb_Init_e;
+  rtb_Switch2_p = Drive_Motor_Control_FF * rtb_Init_e;
 
   /* Sum: '<S192>/Sum' incorporates:
    *  Inport: '<Root>/BackLeft_Drive_Motor_Speed'
@@ -4903,12 +4978,13 @@ void Code_Gen_Model_step(void)
    *  UnitDelay: '<S199>/Unit Delay1'
    */
   rtb_Add_ie = ((rtb_Init_e - Code_Gen_Model_DW.UnitDelay1_DSTATE_f) *
-                0.22223232082821098) + Code_Gen_Model_DW.UnitDelay1_DSTATE_f;
+                Drive_Motor_Control_D_FilterCoeff) +
+    Code_Gen_Model_DW.UnitDelay1_DSTATE_f;
 
   /* Product: '<S192>/Product' incorporates:
    *  Constant: '<S192>/Constant3'
    */
-  rtb_Product_do = rtb_Add_ie * 9.9999999999999991E-5;
+  rtb_Product_do = rtb_Add_ie * Drive_Motor_Control_D;
 
   /* Sum: '<S198>/Diff' incorporates:
    *  UnitDelay: '<S198>/UD'
@@ -4926,15 +5002,16 @@ void Code_Gen_Model_step(void)
   /* Saturate: '<S192>/Saturation' */
   if (rtb_Add_ls > Drive_Motor_Control_D_UL) {
     rtb_Add_ls = Drive_Motor_Control_D_UL;
-  } else if (rtb_Add_ls < -0.2) {
-    rtb_Add_ls = -0.2;
+  } else if (rtb_Add_ls < Drive_Motor_Control_D_LL) {
+    rtb_Add_ls = Drive_Motor_Control_D_LL;
   }
 
   /* Sum: '<S192>/Add' incorporates:
    *  Gain: '<S192>/Gain1'
    *  Saturate: '<S192>/Saturation'
    */
-  rtb_Add_nh = ((5.0E-6 * rtb_Init_e) + rtb_Switch2_p) + rtb_Add_ls;
+  rtb_Add_nh = ((Drive_Motor_Control_P * rtb_Init_e) + rtb_Switch2_p) +
+    rtb_Add_ls;
 
   /* Sum: '<S192>/Subtract' incorporates:
    *  Constant: '<S192>/Constant'

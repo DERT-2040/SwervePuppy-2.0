@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Dec 30 23:10:57 2023
+ * C/C++ source code generated on : Sun Dec 31 18:39:08 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -29,9 +29,6 @@ const ConstB_Code_Gen_Model_T Code_Gen_Model_ConstB = {
   1.2246467991473532E-16,              /* '<S203>/Sin5' */
   -1.0,                                /* '<S224>/Cos5' */
   1.2246467991473532E-16,              /* '<S224>/Sin5' */
-  0.2,                                 /* '<S233>/Unary Minus' */
-  0.78539816339744828,                 /* '<S234>/Atan2' */
-  2.3561944901923448,                  /* '<S234>/Add' */
   -0.78539816339744828,                /* '<S234>/Atan1' */
   0.78539816339744828,                 /* '<S234>/Add1' */
   2.3561944901923448,                  /* '<S234>/Atan3' */
