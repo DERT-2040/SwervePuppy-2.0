@@ -2,7 +2,7 @@
 ## Makefile generated for component 'Code_Gen_Model'. 
 ## 
 ## Makefile     : Code_Gen_Model.mk
-## Generated on : Sat Dec 30 20:48:57 2023
+## Generated on : Thu Jan 04 20:02:30 2024
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/Code_Gen_Model.exe
 ## Product type : executable
 ## 
@@ -23,7 +23,7 @@ MAKEFILE                  = Code_Gen_Model.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2023b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2023b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/FIRSTMentor/Documents/SwervePuppy-2.0/src/main
+START_DIR                 = C:/GitHub/SwervePuppy-2.0/src/main
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0

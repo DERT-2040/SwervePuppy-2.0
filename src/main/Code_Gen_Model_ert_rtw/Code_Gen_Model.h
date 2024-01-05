@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Dec 31 18:39:08 2023
+ * C/C++ source code generated on : Thu Jan  4 21:06:24 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -209,29 +209,25 @@ typedef struct {
    */
   real_T Constant4_Value[76];
 
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
-   * Referenced by:
-   *   '<S288>/Modulation_Drv_X'
-   *   '<S288>/Modulation_Drv_Y'
-   */
-  real_T pooled18[21];
-
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
-   * Referenced by:
-   *   '<S288>/Modulation_Drv_X'
-   *   '<S288>/Modulation_Drv_Y'
-   */
-  real_T pooled19[21];
-
   /* Expression: Steering_Mod_Str_Rel_out
-   * Referenced by: '<S287>/Modulation_Str_X_Rel'
+   * Referenced by: '<S287>/Modulation_Str_Y_Rel'
    */
-  real_T Modulation_Str_X_Rel_tableData[21];
+  real_T Modulation_Str_Y_Rel_tableData[21];
 
   /* Expression: Steering_Mod_Str_Rel_in
-   * Referenced by: '<S287>/Modulation_Str_X_Rel'
+   * Referenced by: '<S287>/Modulation_Str_Y_Rel'
    */
-  real_T Modulation_Str_X_Rel_bp01Data[21];
+  real_T Modulation_Str_Y_Rel_bp01Data[21];
+
+  /* Expression: Steering_Mod_Drv_out
+   * Referenced by: '<S288>/Modulation_Drv'
+   */
+  real_T Modulation_Drv_tableData[21];
+
+  /* Expression: Steering_Mod_Drv_in
+   * Referenced by: '<S288>/Modulation_Drv'
+   */
+  real_T Modulation_Drv_bp01Data[21];
 
   /* Expression: Rotation_Local_Inv
    * Referenced by: '<S8>/Constant4'
@@ -245,7 +241,7 @@ typedef struct {
    *   '<S194>/1-D Lookup Table'
    *   '<S215>/1-D Lookup Table'
    */
-  real_T pooled25[2];
+  real_T pooled23[2];
 
   /* Pooled Parameter (Expression: Drive_Motor_Control_Module_Angle_Error)
    * Referenced by:
@@ -254,7 +250,7 @@ typedef struct {
    *   '<S194>/1-D Lookup Table'
    *   '<S215>/1-D Lookup Table'
    */
-  real_T pooled26[2];
+  real_T pooled24[2];
 } ConstP_Code_Gen_Model_T;
 
 /* External inputs (root inport signals with default storage) */

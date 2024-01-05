@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.34
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Dec 31 18:39:08 2023
+ * C/C++ source code generated on : Thu Jan  4 21:06:24 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -79,33 +79,29 @@ const ConstP_Code_Gen_Model_T Code_Gen_Model_ConstP = {
     3.9269908169872414, 4.319689898685966, 4.71238898038469, 5.1050880620834143,
     5.497787143782138, 5.497787143782138, 5.497787143782138, 5.497787143782138 },
 
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_out)
-   * Referenced by:
-   *   '<S288>/Modulation_Drv_X'
-   *   '<S288>/Modulation_Drv_Y'
-   */
-  { -1.0, -0.58, -0.31, -0.18, -0.14, -0.09, -0.06, -0.04, -0.01, -0.0, 0.0, 0.0,
-    0.01, 0.04, 0.06, 0.09, 0.14, 0.18, 0.31, 0.58, 1.0 },
-
-  /* Pooled Parameter (Expression: Steering_Mod_Drv_in)
-   * Referenced by:
-   *   '<S288>/Modulation_Drv_X'
-   *   '<S288>/Modulation_Drv_Y'
-   */
-  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.45, -0.4, -0.35, -0.3, 0.0, 0.3, 0.35,
-    0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
-
   /* Expression: Steering_Mod_Str_Rel_out
-   * Referenced by: '<S287>/Modulation_Str_X_Rel'
+   * Referenced by: '<S287>/Modulation_Str_Y_Rel'
    */
   { -1.0, -0.75, -0.55, -0.4, -0.27, -0.17, -0.1, -0.04, -0.01, -0.0, 0.0, 0.0,
     0.01, 0.04, 0.1, 0.17, 0.27, 0.4, 0.55, 0.75, 1.0 },
 
   /* Expression: Steering_Mod_Str_Rel_in
-   * Referenced by: '<S287>/Modulation_Str_X_Rel'
+   * Referenced by: '<S287>/Modulation_Str_Y_Rel'
    */
   { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.25, -0.2, 0.0, 0.2, 0.25,
     0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
+
+  /* Expression: Steering_Mod_Drv_out
+   * Referenced by: '<S288>/Modulation_Drv'
+   */
+  { -1.0, -0.58, -0.31, -0.18, -0.14, -0.09, -0.06, -0.04, -0.01, -0.0, 0.0, 0.0,
+    0.01, 0.04, 0.06, 0.09, 0.14, 0.18, 0.31, 0.58, 1.0 },
+
+  /* Expression: Steering_Mod_Drv_in
+   * Referenced by: '<S288>/Modulation_Drv'
+   */
+  { -1.0, -0.9, -0.8, -0.7, -0.6, -0.5, -0.45, -0.4, -0.35, -0.3, 0.0, 0.3, 0.35,
+    0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 },
 
   /* Expression: Rotation_Local_Inv
    * Referenced by: '<S8>/Constant4'

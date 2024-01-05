@@ -8,11 +8,12 @@ void HIDs::PreStep() {
     Code_Gen_Model_U.Steer_Joystick_X = -m_Steer_Joystick.GetY();
     Code_Gen_Model_U.Steer_Joystick_Y = -m_Steer_Joystick.GetX();
 
-    // XBOX Controller
-    // Code_Gen_Model_U.Drive_Joystick_X = -m_XboxGamepad.GetLeftY();
-    // Code_Gen_Model_U.Drive_Joystick_Y = -m_XboxGamepad.GetLeftX();
-    // Code_Gen_Model_U.Steer_Joystick_X = -m_XboxGamepad.GetRightY();
-    // Code_Gen_Model_U.Steer_Joystick_Y = -m_XboxGamepad.GetRightX();
+    // Gamepad Controller
+    // Code_Gen_Model_U.Drive_Joystick_X = -m_Gamepad.GetRawAxis(1);
+    // Code_Gen_Model_U.Drive_Joystick_Y = -m_Gamepad.GetRawAxis(0);
+    // Code_Gen_Model_U.Steer_Joystick_X = -m_Gamepad.GetRawAxis(5);
+    // Code_Gen_Model_U.Steer_Joystick_Y = -m_Gamepad.GetRawAxis(4);
+
 
     // Trigger
     Code_Gen_Model_U.Is_Boost_Trigger_Pulled = m_Drive_Joystick.GetRawButton(Constants::k_Boost_Trigger_Button);

@@ -29,13 +29,13 @@ for i = 1:length(Names)
     temp_datatypes = DataTypes{i};
 
     if not(evalin('base',strcat('isa(', string(temp_name), ', ''numeric'')')) )
-        disp(append('red: ', string(temp_name)));
+        %disp(append('red: ', string(temp_name)));
         continue
     elseif not(evalin('base', strcat('all(size(',string(temp_name),') == 1)')))
-        disp(append('green: ', string(temp_name)));
+        %disp(append('green: ', string(temp_name)));
         continue
     elseif ismember(temp_name, Not_Tunable_List)
-        disp(append('blue: ', string(temp_name)));
+        %disp(append('blue: ', string(temp_name)));
         continue
     end
     
